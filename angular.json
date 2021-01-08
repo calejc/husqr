@@ -121,5 +121,8 @@
       }
     }
   },
-  "defaultProject": "Husqr-Cale-Jake"
+  "defaultProject": "Husqr-Cale-Jake",
+  "cli": {
+    "analytics": false
+  }
 }
