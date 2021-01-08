@@ -1,13 +1,30 @@
-<div class="card mb-3">
+<!-- <div class="card">
   <div class="card-body">
     <h5 class="card-title">{{ name }} says...</h5>
     <h6 class="card-subtitle mb-2 text-muted">{{ datetime }}</h6>
-    <!-- August 2, 2020 @ 3:31pm -->
     <p class="card-text">{{ content }}</p>
-    <div class="input-group mb-3"> <input type="text" class="form-control" placeholder="Husq your reply"
+    <div class=""> <input type="text" class="form-control" placeholder="Husq your reply"
         aria-label="Reply to Rex Burkhead" aria-describedby="reply-1">
       <div class="input-group-append"> <button class="btn btn-outline-secondary" type="button"
           id="reply-1">Reply</button> </div>
     </div>
   </div>
-</div>
+</div> -->
+
+
+<mat-card class="husq-card">
+    <mat-card-header>
+      <mat-card-title>{{ name }}</mat-card-title>
+      <mat-card-subtitle>{{ datetime }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+          {{ content }}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary">REPLY</button>
+      <button mat-raised-button color="primary">LIKE</button>
+      <button mat-raised-button color="primary">SHARE</button>
+    </mat-card-actions>
+  </mat-card>
