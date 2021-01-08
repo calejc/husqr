@@ -11,30 +11,30 @@ import { HeaderComponent } from './components/header/header.component';
 // import { FriendsComponent } from './components/friends/friends.component';
 // import { ProfileComponent } from './components/profile/profile.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from "@angular/material/toolbar";
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
+// import {MatCardModule} from '@angular/material/card';
+// import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    // HusqCardComponent,
+    FooterComponent
+    // HusqCardComponent
     // PageComponent,
     // HomeComponent,
     // ComposeComponent,
     // FriendsComponent,
     // ProfileComponent,
-    FooterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule, 
-    MatToolbarModule,
-    MatCardModule,
-    MatButtonModule
+    MatToolbarModule
+    // BrowserAnimationsModule, 
+    // MatCardModule,
+    // MatButtonModule
   ],
   // entryComponents: [HusqCardComponent],
   providers: [],
