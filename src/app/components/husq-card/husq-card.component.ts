@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-husq-card',
@@ -6,6 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./husq-card.component.css']
 })
 export class HusqCardComponent implements OnInit {
+
+  @Input()
+  name: string;
+  @Input()
+  datetime: string;
+  @Input()
+  content: string;
+
 
   constructor() { }
 
