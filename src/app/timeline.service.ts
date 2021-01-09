@@ -6,8 +6,12 @@ import { POSTS } from './data/data';
   providedIn: 'root'
 })
 export class TimelineService {
+
+  addPost(post): Observable<any[]> {
+    return POSTS + post;
+  }
+
   getPosts(): Observable<any[]>{
     return of(POSTS);
   }
-  // constructor() { }
 }
