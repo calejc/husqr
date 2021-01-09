@@ -1,12 +1,9 @@
-<!-- <div class="popup-container"> -->
-    <form [formGroup]="newHusqForm" (ngSubmit)="onSubmit()">
-        <!-- <mat-form-field> -->
-            <!-- <input formControlName="displayName"> -->
-            <!-- <input formControlName="username"> -->
-            <!-- <input formControlName="datetime"> -->
-            <textarea formControlName="post" matNativeControl placeholder="What's happening..."></textarea>
-            <button type="submit">SUBMIT</button>
-        <!-- </mat-form-field> -->
-        <!-- <submit> -->
-    </form>
-<!-- </div> -->
+<mat-dialog-content [formGroup]="newHusqForm">
+    <mat-form-field> 
+        <input matInput placeholder="What's happening... " formControlName="post"> 
+    </mat-form-field> 
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button class="mat-raised-button" (click)="close()">Close</button> 
+    <button class="mat-raisd-button mat-primary" (click)="save()">Post</button> 
+</mat-dialog-actions>
