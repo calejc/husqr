@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HomeComponent } from './components/home/home.component';
 import { HusqCardComponent } from './components/husq-card/husq-card.component';
+// import { HusqCardComponent } from './components/husq-card/husq-card.component';
+import { HusqFormComponent } from './components/husq-form/husq-form.component';
 import { ComposeComponent } from './components/compose/compose.component';
 import { FriendsComponent } from './components/friends/friends.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -27,7 +29,8 @@ const routes: Routes = [
     ComposeComponent,
     FriendsComponent,
     ProfileComponent,
-    HusqCardComponent
+    HusqCardComponent,
+    HusqFormComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -35,7 +38,8 @@ const routes: Routes = [
     MatCardModule,
     MatButtonModule,
     MatFormFieldModule,
-    FormsModule
+    FormsModule, 
+    ReactiveFormsModule
   ],
   exports: [RouterModule]
 })
