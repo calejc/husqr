@@ -7,18 +7,18 @@ import { TimelineService } from '../../timeline.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  b: boolean = true;
   constructor(private service: TimelineService) { }
 
   ngOnInit(): void {
   }
 
-  onClickSubmit(data) {
-    this.service.addPost(data);
-  }
+  // onClickSubmit(data) {
+    // this.service.addPost(data);
+  // }
 
   onNewHusq(){
-    
+    this.b = false;
   }
 
 
