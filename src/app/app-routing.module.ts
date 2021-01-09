@@ -13,6 +13,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -38,7 +39,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule, 
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule
     // MatToolbarModule,
   ],
   exports: [RouterModule]

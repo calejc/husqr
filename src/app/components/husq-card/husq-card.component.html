@@ -12,14 +12,15 @@
 </div> -->
 
 
-<mat-card class="husq-card">
+<mat-card class="husq-card" *ngFor="let post of posts$ | async">
   <mat-card-header>
-    <mat-card-title>{{ name }}</mat-card-title>
-    <mat-card-subtitle>{{ datetime }}</mat-card-subtitle>
+    <mat-card-title>{{ post.displayName }}</mat-card-title>
+    <mat-card-subtitle>{{ post.username }}</mat-card-subtitle>
+    <mat-card-subtitle>{{ post.datetime }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <p>
-        {{ content }}
+        {{ post.post }}
     </p>
   </mat-card-content>
   <mat-card-actions>
