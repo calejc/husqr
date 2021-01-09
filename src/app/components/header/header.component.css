@@ -2,7 +2,8 @@
     justify-content: space-between;
     position: fixed;
     z-index: 1;
-  }
+    top: 0px;
+}
 .nav-link-right{
     padding-right: 1rem;
 }

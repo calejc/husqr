@@ -2,12 +2,12 @@
     <div class="husq-bar">
         <h1 class="recent-husqs">Recent Husqs</h1>
         <button class="new-husq" (click)="onNewHusq()">NEW</button>
-        <div [hidden]="b">
-          <app-husq-form></app-husq-form>
-        </div>
     </div>
 </section>
-<section class="container">
+<div [hidden]="b">
+    <app-husq-form></app-husq-form>
+</div>
+<section class="timeline-container">
   <!-- Timeline -->
   <div class="row">
     <div class="col-sm col-lg-6 offset-lg-3">
