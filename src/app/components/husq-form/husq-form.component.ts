@@ -26,9 +26,9 @@ export class HusqFormComponent implements OnInit {
 
   onSubmit() {
     let post: Post = {
-      displayName: this.newHusqForm.get("displayName").value,
-      username: this.newHusqForm.get("username").value,
-      datetime: this.newHusqForm.get("datetime").value,
+      displayName: "Cale",
+      username: "cjcortney",
+      datetime: new Date().toLocaleString(),
       post: this.newHusqForm.get("post").value,
     }
     this.service.addPost(post);

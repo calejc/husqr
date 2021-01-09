@@ -8,12 +8,17 @@ import { Post } from './post.interface';
 })
 export class TimelineService {
 
+  constructor(){
+  }
+
   addPost(post: Post): Observable<Post[]> {
     POSTS.push(post);
+    POSTS.sort((a, b) => Date.parse(b.datetime) - Date.parse(a.datetime))
     return of(POSTS);
   }
 
   getPosts(): Observable<Post[]>{
+    POSTS.sort((a, b) => Date.parse(b.datetime) - Date.parse(a.datetime))
     return of(POSTS);
   }
 }
