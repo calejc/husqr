@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HomeComponent } from './components/home/home.component';
 import { HusqCardComponent } from './components/husq-card/husq-card.component';
+// import { HusqCardComponent } from './components/husq-card/husq-card.component';
+import { HusqFormComponent } from './components/husq-form/husq-form.component';
 import { ComposeComponent } from './components/compose/compose.component';
 import { FriendsComponent } from './components/friends/friends.component';
 import { ProfileComponent } from './components/profile/profile.component';
-// import { HeaderComponent } from './components/header/header.component';
-// import { PageComponent } from './components/page/page.component';
-// import { FooterComponent } from './components/footer/footer.component';
-// import { MatToolbarModule } from "@angular/material/toolbar";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
@@ -30,18 +29,17 @@ const routes: Routes = [
     ComposeComponent,
     FriendsComponent,
     ProfileComponent,
-    // HeaderComponent,
-    HusqCardComponent
-    // PageComponent,
-    // FooterComponent
+    HusqCardComponent,
+    HusqFormComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule, 
     MatCardModule,
     MatButtonModule,
-    MatFormFieldModule
-    // MatToolbarModule,
+    MatFormFieldModule,
+    FormsModule, 
+    ReactiveFormsModule
   ],
   exports: [RouterModule]
 })

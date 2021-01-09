@@ -1,7 +1,10 @@
 <section class="husq-bar-container">
     <div class="husq-bar">
         <h1 class="recent-husqs">Recent Husqs</h1>
-        <button class="new-husq">New Husq</button>
+        <button class="new-husq" (click)="onNewHusq()">NEW</button>
+        <div [hidden]="b">
+          <app-husq-form></app-husq-form>
+        </div>
     </div>
 </section>
 <section class="container">

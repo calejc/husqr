@@ -8,14 +8,7 @@ import { TimelineService } from '../../timeline.service';
 })
 export class HusqCardComponent implements OnInit {
 
-  // @Input()
-  // name: string;
-  // @Input()
-  // datetime: string;
-  // @Input()
-  // content: string;
   posts$ = this.service.getPosts();
-
 
   constructor(private service: TimelineService) { }
 
