@@ -17,4 +17,9 @@ export class HomeComponent implements OnInit {
     this.service.addPost(data);
   }
 
+  onNewHusq(){
+    
+  }
+
+
 }
