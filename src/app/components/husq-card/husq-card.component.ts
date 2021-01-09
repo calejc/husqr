@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { TimelineService } from '../../timeline.service';
 
 @Component({
   selector: 'app-husq-card',
@@ -7,15 +8,16 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class HusqCardComponent implements OnInit {
 
-  @Input()
-  name: string;
-  @Input()
-  datetime: string;
-  @Input()
-  content: string;
+  // @Input()
+  // name: string;
+  // @Input()
+  // datetime: string;
+  // @Input()
+  // content: string;
+  posts$ = this.service.getPosts();
 
 
-  constructor() { }
+  constructor(private service: TimelineService) { }
 
   ngOnInit(): void {
   }

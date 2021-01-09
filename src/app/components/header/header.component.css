@@ -1,6 +1,15 @@
 .navbar{
     justify-content: space-between;
   }
-  span{
+.nav-link-right{
     padding-right: 1rem;
-  }
+}
+
+span{
+  flex: 1 1 auto;
+}
+
+.nav-link-left{
+  /* margin: 1rem; */
+  padding-left:1rem;
+}
