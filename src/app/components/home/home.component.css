@@ -2,3 +2,11 @@
     width: 35%;
     margin: auto;
 }
+
+.husq-bar {
+    position: fixed;
+    z-index: 1;
+    background: lightgray;
+    width: 35%;
+    margin: auto;
+}

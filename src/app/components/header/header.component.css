@@ -1,15 +1,24 @@
 .navbar{
     justify-content: space-between;
+    position: fixed;
+    z-index: 1;
   }
 .nav-link-right{
     padding-right: 1rem;
 }
 
-span{
-  flex: 1 1 auto;
-}
-
 .nav-link-left{
   /* margin: 1rem; */
   padding-left:1rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+img { 
+  height: 3em; 
+  width: auto; 
+  margin: auto;
+  vertical-align: middle;
 }
