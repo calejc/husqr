@@ -1,5 +1,4 @@
-.container {
-    width: 35%;
+.husq-bar-container {
     margin: auto;
 }
 
@@ -7,6 +6,15 @@
     position: fixed;
     z-index: 1;
     background: lightgray;
+    width: 37%;
+    margin-top: 64px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.container {
     width: 35%;
     margin: auto;
+    padding-top: 100px;
+    z-index: 0;
 }
