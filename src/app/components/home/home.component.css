@@ -10,11 +10,23 @@
     margin-top: 64px;
     left: 50%;
     transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+}
+
+.recent-husqs {
+    align-self: flex-start;
+}
+
+.new-husq {
+    align-self: flex-end;
 }
 
 .container {
     width: 35%;
     margin: auto;
-    padding-top: 100px;
+    padding-top: 130px;
     z-index: 0;
+    height: 80vh;
+    overflow: scroll;
 }
