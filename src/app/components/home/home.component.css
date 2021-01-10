@@ -4,7 +4,7 @@
 
 .husq-bar {
     position: fixed;
-    /* z-index: 1; */
+    z-index: 1;
     background: lightgray;
     width: 37%;
     /* margin-top: 64px; */
@@ -25,15 +25,4 @@
     z-index: 0;
     height: 80vh;
     overflow: scroll;
-}
-.popup-container{
-    z-index:999;
-    background: rgb(140,140,140);
-    top:35vh;
-    position:absolute;
-    /* display: flex; */
-    align-items:center;
-    justify-content: center;
-    width:20vw;
-    margin-left:40vw;
 }

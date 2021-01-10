@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HomeComponent } from './components/home/home.component';
 import { HusqCardComponent } from './components/husq-card/husq-card.component';
-// import { HusqCardComponent } from './components/husq-card/husq-card.component';
 import { HusqFormComponent } from './components/husq-form/husq-form.component';
 import { ComposeComponent } from './components/compose/compose.component';
 import { FriendsComponent } from './components/friends/friends.component';

@@ -11,23 +11,14 @@ import { HusqFormComponent } from '../husq-form/husq-form.component';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  b: boolean = true;
   newHusqForm: FormGroup;
-  constructor(private service: TimelineService, fb: FormBuilder, public dialog: MatDialog) { 
-    this.b = true;
-    this.newHusqForm = fb.group({
-      displayName: '',
-      username: '',
-      datetime: '',
-      post: ''
-    })
+  constructor(private service: TimelineService, public dialog: MatDialog) { 
   }
 
   ngOnInit(): void {
   }
 
   newHusq(){
-    // this.b = false;
     const config = new MatDialogConfig();
     config.autoFocus = true;
     config.data = {post: ''}
@@ -40,7 +31,6 @@ export class HomeComponent implements OnInit {
         post: result.post,
       }
       this.service.addPost(post);
-      this.b = true;
     });
   }
 
