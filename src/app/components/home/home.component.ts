@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
       let post: Post = {
         displayName: "Cale",
         username: "cjcortney",
+        avatar: "",
         datetime: new Date().toLocaleString(),
         post: result.post,
       }
