@@ -1,3 +1,4 @@
+@import "../../../theme.scss";
 .navbar{
     justify-content: space-between;
     position: fixed;
@@ -6,6 +7,7 @@
 }
 .nav-link-right{
     padding-right: 1rem;
+    
 }
 
 .nav-link-left{
@@ -15,6 +17,7 @@
 
 a {
   text-decoration: none;
+  color: $accent; 
 }
 
 img { 

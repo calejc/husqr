@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { HusqCardComponent } from './components/husq-card/husq-card.component';
 import { HusqFormComponent } from './components/husq-form/husq-form.component';
-import { ComposeComponent } from './components/compose/compose.component';
 import { FriendsComponent } from './components/friends/friends.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,7 +16,6 @@ import {MatDialogModule} from '@angular/material/dialog';
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},
-  {path: 'compose', component: ComposeComponent},
   {path: 'friends', component: FriendsComponent},
   {path: 'profile', component: ProfileComponent}
 ];
@@ -26,7 +24,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     HomeComponent,
-    ComposeComponent,
     FriendsComponent,
     ProfileComponent,
     HusqCardComponent,

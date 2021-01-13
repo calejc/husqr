@@ -11,12 +11,12 @@
   </div>
 </div> -->
 
-  <mat-card class="husq-card" *ngFor="let post of posts$ | async">
+  <mat-card color="accent" class="husq-card" *ngFor="let post of posts$ | async">
     <mat-card-header style="margin-top:.5em;">
       <img mat-card-avatar [src]="post.avatar"/>
       <mat-card-title><a routerLink="profile/{{ post.username }}">{{ post.displayName }}</a></mat-card-title>
       <mat-card-subtitle><a routerLink="profile/{{ post.username }}">{{ post.username }}</a></mat-card-subtitle>
-      <mat-card-subtitle>{{ post.datetime }}</mat-card-subtitle>
+      <mat-card-subtitle class="subtitle">{{ post.datetime }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <p>
@@ -24,8 +24,8 @@
       </p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary">REPLY</button>
-      <button mat-raised-button color="primary">LIKE</button>
-      <button mat-raised-button color="primary">SHARE</button>
+      <button mat-raised-button color="warn">REPLY</button>
+      <button mat-raised-button color="warn">LIKE</button>
+      <button mat-raised-button color="accent">SHARE</button>
     </mat-card-actions>
   </mat-card>

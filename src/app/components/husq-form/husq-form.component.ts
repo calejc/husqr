@@ -8,7 +8,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-husq-form',
   templateUrl: './husq-form.component.html',
-  styleUrls: ['./husq-form.component.css']
+  styleUrls: ['./husq-form.component.scss']
 })
 export class HusqFormComponent implements OnInit {
 

@@ -1,3 +1,4 @@
+@import "../../../theme.scss";
 .husq-bar-container {
     margin: auto;
 }
@@ -5,8 +6,8 @@
 .husq-bar {
     position: fixed;
     z-index: 1;
-    background: lightgray;
-    width: 37%;
+    background: #121212;
+    width: 35%;
     /* margin-top: 64px; */
     left: 50%;
     transform: translateX(-50%);
@@ -14,8 +15,11 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 1em;
+    height: 90px;
     top: 64px;
+    padding: 0px 30px;
+    border: 1px solid #CFD8DC;
+    color: #fff;
 }
 
 .timeline-container {
@@ -25,4 +29,10 @@
     z-index: 0;
     height: 80vh;
     overflow: scroll;
+    background-color: $primary;
+    padding: 30px;
+    border-radius: 8px;
 }
+ .new-husq {
+     background-color: $warn;
+ }
