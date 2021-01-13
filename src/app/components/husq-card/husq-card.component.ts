@@ -4,7 +4,7 @@ import { TimelineService } from '../../timeline.service';
 @Component({
   selector: 'app-husq-card',
   templateUrl: './husq-card.component.html',
-  styleUrls: ['./husq-card.component.css']
+  styleUrls: ['./husq-card.component.scss']
 })
 export class HusqCardComponent implements OnInit {
 
