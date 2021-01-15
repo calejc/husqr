@@ -18,13 +18,15 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
   newHusq(){
     const config = new MatDialogConfig();
     config.autoFocus = true;
-    config.data = {post: ''}
     const dr = this.dialog.open(HusqFormComponent, config);
     dr.afterClosed().subscribe(result => {
       let post: Post = {
+        postId: 101,
+        userId: 3212,
         displayName: "Cale",
         username: "cjcortney",
         avatar: "",

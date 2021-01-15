@@ -4,6 +4,7 @@ import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { TimelineService } from '../../timeline.service';
 import { Post } from '../../post.interface';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NONE_TYPE } from '@angular/compiler';
 
 @Component({
   selector: 'app-husq-form',
@@ -13,8 +14,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class HusqFormComponent implements OnInit {
 
   newHusqForm: FormGroup;
-  constructor(private service: TimelineService, fb: FormBuilder, private dr: MatDialogRef<HusqFormComponent>, @Inject(MAT_DIALOG_DATA) data ) {
+  constructor(private service: TimelineService, fb: FormBuilder, private dr: MatDialogRef<HusqFormComponent>) {
+    // , @Inject(MAT_DIALOG_DATA) data
     this.newHusqForm = fb.group({
+      postId: null,
+      userId: null,
       displayName: '',
       username: '',
       datetime: '',
