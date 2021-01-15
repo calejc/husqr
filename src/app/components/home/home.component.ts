@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { TimelineService } from '../../timeline.service';
-import { Form, FormBuilder, FormGroup } from '@angular/forms';
-import { Post } from '../../post.interface';
+import { TimelineService } from '../../services/timeline.service'
+import { FormGroup } from '@angular/forms';
+import { Post } from '../../types/post.interface';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { HusqFormComponent } from '../husq-form/husq-form.component';
+import { Observable} from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -12,12 +13,14 @@ import { HusqFormComponent } from '../husq-form/husq-form.component';
 })
 export class HomeComponent implements OnInit {
   newHusqForm: FormGroup;
-  constructor(private service: TimelineService, public dialog: MatDialog) { 
+  post$: Observable<Post[]>;
+  constructor(public service: TimelineService, public dialog: MatDialog) { 
   }
 
   ngOnInit(): void {
   }
 
+  
 
   newHusq(){
     const config = new MatDialogConfig();
@@ -32,6 +35,8 @@ export class HomeComponent implements OnInit {
         avatar: "",
         datetime: new Date().toLocaleString(),
         post: result.post,
+        likes: 5,
+        isReply: false
       }
       this.service.addPost(post);
     });

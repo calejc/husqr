@@ -6,6 +6,10 @@ export interface Post {
     avatar: string;
     datetime: string;
     post: string;
+    likes: number;
+    isReply: boolean;
+    parentHusq?: number; 
+    replies?: number;
 }
 
 

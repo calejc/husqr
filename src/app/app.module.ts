@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { TimelineService } from './timeline.service';
+import { TimelineService } from './services/timeline.service';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
