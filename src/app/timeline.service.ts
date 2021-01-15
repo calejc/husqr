@@ -29,16 +29,19 @@ export class TimelineService {
     this.posts.sort((a, b) => Date.parse(b.datetime) - Date.parse(a.datetime))
   }
 
-  // private readonly posts = new BehaviorSubject<Post[]>(this.INITIAL_STATE)
-  // readonly post$ = this.posts.asObservable();
+  // private readonly postSubject = new BehaviorSubject<Post[]>(this.INITIAL_STATE)
+  // readonly post$ = this.postSubject.asObservable();
 
+  // get posts(): Post[] {
+  //   return this.postSubject.getValue();
+  // }
 
 
   // set posts(post: Post[]){
-  //   this.husqs.next(post);
+  //   this.postSubject.next(post);
   // }
 
-  // adPost(post: Post): void {
+  // addPost(post: Post): void {
   //   this.posts = [
   //     ... this.posts,
   //     post
