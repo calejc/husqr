@@ -1,10 +1,6 @@
-import { Time } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
-import { Form, FormBuilder, FormGroup } from '@angular/forms';
-import { TimelineService } from '../../timeline.service';
-import { Post } from '../../post.interface';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NONE_TYPE } from '@angular/compiler';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-husq-form',
@@ -14,8 +10,7 @@ import { NONE_TYPE } from '@angular/compiler';
 export class HusqFormComponent implements OnInit {
 
   newHusqForm: FormGroup;
-  constructor(private service: TimelineService, fb: FormBuilder, private dr: MatDialogRef<HusqFormComponent>) {
-    // , @Inject(MAT_DIALOG_DATA) data
+  constructor(fb: FormBuilder, private dr: MatDialogRef<HusqFormComponent>) {
     this.newHusqForm = fb.group({
       postId: null,
       userId: null,
