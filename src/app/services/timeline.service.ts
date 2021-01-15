@@ -43,4 +43,9 @@ export class TimelineService {
   }
 
 
+  getPostsByUser(id: number): Observable<any[]>{
+    return of(this.posts.filter((post) => post.userId === id));
+  }
+
+
 }

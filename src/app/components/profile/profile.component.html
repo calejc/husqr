@@ -1,1 +1,18 @@
-<p>profile works!</p>
+<section class="husq-bar-container">
+    <div class="husq-bar">
+        <h1 class="recent-husqs"></h1>
+        <button mat-raised-button class="new-husq">NEW</button>
+    </div>
+</section>
+<section class="timeline-container">
+  <!-- Timeline -->
+  <div class="row">
+    <div class="col-sm col-lg-6 offset-lg-3">
+      <div>
+        <app-husq-card *ngFor="let post of userPost$ | async" [post]="post">
+        </app-husq-card>
+      </div>   
+    </div>
+  </div> 
+  <!-- End timeline -->
+</section>
