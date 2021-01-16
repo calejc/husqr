@@ -12,6 +12,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -38,7 +39,8 @@ const routes: Routes = [
     MatFormFieldModule,
     FormsModule, 
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatExpansionModule
   ],
   exports: [RouterModule]
 })

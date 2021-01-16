@@ -55,5 +55,9 @@ export class TimelineService {
     return Math.max.apply(Math, this.posts.map(function(post){return post.postId + 1}));
   }
 
+  getReplies(parentId: number): Observable<any[]>{
+    return of(this.posts.filter((post) => post.parentHusq === parentId));
+  }
+
 
 }

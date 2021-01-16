@@ -16,4 +16,26 @@
     <span class="husq-button"><i class="fa fa-thumbs-o-up fa-lg" (click)="likeButtonClicked()" [ngClass]="liked ? 'fa-thumbs-up' : 'fa-thumbs-o-up'" aria-hidden="true"></i></span>
     <span class="count">{{post.likes}}</span>
   </mat-card-actions>
+
+  
+  <!-- REPLIES -->
+  <mat-accordion *ngIf="post.replies.length > 0;">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Self aware panel
+        </mat-panel-title>
+        <mat-panel-description>
+          Currently I am closed
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div *ngFor="let reply of replie$ | async">
+        <h5>{{reply.displayName}}</h5>
+        <h5>{{reply.username}}</h5>
+        <p>{{reply.post}}</p>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+
 </mat-card>

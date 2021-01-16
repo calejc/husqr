@@ -5,6 +5,8 @@ import { User } from 'src/app/types/user.model';
 import { TimelineService } from '../../services/timeline.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { HusqFormComponent } from '../husq-form/husq-form.component';
+import { servicesVersion } from 'typescript';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-husq-card',
@@ -14,8 +16,10 @@ import { HusqFormComponent } from '../husq-form/husq-form.component';
 export class HusqCardComponent implements OnInit {
 
   liked: boolean = false;
+  constructor(private service: TimelineService, public dialog: MatDialog) { }
 
   @Input() post: Post;
+  @Input() replie$: Observable<any[]>;
 
   newHusqReply(parentHusqId: number){
     var replyId = this.service.generateNextId();
@@ -36,8 +40,8 @@ export class HusqCardComponent implements OnInit {
         isReply: true,
         replies: []
       }
-      this.addReplyToParent(parentHusqId, replyId)
       this.service.addPost(post);
+      this.addReplyToParent(parentHusqId, replyId)
     });
   }
 
@@ -48,11 +52,16 @@ export class HusqCardComponent implements OnInit {
       reply
     ]
     this.service.getPostByPostId(parent).replies = replies;
+    this.replie$ = this.service.getReplies(this.post.postId);
+    console.log(this.replie$);
   }
 
-  constructor(private service: TimelineService, public dialog: MatDialog) { }
+  getReplies(){
+    this.replie$ = this.service.getReplies(this.post.postId);
+  }
 
   ngOnInit(): void {
+    this.getReplies();
   }
 
   addLikes(): void{
