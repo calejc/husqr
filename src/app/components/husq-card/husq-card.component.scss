@@ -40,3 +40,15 @@ i:hover{
     color: #fff;
 }
 
+.mat-expansion-panel{
+    background: #414141;
+    color:white;
+}
+
+.mat-content > * {
+    color:white;
+}
+
+.mat-expansion-panel-header-title, .mat-expansion-indicator{
+    color:white;
+}

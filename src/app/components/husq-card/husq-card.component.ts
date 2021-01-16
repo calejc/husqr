@@ -53,7 +53,6 @@ export class HusqCardComponent implements OnInit {
     ]
     this.service.getPostByPostId(parent).replies = replies;
     this.replie$ = this.service.getReplies(this.post.postId);
-    console.log(this.replie$);
   }
 
   getReplies(){
