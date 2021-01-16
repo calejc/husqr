@@ -11,10 +11,14 @@
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="warn" (click)="newHusqReply(post.postId)">REPLY</button>
-    <button mat-raised-button color="warn" (click)="addLikes()">LIKE</button>
-    <button mat-raised-button color="accent">SHARE</button>
-    <!-- <span>{{ post.likes }}</span><span>------</span> -->
+    <!-- <button mat-raised-button color="warn" (click)="newHusqReply(post.postId)">REPLY</button> -->
+    <!-- <button mat-raised-button color="warn" (click)="addLikes()">LIKE</button> -->
+    <!-- <button mat-raised-button color="accent">SHARE</button> -->
+    <span class="husq-button"><i class="fa fa-comment-o fa-lg" (click)="replyButtonClicked(post.postId)" aria-hidden="true"></i></span>
+    <span class="count" [innerHTML]="post.replies ? post.replies.length : 0" ></span>
+    <!-- <span class="count">0</span> -->
+    <span class="husq-button"><i class="fa fa-thumbs-o-up fa-lg" (click)="likeButtonClicked()" [ngClass]="liked ? 'fa-thumbs-up' : 'fa-thumbs-o-up'" aria-hidden="true"></i></span>
+    <span class="count">{{post.likes}}</span>
     <!-- <span>{{ post.isReply }}</span><br> -->
     <!-- <span>POST ID: {{ post.postId }}</span><br> -->
     <!-- <span>PARENT ID: {{ post.parentHusq }}</span> -->

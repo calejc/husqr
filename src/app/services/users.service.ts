@@ -25,8 +25,8 @@ export class UsersService {
   }
 
   getUserById(id: number){
-    // return this.users.filter((user) => user.id === id)[0];
     return this.users.find((user) => user.id === id);
   }
 
+  
 }

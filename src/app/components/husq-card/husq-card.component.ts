@@ -13,27 +13,35 @@ import { HusqFormComponent } from '../husq-form/husq-form.component';
 })
 export class HusqCardComponent implements OnInit {
 
+  liked: boolean = false;
+
   @Input() post: Post;
 
-  newHusqReply(parentHusq: number){
+  newHusqReply(parentHusqId: number){
+    var replyId = this.service.generateNextId();
     const config = new MatDialogConfig();
     config.autoFocus = true;
     const dr = this.dialog.open(HusqFormComponent, config);
     dr.afterClosed().subscribe(result => {
       let post: Post = {
-        postId: 101,
+        postId: replyId,
         userId: 3212,
         displayName: "Cale",
         username: "cjcortney",
         avatar: "",
         datetime: new Date().toLocaleString(),
         post: result.post,
-        likes: 5,
-        parentHusq: parentHusq,
+        likes: 0,
+        parentHusq: parentHusqId,
         isReply: true
       }
       this.service.addPost(post);
+      this.addReplyToParent(parentHusqId, replyId)
     });
+  }
+
+  addReplyToParent(parent: number, reply: number): void{
+
   }
 
   constructor(private service: TimelineService, public dialog: MatDialog) { }
@@ -42,7 +50,21 @@ export class HusqCardComponent implements OnInit {
   }
 
   addLikes(): void{
-    this.post.likes++;
+    this.liked ? this.post.likes-- : this.post.likes++;
+    // this.post.likes++;
+  }
+
+  likeButtonClicked(){
+    this.addLikes()
+    this.toggleClass()
+  }
+
+  toggleClass(){
+    this.liked = !this.liked;
+  }
+
+  replyButtonClicked(parentHusqId: number){
+    this.newHusqReply(parentHusqId);
   }
 
 

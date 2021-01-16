@@ -14,6 +14,29 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+i{
+    color: $warn;
+}
+
+i:hover{
+    color: $accent;
+}
+
+.husq-button{
+    margin-left: .5em;
+    margin-right: .5em;
+    cursor: pointer;
+}
+
+.count{
+    margin-left: .25em;
+    margin-right: 1.5em;
+}
+
+
+
 .subtitle {
     color: #fff;
 }
+

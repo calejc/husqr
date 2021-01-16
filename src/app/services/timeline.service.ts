@@ -42,9 +42,12 @@ export class TimelineService {
     this.sortPosts();
   }
 
-
   getPostsByUser(id: number): Observable<any[]>{
     return of(this.posts.filter((post) => post.userId === id));
+  }
+
+  generateNextId(): number{
+    return Math.max.apply(Math, this.posts.map(function(post){return post.postId + 1}));
   }
 
 

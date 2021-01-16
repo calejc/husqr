@@ -11,6 +11,7 @@ export interface Post {
     isReply: boolean;
     parentHusq?: number; 
     replies?: number[];
+    // replyCount: number;
 }
 
 
