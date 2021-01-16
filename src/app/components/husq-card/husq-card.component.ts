@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Post } from 'src/app/types/post.interface';
+import { User } from 'src/app/types/user.model';
 import { TimelineService } from '../../services/timeline.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { HusqFormComponent } from '../husq-form/husq-form.component';
