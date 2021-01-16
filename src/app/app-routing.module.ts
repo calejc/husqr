@@ -17,6 +17,7 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},
   {path: 'friends', component: FriendsComponent},
+  {path: 'profile', redirectTo: 'home', component: HomeComponent},
   {path: 'profile/:id', component: ProfileComponent}
 ];
 
