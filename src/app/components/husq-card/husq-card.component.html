@@ -20,11 +20,15 @@
 
   <!-- REPLIES -->
   <mat-accordion *ngIf="post.replies.length > 0;">
-    <mat-expansion-panel>
+    <mat-expansion-panel class="custom-header" hideToggle="true" #replies>
       <mat-expansion-panel-header>
         <mat-panel-title>
           Replies
         </mat-panel-title>
+        <mat-panel-description>
+            <mat-icon *ngIf="!replies.expanded">expand_more</mat-icon>
+            <mat-icon *ngIf="replies.expanded">expand_less</mat-icon>
+        </mat-panel-description>
       </mat-expansion-panel-header>
       <div *ngFor="let reply of replie$ | async">
         <h5>{{reply.displayName}}</h5>

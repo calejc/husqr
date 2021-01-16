@@ -41,7 +41,7 @@ i:hover{
 }
 
 .mat-expansion-panel{
-    background: #414141;
+    background: #222d32;
     color:white;
 }
 
@@ -49,6 +49,39 @@ i:hover{
     color:white;
 }
 
-.mat-expansion-panel-header-title, .mat-expansion-indicator{
+.mat-expansion-panel-header-title {
     color:white;
+}
+
+.mat-icon {
+    color: #fff !important;
+}
+
+// .custom-header .mat-expansion-panel-header-title, 
+// .custom-header .mat-expansion-panel-header-description {
+//   flex-basis: 0;
+// }
+
+// .custom-header .mat-expansion-panel-header-description {
+//   justify-content: space-between;
+//   align-items: center;
+// }
+
+.mat-expansion-panel-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+// .mat-expansion-panel-header-title {
+//     display: inline-block;
+// }
+
+.mat-expansion-panel-header-description > * {
+    float: right;   
+}
+
+.mat-expansion-panel-header-description {
+    display: block;   
 }
