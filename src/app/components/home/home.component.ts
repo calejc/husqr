@@ -36,7 +36,8 @@ export class HomeComponent implements OnInit {
         datetime: new Date().toLocaleString(),
         post: result.post,
         likes: 5,
-        isReply: false
+        isReply: false,
+        replies: []
       }
       this.service.addPost(post);
     });

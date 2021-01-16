@@ -11,6 +11,7 @@ export class TimelineService {
   private INITIAL_STATE = POSTS;
 
   constructor(){
+    console.log(this.INITIAL_STATE);
     this.sortPosts();
   }
 
@@ -44,6 +45,10 @@ export class TimelineService {
 
   getPostsByUser(id: number): Observable<any[]>{
     return of(this.posts.filter((post) => post.userId === id));
+  }
+
+  getPostByPostId(id: number){
+    return this.posts.find((post) => post.postId === id);
   }
 
   generateNextId(): number{

@@ -33,15 +33,21 @@ export class HusqCardComponent implements OnInit {
         post: result.post,
         likes: 0,
         parentHusq: parentHusqId,
-        isReply: true
+        isReply: true,
+        replies: []
       }
-      this.service.addPost(post);
       this.addReplyToParent(parentHusqId, replyId)
+      this.service.addPost(post);
     });
   }
 
   addReplyToParent(parent: number, reply: number): void{
-
+    let replies = this.service.getPostByPostId(parent).replies;
+    replies = [
+      ... replies,
+      reply
+    ]
+    this.service.getPostByPostId(parent).replies = replies;
   }
 
   constructor(private service: TimelineService, public dialog: MatDialog) { }
@@ -51,7 +57,6 @@ export class HusqCardComponent implements OnInit {
 
   addLikes(): void{
     this.liked ? this.post.likes-- : this.post.likes++;
-    // this.post.likes++;
   }
 
   likeButtonClicked(){

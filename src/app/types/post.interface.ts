@@ -10,8 +10,7 @@ export interface Post {
     likes: number;
     isReply: boolean;
     parentHusq?: number; 
-    replies?: number[];
-    // replyCount: number;
+    replies: number[];
 }
 
 
