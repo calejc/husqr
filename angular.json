@@ -20,12 +20,12 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
-              "src/favicon.ico",
+              "src/assets/images/favicon-32x32.png",
               "src/assets"
             ],
             "styles": [
-              "src/theme.scss",
-              "src/styles.scss"
+              "src/app/styles/theme.scss",
+              "src/app/styles/styles.scss"
             ],
             "scripts": []
           },
@@ -84,11 +84,12 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
-              "src/favicon.ico",
+              "src/assets/images/favicon-32x32.png",
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/app/styles/theme.scss",
+              "src/app/styles/styles.scss"
             ],
             "scripts": []
           }

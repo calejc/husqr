@@ -1,0 +1,28 @@
+@import 'src/app/styles/theme.scss';
+.navbar{
+    justify-content: space-between;
+    position: fixed;
+    z-index: 1;
+    top: 0px;
+}
+.nav-link-right{
+    padding-right: 1rem;
+    
+}
+
+.nav-link-left{
+  /* margin: 1rem; */
+  padding-left:1rem;
+}
+
+a {
+  text-decoration: none;
+  color: $accent; 
+}
+
+img { 
+  height: 3em; 
+  width: auto; 
+  margin: auto;
+  vertical-align: middle;
+}

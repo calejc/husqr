@@ -1,0 +1,15 @@
+@import 'src/app/styles/theme.scss';
+.popup-container{
+    z-index:999;
+    background: rgb(140,140,140);
+    top:35vh;
+    position:absolute;
+    /* display: flex; */
+    align-items:center;
+    justify-content: center;
+    width:20vw;
+    margin-left:40vw;
+}
+button {
+    margin: 0px 5px;
+}
