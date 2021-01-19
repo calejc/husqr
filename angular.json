@@ -25,7 +25,8 @@
             ],
             "styles": [
               "src/app/styles/theme.scss",
-              "src/app/styles/styles.scss"
+              "src/app/styles/styles.scss",
+              "node_modules/material-design-icons/iconfont/material-icons.css"
             ],
             "scripts": []
           },
@@ -89,7 +90,8 @@
             ],
             "styles": [
               "src/app/styles/theme.scss",
-              "src/app/styles/styles.scss"
+              "src/app/styles/styles.scss",
+              "node_modules/material-design-icons/iconfont/material-icons.css"
             ],
             "scripts": []
           }
