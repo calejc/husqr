@@ -42,7 +42,13 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     SharedModule, 
-    NgxAuthFirebaseUIModule.forRoot(environment.firebase)
+    NgxAuthFirebaseUIModule.forRoot(environment.firebase, () => 'husqr-1074b', {
+      enableFirestoreSync: true,
+      toastMessageOnAuthSuccess: true,
+      toastMessageOnAuthError: true,
+      authGuardFallbackURL: 'examples/logged-out',
+      authGuardLoggedInURL: 'examples/logged-in', 
+    })
   ],
   exports: [RouterModule]
 })

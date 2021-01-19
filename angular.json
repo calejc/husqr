@@ -21,12 +21,16 @@
             "aot": true,
             "assets": [
               "src/assets/images/favicon-32x32.png",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/ngx-auth-firebaseui/assets/",
+                "output": "./src/assets/"
+              } 
             ],
             "styles": [
               "src/app/styles/theme.scss",
-              "src/app/styles/styles.scss",
-              "node_modules/material-design-icons/iconfont/material-icons.css"
+              "src/app/styles/styles.scss"
             ],
             "scripts": []
           },
@@ -86,12 +90,16 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/assets/images/favicon-32x32.png",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/ngx-auth-firebaseui/assets/",
+                "output": "./src/assets/"
+              } 
             ],
             "styles": [
               "src/app/styles/theme.scss",
-              "src/app/styles/styles.scss",
-              "node_modules/material-design-icons/iconfont/material-icons.css"
+              "src/app/styles/styles.scss"
             ],
             "scripts": []
           }
