@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthProvider} from 'ngx-auth-firebaseui';
+import { AuthProvider, Theme } from 'ngx-auth-firebaseui';
 
 @Component({
   selector: 'app-login',
@@ -9,6 +9,7 @@ import {AuthProvider} from 'ngx-auth-firebaseui';
 export class LoginComponent implements OnInit {
 
   providers = AuthProvider;
+  themes = Theme;
 
   constructor() { }
 

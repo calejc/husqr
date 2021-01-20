@@ -44,17 +44,17 @@ export class AuthenticationService {
   }  
 
   // Login with Google
-  GoogleAuth() {
+  // GoogleAuth() {
     // return this.AuthLogin(new auth.auth.GoogleAuthProvider());
-    var provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope('profile');
-    provider.addScope('email');
-    firebase.auth().signInWithPopup(provider).then(function(result) {
-      const credential = result.credential as firebase.auth.OAuthCredential;
-      const token = credential.accessToken;
-      const user = result.user;
-    });
-  }  
+  //   var provider = new firebase.auth.GoogleAuthProvider();
+  //   provider.addScope('profile');
+  //   provider.addScope('email');
+  //   firebase.auth().signInWithPopup(provider).then(function(result) {
+  //     const credential = result.credential as firebase.auth.OAuthCredential;
+  //     const token = credential.accessToken;
+  //     const user = result.user;
+  //   });
+  // }  
 
   // Signin with email/password
   SignIn(email, password) {
