@@ -5,6 +5,8 @@
     - decide if we should allow users to create account
         - if so, figure this part out
         - if not, restyle the login-ui so its only Oauth options
+    - style login page
+    - fix redirect
 - persistent state
 - theme service
 - ~~show replies under husq~~ 

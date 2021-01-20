@@ -45,7 +45,7 @@ export class AuthenticationService {
 
   // Login with Google
   // GoogleAuth() {
-    // return this.AuthLogin(new auth.auth.GoogleAuthProvider());
+  //   // return this.AuthLogin(new auth.auth.GoogleAuthProvider());
   //   var provider = new firebase.auth.GoogleAuthProvider();
   //   provider.addScope('profile');
   //   provider.addScope('email');
@@ -53,6 +53,7 @@ export class AuthenticationService {
   //     const credential = result.credential as firebase.auth.OAuthCredential;
   //     const token = credential.accessToken;
   //     const user = result.user;
+  //     // localStorage.setItem("user", user);
   //   });
   // }  
 
