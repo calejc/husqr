@@ -7,7 +7,9 @@ import { HusqFormComponent } from 'src/app/modules/components/husq-form/husq-for
 import { Observable} from 'rxjs';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import firebase from 'firebase/app';
+import { map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore'
+import { FirestoreService } from 'src/app/core/services/firestore.service';
 
 @Component({
   selector: 'app-home',
@@ -17,34 +19,47 @@ import { AngularFirestore } from '@angular/fire/firestore'
 export class HomeComponent implements OnInit {
   newHusqForm: FormGroup;
   post$: Observable<Post[]>;
-  constructor(public service: TimelineService, public dialog: MatDialog, public auth: AuthenticationService, public firestore: AngularFirestore) { 
+
+  constructor(public service: TimelineService, public dialog: MatDialog, public auth: AuthenticationService, public firestore: AngularFirestore, public firestoreService: FirestoreService) { 
   }
 
   ngOnInit(): void {
+    this.firestoreService.addPostsToFirebase();
+    // https://github.com/bezkoder/angular-11-firestore-crud/blob/master/src/app/components/tutorials-list/tutorials-list.component.ts
+    this.firestoreService.getAllUsers().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
+        )
+      )
+    ).subscribe(data => {
+      console.log(data)
+    });
+    // console.log(this.firestoreService.getAllUsers())
   }
 
   
 
-  // newHusq(){
-  //   const config = new MatDialogConfig();
-  //   config.autoFocus = true;
-  //   const dr = this.dialog.open(HusqFormComponent, config);
-  //   dr.afterClosed().subscribe(result => {
-  //     let post: Post = {
-  //       postId: 101,
-  //       userId: this.auth.userState.uid,
-  //       displayName: this.auth.userState.displayName,
-  //       username: "",
-  //       avatar: this.auth.userState.photoURL,
-  //       datetime: new Date().toLocaleString(),
-  //       post: result.post,
-  //       likes: 0,
-  //       isReply: false,
-  //       replies: []
-  //     }
-  //     this.service.addPost(post);
-  //   });
-  // }
+  newHusq(){
+    const config = new MatDialogConfig();
+    config.autoFocus = true;
+    const dr = this.dialog.open(HusqFormComponent, config);
+    dr.afterClosed().subscribe(result => {
+      let post: Post = {
+        postId: 101,
+        userId: this.auth.userState.uid,
+        displayName: this.auth.userState.displayName,
+        username: "",
+        avatar: this.auth.userState.photoURL,
+        datetime: new Date().toLocaleString(),
+        post: result.post,
+        likes: 0,
+        isReply: false,
+        replies: []
+      }
+      this.service.addPost(post);
+    });
+  }
 
   temp() {
     this.firestore.collection("users").doc(this.auth.userState.uid).update({
@@ -53,7 +68,7 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  newHusq() {
+  query() {
     this.firestore.collection('users', ref => 
       ref.where("uid", "==", this.auth.userState.uid)).get().subscribe(ss => { 
         if (ss.docs.length === 0) {

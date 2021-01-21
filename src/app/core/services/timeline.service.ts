@@ -11,7 +11,7 @@ export class TimelineService {
   private INITIAL_STATE = POSTS;
 
   constructor(){
-    console.log(this.INITIAL_STATE);
+    // console.log(this.INITIAL_STATE);
     this.sortPosts();
   }
 
@@ -57,6 +57,10 @@ export class TimelineService {
 
   getReplies(parentId: number): Observable<any[]>{
     return of(this.posts.filter((post) => post.parentHusq === parentId));
+  }
+
+  setFirestore(): void{
+    
   }
 
 
