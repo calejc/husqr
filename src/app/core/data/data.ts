@@ -6,11 +6,11 @@ const POSTS = [{"postId": 1, "userId": 1, "displayName": "Leanne Graham", "usern
 
 
 
-const USERS = [];
-POSTS.forEach(function(post){
-    USERS.push(new User(post['userId'], post['displayName'], post['username'], post['avatar']))
-});
+// const USERS = [];
+// POSTS.forEach(function(post){
+//     USERS.push(new User(post['userId'], post['displayName'], post['username'], post['avatar']))
+// });
 
 
 export { POSTS };
-export { USERS };
+// export { USERS };

@@ -26,34 +26,34 @@ export class HusqCardComponent implements OnInit {
     const config = new MatDialogConfig();
     config.autoFocus = true;
     const dr = this.dialog.open(HusqFormComponent, config);
-    dr.afterClosed().subscribe(result => {
-      let post: Post = {
-        postId: replyId,
-        userId: 3212,
-        displayName: "Cale",
-        username: "cjcortney",
-        avatar: "",
-        datetime: new Date().toLocaleString(),
-        post: result.post,
-        likes: 0,
-        parentHusq: parentHusqId,
-        isReply: true,
-        replies: []
-      }
-      this.service.addPost(post);
-      this.addReplyToParent(parentHusqId, replyId)
-    });
+    // dr.afterClosed().subscribe(result => {
+    //   let post: Post = {
+    //     postId: replyId,
+    //     userId: 3212,
+    //     displayName: "Cale",
+    //     username: "cjcortney",
+    //     avatar: "",
+    //     datetime: new Date().toLocaleString(),
+    //     post: result.post,
+    //     likes: 0,
+    //     parentHusq: parentHusqId,
+    //     isReply: true,
+    //     replies: []
+    //   }
+    //   this.service.addPost(post);
+    //   this.addReplyToParent(parentHusqId, replyId)
+    // });
   }
 
-  addReplyToParent(parent: number, reply: number): void{
-    let replies = this.service.getPostByPostId(parent).replies;
-    replies = [
-      ... replies,
-      reply
-    ]
-    this.service.getPostByPostId(parent).replies = replies;
-    this.replie$ = this.service.getReplies(this.post.postId);
-  }
+  // addReplyToParent(parent: number, reply: number): void{
+  //   let replies = this.service.getPostByPostId(parent).replies;
+  //   replies = [
+  //     ... replies,
+  //     reply
+  //   ]
+  //   this.service.getPostByPostId(parent).replies = replies;
+  //   this.replie$ = this.service.getReplies(this.post.postId);
+  // }
 
   getReplies(){
     this.replie$ = this.service.getReplies(this.post.postId);

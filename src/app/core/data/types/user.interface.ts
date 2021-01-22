@@ -1,7 +1,14 @@
 export interface IUser {
-    id: number;
+    uid: number;
+    email: string;
     displayName: string;
-    username: string;
-    avatar?: string;
+    username?: string;
+    photoURL?: string;
     posts?: number[]
+
+    phoneNumber?: any;
+    providerId?: string;
+    
+
+
 }

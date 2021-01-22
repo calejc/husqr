@@ -1,9 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, QueryFn } from '@angular/fire/firestore';
 import { User } from '../data/types/user.model';
 import { Post } from '../data/types/post.interface';
-import { POSTS } from 'src/app/core/data/data';
-import { USERS } from 'src/app/core/data/data';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +13,7 @@ export class FirestoreService {
 
   constructor(private firestore: AngularFirestore) {
     this.usersRef = firestore.collection("users")
-    this.postsRef = firestore.collection("posts")
+    this.postsRef = firestore.collection("husqs")
   }
 
   getAllUsers(): AngularFirestoreCollection<User> {
@@ -23,8 +21,36 @@ export class FirestoreService {
     // return this.firestore.collection("users", QueryFn<User>)
   }
 
+  getAllPosts(): AngularFirestoreCollection<Post> {
+    return this.postsRef;
+  }
+
   createUser(user: User): any {
     return this.usersRef.add({ ...user });
+  }
+
+  createPost(post: Post): any {
+    return this.postsRef.add({ ...post }).then(function(documentRef) {
+      // this.set(postId) = documentRef.id;
+      console.log(post);
+      // console.log(this.postsRef);
+      // this.postsRef.doc(documentRef.id).update({"postId": documentRef.id});
+      // console.log(documentRef.id)
+
+      // p
+  });
+    // then(function(docRef) {
+    //   docRef.get().then(function(doc) {
+    //     console.log(doc.data().timestamp.toString());
+    //   });
+    // })
+    // .catch(function(error) {
+    //   console.error(error);
+    // });
+
+    // .then(function(documentRef) {
+    //     documentId = documentRef.id;
+    // });
   }
 
   updateUser(id: string, data: any): Promise<void> {
@@ -35,11 +61,15 @@ export class FirestoreService {
     return this.usersRef.doc(id).delete();
   }
 
-  addPostsToFirebase(): void{
-    POSTS.forEach((post) => this.postsRef.add(post));
-    console.log(USERS);
-    USERS.forEach((user) => this.usersRef.add(user));
+  addPost(): void{
+
   }
+
+  // addPostsToFirebase(): void{
+  //   POSTS.forEach((post) => this.postsRef.add(post));
+  //   console.log(USERS);
+  //   USERS.forEach((user) => this.usersRef.add(user));
+  // }
 
 
 }

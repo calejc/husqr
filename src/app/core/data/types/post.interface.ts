@@ -1,15 +1,11 @@
 export interface Post {
     postId: number;
-    userId: number;
-    displayName: string;
-    username: string;
-    avatar: string;
+    uid: number;
     datetime: string;
     post: string;
     likes: number;
-    isReply: boolean;
     parentHusq?: number; 
-    replies: number[];
+    // replies: number[];
 }
 
 

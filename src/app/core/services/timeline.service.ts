@@ -1,18 +1,27 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { POSTS } from 'src/app/core/data/data';
 import { Post } from 'src/app/core/data/types/post.interface';
+import { FirestoreService } from './firestore.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TimelineService {
 
-  private INITIAL_STATE = POSTS;
+  // Initial state change to read in whatever firestore state is
+  private INITIAL_STATE = [];
 
-  constructor(){
-    // console.log(this.INITIAL_STATE);
+  constructor(private firestoreService: FirestoreService){
     this.sortPosts();
+    this.firestoreService.getAllPosts().snapshotChanges().pipe(
+      map(changes => changes.map(c =>
+          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
+        )
+      )
+    ).subscribe(data => {
+      this.posts = data;
+    });
   }
 
   sortPosts(): void {
@@ -44,7 +53,7 @@ export class TimelineService {
   }
 
   getPostsByUser(id: number): Observable<any[]>{
-    return of(this.posts.filter((post) => post.userId === id));
+    return of(this.posts.filter((post) => post.uid === id));
   }
 
   getPostByPostId(id: number){
@@ -57,10 +66,6 @@ export class TimelineService {
 
   getReplies(parentId: number): Observable<any[]>{
     return of(this.posts.filter((post) => post.parentHusq === parentId));
-  }
-
-  setFirestore(): void{
-    
   }
 
 
