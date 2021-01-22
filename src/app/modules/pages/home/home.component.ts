@@ -10,6 +10,8 @@ import firebase from 'firebase/app';
 import { map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore'
 import { FirestoreService } from 'src/app/core/services/firestore.service';
+import { UsersService } from 'src/app/core/services/users.service';
+import { User } from 'src/app/core/data/types/user.interface';
 
 @Component({
   selector: 'app-home',
@@ -21,23 +23,15 @@ export class HomeComponent implements OnInit {
   // post$: Observable<Post[]>;
   // husqs: Post[];
   husqs: Observable<Post[]>
+  users: Observable<User[]>
 
-  constructor(public timelineService: TimelineService, public dialog: MatDialog, public auth: AuthenticationService, public firestore: AngularFirestore, public firestoreService: FirestoreService) { 
-
-  
-
-    // this.firestoreService.getAllPosts().snapshotChanges().pipe(
-    //   map(changes => changes.map(c =>
-    //       ({ id: c.payload.doc.id, ...c.payload.doc.data() })
-    //     )
-    //   )
-    // )
-    // .subscribe(data => {
-    //   console.log(data)
-    //   this.husqs = of(data);
-    //   console.log(this.husqs);
-    // });
-
+  constructor(
+    public timelineService: TimelineService, 
+    public dialog: MatDialog, 
+    public auth: AuthenticationService, 
+    public firestore: AngularFirestore, 
+    public firestoreService: FirestoreService,
+    public usersService: UsersService) { 
   }
 
   ngOnInit(): void {

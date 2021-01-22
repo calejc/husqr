@@ -6,6 +6,9 @@ import { Observable } from 'rxjs';
 import { HusqFormComponent } from '../husq-form/husq-form.component';
 import { TimelineService } from 'src/app/core/services/timeline.service';
 import { Post } from 'src/app/core/data/types/post.interface';
+import { FirestoreService } from 'src/app/core/services/firestore.service';
+import { User } from 'src/app/core/data/types/user.interface';
+import { UsersService } from 'src/app/core/services/users.service';
 // import { User } from 'src/app/core/data/types/user.interface';
 
 @Component({
@@ -16,13 +19,18 @@ import { Post } from 'src/app/core/data/types/post.interface';
 export class HusqCardComponent implements OnInit {
 
   liked: boolean = false;
-  constructor(private service: TimelineService, public dialog: MatDialog) { }
+  constructor(
+    private timelineService: TimelineService, 
+    public dialog: MatDialog, 
+    public firestoreService: FirestoreService,
+    public usersService: UsersService) { }
 
   @Input() post: Post;
+  @Input() user: User;
   @Input() replie$: Observable<any[]>;
 
   newHusqReply(parentHusqId: number){
-    var replyId = this.service.generateNextId();
+    var replyId = this.timelineService.generateNextId();
     const config = new MatDialogConfig();
     config.autoFocus = true;
     const dr = this.dialog.open(HusqFormComponent, config);
@@ -45,6 +53,12 @@ export class HusqCardComponent implements OnInit {
     // });
   }
 
+  getUser(): void{
+    // console.log("BEFORE: " + this.user);
+    // this.user = this.usersService.getUserById(this.post.uid);
+    // console.log("AFTER: " + this.user);
+  }
+
   // addReplyToParent(parent: number, reply: number): void{
   //   let replies = this.service.getPostByPostId(parent).replies;
   //   replies = [
@@ -56,10 +70,12 @@ export class HusqCardComponent implements OnInit {
   // }
 
   getReplies(){
-    this.replie$ = this.service.getReplies(this.post.postId);
+    // this.replie$ = this.timelineService.getReplies(this.post.postId);
   }
 
   ngOnInit(): void {
+    console.log(this.usersService.users);
+    // this.getUser();
     this.getReplies();
   }
 

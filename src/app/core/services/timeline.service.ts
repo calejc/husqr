@@ -11,6 +11,7 @@ export class TimelineService {
 
   // Initial state change to read in whatever firestore state is
   private INITIAL_STATE = [];
+  // (Husq | User)[] 
 
   constructor(private firestoreService: FirestoreService){
     this.sortPosts();
@@ -29,7 +30,7 @@ export class TimelineService {
   }
   
   removePost(id: number): void{
-    this.posts = this.posts.filter((post) => post.postId === id);
+    // this.posts = this.posts.filter((post) => post.postId === id);
   }
 
   private readonly postSubject = new BehaviorSubject<Post[]>(this.INITIAL_STATE)
@@ -52,12 +53,12 @@ export class TimelineService {
     this.sortPosts();
   }
 
-  getPostsByUser(id: number): Observable<any[]>{
-    return of(this.posts.filter((post) => post.uid === id));
-  }
+  // getPostsByUser(id: number): Observable<any[]>{
+    // return of(this.posts.filter((post) => post.uid === id));
+  // }
 
   getPostByPostId(id: number){
-    return this.posts.find((post) => post.postId === id);
+    // return this.posts.find((post) => post.postId === id);
   }
 
   generateNextId(): number{
