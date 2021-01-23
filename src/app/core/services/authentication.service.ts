@@ -77,6 +77,7 @@ export class AuthenticationService {
         }
         console.log(data)
         this.firestoreService.usersRef.doc(username).set(data)
+        this.userState = res.user;
         this.redirect('/settings')
       })
       .catch(error => {
@@ -86,16 +87,16 @@ export class AuthenticationService {
 
   // /* Sign in */
   signInWithEmail(email: string, password: string) {
-    console.log("EMAIL: " + email);
-    console.log("PASS: " + password);
-    // this.afAuth
-    //   .signInWithEmailAndPassword(email, password)
-    //   .then(res => {
-    //     console.log('Successfully signed in!');
-    //   })
-    //   .catch(err => {
-    //     console.log('Something is wrong:',err.message);
-    //   });
+    this.afAuth
+      .signInWithEmailAndPassword(email, password)
+      .then(res => {
+        console.log('Successfully signed in!');
+        this.userState = res.user;
+        this.redirect('/');
+      })
+      .catch(err => {
+        console.log('Something is wrong:',err.message);
+      });
   }
 
   redirect(path: string): void{

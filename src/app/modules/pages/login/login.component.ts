@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    this.authenticationService.signInWithEmail(this.email.value, this.password.value);
+    this.authenticationService.signInWithEmail(this.email.value, this.password);
     // this.email.setValue = null;
     // this.password.setValue = null;
     // this.password = '';
