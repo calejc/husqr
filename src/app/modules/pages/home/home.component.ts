@@ -19,7 +19,7 @@ import { User } from 'src/app/core/data/types/user.interface';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  newHusqForm: FormGroup;
+  // newHusqForm: FormGroup;
   // post$: Observable<Post[]>;
   // husqs: Post[];
   husqs: Observable<Post[]>
@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
     public auth: AuthenticationService, 
     public firestore: AngularFirestore, 
     public firestoreService: FirestoreService,
-    public usersService: UsersService) { 
+    public usersService: UsersService) { console.log(auth.userState)
   }
 
   ngOnInit(): void {

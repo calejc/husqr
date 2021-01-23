@@ -1,0 +1,15 @@
+@import 'src/app/styles/theme.scss';
+
+.landing-container{
+    position:fixed;
+    height:100vh;
+    background: #121212;
+}
+.logo-container{
+    // position:fixed;
+    // top:15vh;
+    opacity:.4;
+    background: $primary;
+    border: 1px solid $accent;
+    border-radius: 6px
+}

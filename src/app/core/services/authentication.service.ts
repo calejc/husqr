@@ -3,6 +3,7 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { Observable } from 'rxjs';
 import firebase from 'firebase/app';
 import auth from 'firebase/app';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -18,12 +19,12 @@ export class AuthenticationService {
 
   userState: any;
 
-  constructor(
-    public afAuth: AngularFireAuth
-  ) {    
+  constructor(private afAuth: AngularFireAuth, private router: Router) { 
+    // this.userState = afAuth.authState }   
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.userState = user;
+        this.redirect();
         localStorage.setItem('user', JSON.stringify(this.userState));
         JSON.parse(localStorage.getItem('user'));
       } else {
@@ -44,18 +45,31 @@ export class AuthenticationService {
   }  
 
   // Login with Google
-  // GoogleAuth() {
-  //   // return this.AuthLogin(new auth.auth.GoogleAuthProvider());
-  //   var provider = new firebase.auth.GoogleAuthProvider();
-  //   provider.addScope('profile');
-  //   provider.addScope('email');
-  //   firebase.auth().signInWithPopup(provider).then(function(result) {
-  //     const credential = result.credential as firebase.auth.OAuthCredential;
-  //     const token = credential.accessToken;
-  //     const user = result.user;
-  //     // localStorage.setItem("user", user);
-  //   });
-  // }  
+  loginWithGoogle() {
+    // return this.AuthLogin(new auth.auth.GoogleAuthProvider());
+    var provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('profile');
+    provider.addScope('email');
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+      // const credential = result.credential as firebase.auth.OAuthCredential;
+      // const token = credential.accessToken;
+      const user = result.user;
+      this.userState = user;
+    });
+  }  
+
+  loginWithGithub() {
+    // return this.AuthLogin(new auth.auth.GoogleAuthProvider());
+    var provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('profile');
+    provider.addScope('email');
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+      // const credential = result.credential as firebase.auth.OAuthCredential;
+      // const token = credential.accessToken;
+      const user = result.user;
+      this.userState = user;
+    });
+  }  
 
   // Signin with email/password
   SignIn(email, password) {
@@ -95,21 +109,21 @@ export class AuthenticationService {
   }
 
   // /* Sign in */
-  // SignIn(email: string, password: string) {
-  //   this.angularFireAuth
-  //     .signInWithEmailAndPassword(email, password)
-  //     .then(res => {
-  //       console.log('Successfully signed in!');
-  //     })
-  //     .catch(err => {
-  //       console.log('Something is wrong:',err.message);
-  //     });
-  // }
+  signInWithEmail(email: string, password: string) {
+    console.log("EMAIL: " + email);
+    console.log("PASS: " + password);
+    // this.afAuth
+    //   .signInWithEmailAndPassword(email, password)
+    //   .then(res => {
+    //     console.log('Successfully signed in!');
+    //   })
+    //   .catch(err => {
+    //     console.log('Something is wrong:',err.message);
+    //   });
+  }
 
-  // /* Sign out */
-  // SignOut() {
-  //   this.angularFireAuth
-  //     .signOut();
-  // }  
+  redirect(): void{
+    this.router.navigate(['/'])
+  }
 
 }

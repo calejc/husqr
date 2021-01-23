@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon'
@@ -25,7 +26,8 @@ import { MatToolbarModule } from "@angular/material/toolbar";
     MatDialogModule,
     MatExpansionModule, 
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatInputModule
   ], 
   exports: [
     BrowserAnimationsModule, 
@@ -37,7 +39,8 @@ import { MatToolbarModule } from "@angular/material/toolbar";
     MatDialogModule,
     MatExpansionModule, 
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatInputModule
   ]
 })
 export class SharedModule { }

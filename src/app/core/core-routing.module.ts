@@ -11,6 +11,7 @@ import { ProfileComponent } from '../modules/pages/profile/profile.component';
 import { HusqCardComponent } from '../modules/components/husq-card/husq-card.component';
 import { HusqFormComponent } from '../modules/components/husq-form/husq-form.component';
 import { LoginComponent } from '../modules/pages/login/login.component';
+import { LandingComponent } from '../modules/pages/landing/landing.component';
 
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path: 'friends', component: FriendsComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}},
   {path: 'profile/:id', component: ProfileComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}},
   {path: 'login', component: LoginComponent},
+  // {path: 'landing'}
   {path: 'profile', redirectTo: ''}
 ];
 

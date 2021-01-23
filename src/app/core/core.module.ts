@@ -4,7 +4,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../../environments/environment';
-// import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { CoreComponent } from './core.component';
 import { CoreRoutingModule } from './core-routing.module';
@@ -26,8 +26,8 @@ import { AuthenticationService } from '../core/services/authentication.service';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    SharedModule
-    // NgxAuthFirebaseUIModule.forRoot(environment.firebase)
+    SharedModule, 
+    FlexLayoutModule
   ],
   providers: [AuthenticationService],
   bootstrap: [CoreComponent]
