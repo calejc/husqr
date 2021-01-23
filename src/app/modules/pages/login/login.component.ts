@@ -4,6 +4,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthProvider, Theme } from 'ngx-auth-firebaseui';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-login',
@@ -12,21 +14,38 @@ import { AuthenticationService } from 'src/app/core/services/authentication.serv
 })
 export class LoginComponent implements OnInit {
 
-  providers = AuthProvider;
-  themes = Theme;
+  email = new FormControl('', [Validators.required, Validators.email]);
+  newUser: FormGroup;
+
+  // providers = AuthProvider;
+  // themes = Theme;
 
   actionTab = "login"
-  email: string;
-  password: string;
+  // password: string;
+  password = new FormControl('', [Validators.required, Validators.minLength(8)]);
+  // newPassword = new FormControl('', [Validators.required, Validators.minLength(8)]);
+  newPassword: string;
   // "node_modules/bootstrap/dist/css/bootstrap.css",
   // "@ng-bootstrap/ng-bootstrap": "^9.0.1",
   // "bootstrap": "^4.5.0",
 
   constructor(
-    private authenticationService: AuthenticationService, private router: Router, private afAuth: AngularFireAuth
+    private authenticationService: AuthenticationService, 
+    private router: Router, 
+    private afAuth: AngularFireAuth,
+    private fb: FormBuilder
   ) {
     console.log(authenticationService.userState)
-  
+    // this.newUser = this.fb.group({
+
+    //   password: [undefined, [Validators.required]],
+    //   confirmPassword: [undefined, 
+    //           [
+    //             Validators.required,
+    //             this.matchValues('password'),
+    //           ],
+    //         ],
+    //   });
   }
 
   ngOnInit(): void {
@@ -37,13 +56,37 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    this.authenticationService.signInWithEmail(this.email, this.password);
-    this.email = '';
-    this.password = '';
+    this.authenticationService.signInWithEmail(this.email.value, this.password.value);
+    // this.email.setValue = null;
+    // this.password.setValue = null;
+    // this.password = '';
+  }
+
+  register(){
+    console.log(this.email.value, this.newPassword)
   }
 
   redirect(): void{
     this.router.navigate(['/'])
   }
+
+  getErrorMessage() {
+    if (this.email.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return this.email.hasError('email') ? 'Not a valid email' : '';
+  }
+
+  //https://stackoverflow.com/questions/51605737/confirm-password-validation-in-angular-6
+  matchValues(matchTo: string): (AbstractControl) => ValidationErrors | null {
+    return (control: AbstractControl): ValidationErrors | null => {
+      return !!control.parent &&
+        !!control.parent.value &&
+        control.value === control.parent.controls[matchTo].value
+        ? null
+        : { isMatching: false };
+    };
+}
 
 }
