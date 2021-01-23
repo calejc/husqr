@@ -21,10 +21,11 @@ export class LoginComponent implements OnInit {
   // themes = Theme;
 
   actionTab = "login"
-  // password: string;
-  password = new FormControl('', [Validators.required, Validators.minLength(8)]);
+  password: string;
+  // password = new FormControl('', Validators.required);
   // newPassword = new FormControl('', [Validators.required, Validators.minLength(8)]);
   newPassword: string;
+  username: string;
   // "node_modules/bootstrap/dist/css/bootstrap.css",
   // "@ng-bootstrap/ng-bootstrap": "^9.0.1",
   // "bootstrap": "^4.5.0",
@@ -63,8 +64,8 @@ export class LoginComponent implements OnInit {
   }
 
   register(){
-    // console.log(this.email.value, this.newPassword)
-    this.authenticationService.register(this.email.value, this.newPassword, "test")
+    console.log(this.email.value, this.newPassword, this.username);
+    this.authenticationService.register(this.email.value, this.newPassword, this.username)
   }
 
   redirect(): void{

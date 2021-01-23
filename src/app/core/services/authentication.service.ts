@@ -73,6 +73,7 @@ export class AuthenticationService {
           "email": res.user.email,
           "photoURL": res.user.photoURL,
           "uid": res.user.uid,
+          "username": username
         }
         console.log(data)
         this.firestoreService.usersRef.doc(username).set(data)
