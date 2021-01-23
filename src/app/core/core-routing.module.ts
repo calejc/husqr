@@ -11,7 +11,6 @@ import { ProfileComponent } from '../modules/pages/profile/profile.component';
 import { HusqCardComponent } from '../modules/components/husq-card/husq-card.component';
 import { HusqFormComponent } from '../modules/components/husq-form/husq-form.component';
 import { LoginComponent } from '../modules/pages/login/login.component';
-import { LandingComponent } from '../modules/pages/landing/landing.component';
 
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { SettingsComponent } from '../modules/pages/settings/settings.component';
@@ -39,7 +38,8 @@ const routes: Routes = [
     ProfileComponent,
     HusqCardComponent,
     HusqFormComponent, 
-    LoginComponent
+    LoginComponent,
+    SettingsComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
