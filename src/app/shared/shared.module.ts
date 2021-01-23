@@ -10,6 +10,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon'
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatTabsModule } from '@angular/material/tabs';
+
 
 
 @NgModule({
@@ -27,7 +29,8 @@ import { MatToolbarModule } from "@angular/material/toolbar";
     MatExpansionModule, 
     MatIconModule,
     MatToolbarModule,
-    MatInputModule
+    MatInputModule,
+    MatTabsModule
   ], 
   exports: [
     BrowserAnimationsModule, 
@@ -40,7 +43,8 @@ import { MatToolbarModule } from "@angular/material/toolbar";
     MatExpansionModule, 
     MatIconModule,
     MatToolbarModule,
-    MatInputModule
+    MatInputModule,
+    MatTabsModule
   ]
 })
 export class SharedModule { }

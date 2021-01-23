@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   email = new FormControl('', [Validators.required, Validators.email]);
   newUser: FormGroup;
-
+  hide = true;
   // providers = AuthProvider;
   // themes = Theme;
 
@@ -63,7 +63,8 @@ export class LoginComponent implements OnInit {
   }
 
   register(){
-    console.log(this.email.value, this.newPassword)
+    // console.log(this.email.value, this.newPassword)
+    this.authenticationService.register(this.email.value, this.newPassword, "test")
   }
 
   redirect(): void{

@@ -14,6 +14,7 @@ import { LoginComponent } from '../modules/pages/login/login.component';
 import { LandingComponent } from '../modules/pages/landing/landing.component';
 
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
+import { SettingsComponent } from '../modules/pages/settings/settings.component';
 
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
@@ -26,8 +27,8 @@ const routes: Routes = [
   {path: 'friends', component: FriendsComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}},
   {path: 'profile/:id', component: ProfileComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}},
   {path: 'login', component: LoginComponent},
-  // {path: 'landing'}
-  {path: 'profile', redirectTo: ''}
+  {path: 'settings', component: SettingsComponent}
+  // {path: 'profile', component: SettingsComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}},
 ];
 
 

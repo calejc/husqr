@@ -1,27 +1,10 @@
 @import 'src/app/styles/theme.scss';
-// .login-ui-2{
-//     background: rgb(135,135,135);
-//     width: 40em;
-//     max-height:60em;
-//     margin-left: calc((100vw - 40em)/2);
-//     margin-bottom:5em;
-//     margin-top:7em;
-//     display:block;
-//     position:fixed;
-// }
-
-
 .landing-ui{
     background: rgb(225,225,225);
     border: 2px solid $primary;
-    // box-shadow: 0 0 0 1px $accent;
-    // border-radius: 8px;
     height:35em;
     margin-top:calc((100vh - 35em)/2);
-    // width:20vw;
-    // display: grid;
 }
-
 
 .activeTab{
     border-bottom: 2px solid $primary;
@@ -32,6 +15,15 @@
     opacity:.6;
 }
 
+.mat-tab-label{
+    max-width:50%!important;
+    min-width:0!important;
+}
+
+.mat-tab-label-container{
+    width:100%;
+}
+
 .mat-form-field-ripple{
     color:red!important;
 }
@@ -40,19 +32,8 @@ input{
     width:75%;
 }
 
-// .landing-container{
-    // position:fixed;
-    // height:100vh;
-    // background: #121212;
-    // width:25em;
-// }
-
-
 .action-tab{
     font-size: larger;
-    // border-color: $primary;
-    // border-width: 1px;
-    // border-bottom: 1px solid $primary;
 }
 
 .action-link{

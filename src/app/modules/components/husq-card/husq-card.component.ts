@@ -74,7 +74,7 @@ export class HusqCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.usersService.users);
+    // console.log(this.usersService.users);
     // this.getUser();
     this.getReplies();
   }

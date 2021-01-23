@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import firebase from 'firebase/app';
 import auth from 'firebase/app';
 import { Router } from '@angular/router';
+import { FirestoreService } from './firestore.service';
 
 
 @Injectable({
@@ -11,97 +12,71 @@ import { Router } from '@angular/router';
 })
 
 export class AuthenticationService {
-  // userData: Observable<firebase.User>;
-
-  // constructor(private angularFireAuth: AngularFireAuth) {
-    // this.userData = angularFireAuth.authState;
-  // }
 
   userState: any;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) { 
-    // this.userState = afAuth.authState }   
+  constructor(
+    private afAuth: AngularFireAuth, 
+    private router: Router, 
+    private firestoreService: FirestoreService) { 
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.userState = user;
-        this.redirect();
+        // this.redirect('/');
         localStorage.setItem('user', JSON.stringify(this.userState));
         JSON.parse(localStorage.getItem('user'));
       } else {
+        this.userState = null;
         localStorage.setItem('user', null);
         JSON.parse(localStorage.getItem('user'));
       }
     })
   }
 
-  // Auth provider
-  AuthLogin(provider) {
-    return this.afAuth.signInWithPopup(provider)
-    .then((res) => {
-      console.log(res)
-    }).catch((error) => {
-      console.log(error)
-    })
-  }  
 
-  // Login with Google
   loginWithGoogle() {
-    // return this.AuthLogin(new auth.auth.GoogleAuthProvider());
     var provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('profile');
     provider.addScope('email');
     firebase.auth().signInWithPopup(provider).then(function(result) {
-      // const credential = result.credential as firebase.auth.OAuthCredential;
-      // const token = credential.accessToken;
       const user = result.user;
       this.userState = user;
     });
   }  
 
   loginWithGithub() {
-    // return this.AuthLogin(new auth.auth.GoogleAuthProvider());
-    var provider = new firebase.auth.GoogleAuthProvider();
+    var provider = new firebase.auth.GithubAuthProvider();
     provider.addScope('profile');
     provider.addScope('email');
     firebase.auth().signInWithPopup(provider).then(function(result) {
-      // const credential = result.credential as firebase.auth.OAuthCredential;
-      // const token = credential.accessToken;
       const user = result.user;
       this.userState = user;
     });
   }  
 
-  // Signin with email/password
-  SignIn(email, password) {
-    return this.afAuth.signInWithEmailAndPassword(email, password)
-      .then((res) => {
-        console.log(res)
-      }).catch((error) => {
-        console.log(error)
-      })
-  }
 
-  // Sign out 
-  SignOut() {
+  logout() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
     })
   }
 
-  login() {
-    this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-  }
-  logout() {
-    this.afAuth.signOut();
-  }
 
-
-  // /* Sign up */
-  SignUp(email: string, password: string) {
+  register(email: string, password: string, username: string) {
     this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
         console.log('Successfully signed up!', res);
+        let data = {
+          
+          "displayName": res.user.displayName,
+          "email": res.user.email,
+          "photoURL": res.user.photoURL,
+          "uid": res.user.uid,
+        }
+        console.log(data)
+        this.firestoreService.usersRef.doc(username).set(data)
+        this.redirect('/settings')
       })
       .catch(error => {
         console.log('Something is wrong:', error.message);
@@ -122,8 +97,8 @@ export class AuthenticationService {
     //   });
   }
 
-  redirect(): void{
-    this.router.navigate(['/'])
+  redirect(path: string): void{
+    this.router.navigate([path])
   }
 
 }
