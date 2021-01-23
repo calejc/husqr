@@ -24,9 +24,10 @@
     width:100%;
 }
 
-.mat-form-field-ripple{
-    color:red!important;
-}
+// span .mat-form-field-ripple {
+//     background-color:red!important;
+//     color: red!important;
+// }
 
 input{
     width:75%;
@@ -54,3 +55,7 @@ input{
     color: black;
     cursor: pointer;
 }
+.mat-form-field {
+    display: inline;
+}
+
