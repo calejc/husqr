@@ -33,7 +33,7 @@ export class TimelineService {
     // this.posts = this.posts.filter((post) => post.postId === id);
   }
 
-  private readonly postSubject = new BehaviorSubject<Post[]>(this.INITIAL_STATE)
+  public readonly postSubject = new BehaviorSubject<Post[]>(this.INITIAL_STATE)
   readonly post$ = this.postSubject.asObservable();
 
   get posts(): Post[] {
@@ -53,21 +53,17 @@ export class TimelineService {
     this.sortPosts();
   }
 
-  // getPostsByUser(id: number): Observable<any[]>{
-    // return of(this.posts.filter((post) => post.uid === id));
+  // getPostByPostId(id: number){
+  //   // return this.posts.find((post) => post.postId === id);
   // }
 
-  getPostByPostId(id: number){
-    // return this.posts.find((post) => post.postId === id);
-  }
+  // generateNextId(): number{
+  //   return Math.max.apply(Math, this.posts.map(function(post){return post.postId + 1}));
+  // }
 
-  generateNextId(): number{
-    return Math.max.apply(Math, this.posts.map(function(post){return post.postId + 1}));
-  }
-
-  getReplies(parentId: number): Observable<any[]>{
-    return of(this.posts.filter((post) => post.parentHusq === parentId));
-  }
+  // getReplies(parentId: number): Observable<any[]>{
+  //   return of(this.posts.filter((post) => post.parentHusq === parentId));
+  // }
 
 
 }

@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import firebase from 'firebase/app';
 import auth from 'firebase/app';
 import { Router } from '@angular/router';
 import { FirestoreService } from './firestore.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { switchMap } from 'rxjs/operators';
+import { User } from '../data/types/user.interface';
 
 
 @Injectable({
@@ -13,24 +16,29 @@ import { FirestoreService } from './firestore.service';
 
 export class AuthenticationService {
 
+  // userState: Observable<User | null | undefined>;
+  user$: any;
   userState: any;
 
   constructor(
     private afAuth: AngularFireAuth, 
     private router: Router, 
-    private firestoreService: FirestoreService) { 
+    private angularFirestore: AngularFirestore,
+    private firestoreService: FirestoreService) {
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.userState = user;
-        // this.redirect('/');
         localStorage.setItem('user', JSON.stringify(this.userState));
         JSON.parse(localStorage.getItem('user'));
       } else {
-        this.userState = null;
         localStorage.setItem('user', null);
         JSON.parse(localStorage.getItem('user'));
       }
     })
+  }
+
+  getUser(){
+    // return this.userState;
   }
 
 
@@ -61,37 +69,59 @@ export class AuthenticationService {
     })
   }
 
+  saveUserDataToCollection(user, username){
+    const userRef = this.angularFirestore.doc(`users/${username}`);
+    const userData: User = {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      username: username,
+      emailVerified: user.emailVerified
+    }
+    return userRef.set(userData, {
+      merge: true
+    })
+  }
+
+  // TODO: create custom authGuard service using isLoggedIn bool
+  get isLoggedIn(): boolean {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return (user !== null && user.emailVerified !== false) ? true : false;
+  }
+
 
   register(email: string, password: string, username: string) {
     this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
+
+        // Send verification email here
+        // this.sendVerificationEmail();
+
+        this.saveUserDataToCollection(res.user, username);
         console.log('Successfully signed up!', res);
-        let data = {
-          
-          "displayName": res.user.displayName,
-          "email": res.user.email,
-          "photoURL": res.user.photoURL,
-          "uid": res.user.uid,
-          "username": username
-        }
-        console.log(data)
-        this.firestoreService.usersRef.doc(username).set(data)
-        this.userState = res.user;
         this.redirect('/settings')
-      })
-      .catch(error => {
+      }).catch(error => {
         console.log('Something is wrong:', error.message);
       });    
   }
 
+  async sendVerificationEmail() {
+    return (await this.afAuth.currentUser).sendEmailVerification().then(() => {
+      console.log("email sent");
+      this.router.navigate(['verify-email'])
+    })
+  }
+
   // /* Sign in */
   signInWithEmail(email: string, password: string) {
-    this.afAuth
+    return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then(res => {
         console.log('Successfully signed in!');
-        this.userState = res.user;
+        // this.userState = res.user;
+        // this.saveUserDataToCollection(res.user);
         this.redirect('/');
       })
       .catch(err => {

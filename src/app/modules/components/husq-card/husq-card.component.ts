@@ -19,18 +19,23 @@ import { UsersService } from 'src/app/core/services/users.service';
 export class HusqCardComponent implements OnInit {
 
   liked: boolean = false;
+  users: any;
+
+
   constructor(
     private timelineService: TimelineService, 
     public dialog: MatDialog, 
     public firestoreService: FirestoreService,
-    public usersService: UsersService) { }
+    public usersService: UsersService) {
+      console.log(this.usersService.users);
+    }
 
   @Input() post: Post;
   @Input() user: User;
   @Input() replie$: Observable<any[]>;
 
   newHusqReply(parentHusqId: number){
-    var replyId = this.timelineService.generateNextId();
+    // var replyId = this.timelineService.generateNextId();
     const config = new MatDialogConfig();
     config.autoFocus = true;
     const dr = this.dialog.open(HusqFormComponent, config);
@@ -53,30 +58,19 @@ export class HusqCardComponent implements OnInit {
     // });
   }
 
-  getUser(): void{
-    // console.log("BEFORE: " + this.user);
-    // this.user = this.usersService.getUserById(this.post.uid);
-    // console.log("AFTER: " + this.user);
+  getUser(){
+    // console.log(this.post);
+    // console.log(this.usersService.getUserById(this.post.username))
+    this.user = this.usersService.getUserById(this.post.username)
+
+    // if (this.post){
+      // console.log("POST: ", this.post, "USER: ", this.user);
+    // }
   }
 
-  // addReplyToParent(parent: number, reply: number): void{
-  //   let replies = this.service.getPostByPostId(parent).replies;
-  //   replies = [
-  //     ... replies,
-  //     reply
-  //   ]
-  //   this.service.getPostByPostId(parent).replies = replies;
-  //   this.replie$ = this.service.getReplies(this.post.postId);
-  // }
-
-  getReplies(){
-    // this.replie$ = this.timelineService.getReplies(this.post.postId);
-  }
 
   ngOnInit(): void {
-    // console.log(this.usersService.users);
-    // this.getUser();
-    this.getReplies();
+    this.getUser()
   }
 
   addLikes(): void{

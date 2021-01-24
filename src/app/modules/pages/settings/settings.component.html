@@ -6,6 +6,24 @@
                     <h1>Profile Settings</h1>
                 </div>
             </div>
+            <div>
+
+            <div class="row" *ngIf="authenticationService.userState as user">
+            <div class="col-md-12">
+                <div class="media">
+                <img class="align-self-start mr-5 img-thumbnail rounded-circle" src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}"
+                    alt="{{user.displayName}}">
+                <div class="media-body">
+                    <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
+                    <p>User ID: <strong>{{user.uid}}</strong></p>
+                    <p>Email: <strong>{{user.email}}</strong></p>
+                    <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
+                </div>
+                </div>
+            </div>
+            </div>
+
+            </div>
             <div class="row">
                 <div class="col-12">
                     <mat-form-field class="w-75" appearance="fill">

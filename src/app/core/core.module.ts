@@ -12,6 +12,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SharedModule } from '../shared/shared.module';
 import { AuthenticationService } from '../core/services/authentication.service';
+import { FirestoreService } from './services/firestore.service';
+import { UsersService } from './services/users.service';
 
 
 @NgModule({
@@ -25,7 +27,7 @@ import { AuthenticationService } from '../core/services/authentication.service';
     CoreRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFirestoreModule,
+    AngularFirestoreModule.enablePersistence(),
     SharedModule, 
     FlexLayoutModule
   ],

@@ -9,9 +9,11 @@ import { User } from 'src/app/core/data/types/user.interface';
   providedIn: 'root'
 })
 export class UsersService {
-  private INITIAL_STATE = [];
+  // private INITIAL_STATE = this.firestoreService.getAllUsers().valueChanges();
+  private INITIAL_STATE = []
   
   constructor(private firestoreService: FirestoreService) { 
+    console.log(this.firestoreService.getAllUsers().valueChanges());
     this.firestoreService.getAllUsers().snapshotChanges().pipe(
       map(changes => changes.map(c =>
           ({ id: c.payload.doc.id, ...c.payload.doc.data() })
@@ -19,11 +21,10 @@ export class UsersService {
       )
     ).subscribe(data => {
       this.users = data;
-      console.log(this.users);
     });
   }
 
-  private readonly userSubject = new BehaviorSubject<User[]>(this.INITIAL_STATE);
+  public readonly userSubject = new BehaviorSubject(this.INITIAL_STATE);
   readonly user$ = this.userSubject.asObservable();
 
 
@@ -37,8 +38,9 @@ export class UsersService {
 
   getUserById(id: string){
     console.log(this.users) 
-    return this.users.find((user) => user.uid === id);
+    return this.users.find((user) => user.username === id);
   }
 
   
 }
+

@@ -25,12 +25,9 @@ export class SettingsComponent implements OnInit {
   constructor(
     public authenticationService: AuthenticationService, 
     public firestoreService: FirestoreService) { 
-    console.log(authenticationService.userState) 
   }
 
   ngOnInit(): void {
-    console.log(this.authenticationService.userState); 
-    console.log(this.authenticationService.userState.photoURL);
   }
 
   saveSettings(){
@@ -38,7 +35,7 @@ export class SettingsComponent implements OnInit {
       "displayName": this.displayName,
       "photoURL": this.photoURL
     }
-    this.firestoreService.usersRef.doc(this.authenticationService.userState).update(settings);
+    // this.firestoreService.usersRef.doc(this.authenticationService.userState).update(settings);
   }
 
 }

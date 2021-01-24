@@ -1,6 +1,6 @@
 export interface Post {
     postId: string;
-    uid: string;
+    username: string;
     datetime: string;
     post: string;
     likes: number;
