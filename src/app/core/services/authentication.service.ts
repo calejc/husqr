@@ -19,6 +19,7 @@ export class AuthenticationService {
   // userState: Observable<User | null | undefined>;
   user$: any;
   userState: any;
+  userData: any;
 
   constructor(
     private afAuth: AngularFireAuth, 
@@ -28,6 +29,7 @@ export class AuthenticationService {
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.userState = user;
+        this.userData = this.getUserData();
         localStorage.setItem('user', JSON.stringify(this.userState));
         JSON.parse(localStorage.getItem('user'));
       } else {
@@ -35,12 +37,13 @@ export class AuthenticationService {
         JSON.parse(localStorage.getItem('user'));
       }
     })
+    console.log(this.userData)
   }
 
-  getUser(){
-    return this.userState;
-  }
 
+  getUserData(){
+    this.firestoreService.getUserById(this.userState.uid);
+  }
 
 
   loginWithGoogle() {

@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
     dr.afterClosed().subscribe(result => {
       let post: Post = {
         postId: null,
-        uid: this.auth.getUser().uid,
+        uid: this.auth.userState.uid,
         datetime: new Date().toLocaleString(),
         post: result.post,
         likes: 0,

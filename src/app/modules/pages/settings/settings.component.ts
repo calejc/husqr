@@ -23,17 +23,19 @@ export class SettingsComponent implements OnInit {
   photoURL: string;
   displayName: string;
   user: any;
+  id: string;
 
 
   constructor(
     public authenticationService: AuthenticationService, 
     public firestoreService: FirestoreService, 
     public usersService: UsersService) {
+      this.id = JSON.parse(localStorage.getItem("user")).uid
   }
 
   getUser(){
-    let id = JSON.parse(localStorage.getItem("user")).uid
-    this.user = this.usersService.getUserById(id)
+    console.log(this.authenticationService.userData);
+    this.user = this.usersService.getUserById(this.id)
     this.firestoreService.getAllUsers().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
@@ -41,7 +43,7 @@ export class SettingsComponent implements OnInit {
         )
       )
     ).subscribe(data => {
-      this.user = data.find((user) => user.uid === id);
+      this.user = data.find((user) => user.uid === this.id);
     });
   }
 
@@ -51,11 +53,13 @@ export class SettingsComponent implements OnInit {
   }
 
   saveSettings(){
+    // console.log(this.photoURL)
     let settings = {
-      "displayName": this.displayName,
-      "photoURL": this.photoURL
+      "displayName": this.displayName ? this.displayName : '',
+      "photoURL": this.photoURL ? this.photoURL : ''
     }
-    // this.firestoreService.usersRef.doc(this.authenticationService.userState).update(settings);
+    // console.log(settings)
+    this.firestoreService.usersRef.doc(this.id).update(settings);
   }
 
 }
