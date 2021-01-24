@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, QueryFn } from '@angular/fire/firestore';
 import { User } from '../data/types/user.interface';
 import { Post } from '../data/types/post.interface';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -34,16 +35,13 @@ export class FirestoreService {
     return this.usersRef.add({ ...user });
   }
 
+  // createPost(post){
+
+
   createPost(post: Post): any {
     return this.postsRef.add({ ...post }).then(function(documentRef) {
-      // this.set(postId) = documentRef.id;
-      this.postId = documentRef.id
+      // this.postId = documentRef.id
       console.log(post);
-      // console.log(this.postsRef);
-      // this.postsRef.doc(documentRef.id).update({"postId": documentRef.id});
-      // console.log(documentRef.id)
-
-      // p
   });
     // then(function(docRef) {
     //   docRef.get().then(function(doc) {

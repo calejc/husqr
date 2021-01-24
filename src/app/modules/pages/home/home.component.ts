@@ -30,8 +30,8 @@ export class HomeComponent implements OnInit {
     public firestore: AngularFirestore, 
     public firestoreService: FirestoreService,
     public usersService: UsersService) { 
-      this.getPosts()
-      this.getUsers()
+      // this.getPosts()
+      // this.getUsers()
   }
 
   ngOnInit(): void {
@@ -68,15 +68,15 @@ export class HomeComponent implements OnInit {
     config.autoFocus = true;
     const dr = this.dialog.open(HusqFormComponent, config);
     dr.afterClosed().subscribe(result => {
-      // let post: Post = {
-      //   postId: null,
-      //   uid: this.auth.userState.uid,
-      //   datetime: new Date().toLocaleString(),
-      //   post: result.post,
-      //   likes: 0,
-      // }
+      let post: Post = {
+        postId: null,
+        uid: this.auth.getUser().uid,
+        datetime: new Date().toLocaleString(),
+        post: result.post,
+        likes: 0,
+      }
       // // this.service.addPost(post);
-      // this.firestoreService.createPost(post);
+      this.firestoreService.createPost(post);
     });
   }
 

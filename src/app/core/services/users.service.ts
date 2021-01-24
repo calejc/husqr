@@ -13,7 +13,6 @@ export class UsersService {
   private INITIAL_STATE = []
   
   constructor(private firestoreService: FirestoreService) { 
-    console.log(this.firestoreService.getAllUsers().valueChanges());
     this.firestoreService.getAllUsers().snapshotChanges().pipe(
       map(changes => changes.map(c =>
           ({ id: c.payload.doc.id, ...c.payload.doc.data() })
@@ -37,8 +36,7 @@ export class UsersService {
   }
 
   getUserById(id: string){
-    console.log(this.users) 
-    return this.users.find((user) => user.username === id);
+    return this.users.find((user) => user.uid === id);
   }
 
   

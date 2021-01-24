@@ -38,8 +38,9 @@ export class AuthenticationService {
   }
 
   getUser(){
-    // return this.userState;
+    return this.userState;
   }
+
 
 
   loginWithGoogle() {

@@ -27,7 +27,6 @@ export class HusqCardComponent implements OnInit {
     public dialog: MatDialog, 
     public firestoreService: FirestoreService,
     public usersService: UsersService) {
-      console.log(this.usersService.users);
     }
 
   @Input() post: Post;
@@ -59,13 +58,7 @@ export class HusqCardComponent implements OnInit {
   }
 
   getUser(){
-    // console.log(this.post);
-    // console.log(this.usersService.getUserById(this.post.username))
-    this.user = this.usersService.getUserById(this.post.username)
-
-    // if (this.post){
-      // console.log("POST: ", this.post, "USER: ", this.user);
-    // }
+    this.user = this.usersService.getUserById(this.post.uid)
   }
 
 
