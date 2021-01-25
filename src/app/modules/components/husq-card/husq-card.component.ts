@@ -33,28 +33,28 @@ export class HusqCardComponent implements OnInit {
   @Input() user: User;
   @Input() replie$: Observable<any[]>;
 
-  newHusqReply(parentHusqId: number){
-    // var replyId = this.timelineService.generateNextId();
+  newHusqReply(parentHusqId: string, post: Post){
+    const uid = JSON.parse(localStorage.getItem("user")).uid
     const config = new MatDialogConfig();
     config.autoFocus = true;
     const dr = this.dialog.open(HusqFormComponent, config);
-    // dr.afterClosed().subscribe(result => {
-    //   let post: Post = {
-    //     postId: replyId,
-    //     userId: 3212,
-    //     displayName: "Cale",
-    //     username: "cjcortney",
-    //     avatar: "",
-    //     datetime: new Date().toLocaleString(),
-    //     post: result.post,
-    //     likes: 0,
-    //     parentHusq: parentHusqId,
-    //     isReply: true,
-    //     replies: []
-    //   }
-    //   this.service.addPost(post);
-    //   this.addReplyToParent(parentHusqId, replyId)
-    // });
+    dr.afterClosed().subscribe(result => {
+      let post: Post = {
+        uid: uid,
+        datetime: new Date().toLocaleString(),
+        post: result.post,
+        likes: 0,
+        parentHusq: parentHusqId,
+        // replies: []
+      }
+      this.firestoreService.createPost(post).then((docRef) => {
+        console.log(docRef.id);
+        let data = {
+          replies: [parentHusqId]
+        }
+        this.firestoreService.postsRef.doc(parentHusqId).update(data);
+      })
+    });
   }
 
   getUser(){
@@ -68,6 +68,7 @@ export class HusqCardComponent implements OnInit {
 
   addLikes(): void{
     this.liked ? this.post.likes-- : this.post.likes++;
+    // Update firestore here, setting new 'likes' total
   }
 
   likeButtonClicked(){
@@ -79,8 +80,10 @@ export class HusqCardComponent implements OnInit {
     this.liked = !this.liked;
   }
 
-  replyButtonClicked(parentHusqId: number){
-    this.newHusqReply(parentHusqId);
+  replyButtonClicked(postId: string, post: Post){
+    console.log(postId)
+
+    this.newHusqReply(postId, post);
   }
 
 

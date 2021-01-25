@@ -39,10 +39,11 @@ export class FirestoreService {
 
 
   createPost(post: Post): any {
-    return this.postsRef.add({ ...post }).then(function(documentRef) {
+    return this.postsRef.add({ ...post })
+    // .then(function(documentRef) {
       // this.postId = documentRef.id
-      console.log(post);
-  });
+      // console.log(post);
+  // });
     // then(function(docRef) {
     //   docRef.get().then(function(doc) {
     //     console.log(doc.data().timestamp.toString());
@@ -63,10 +64,6 @@ export class FirestoreService {
 
   deleteUser(id: string): Promise<void> {
     return this.usersRef.doc(id).delete();
-  }
-
-  addPost(): void{
-
   }
 
 

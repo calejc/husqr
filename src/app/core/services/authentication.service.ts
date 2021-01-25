@@ -79,7 +79,7 @@ export class AuthenticationService {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
-      photoURL: user.photoURL,
+      photoURL: user.photoURL ? user.photoURL : 'assets/images/default-img.png',
       username: username,
       emailVerified: user.emailVerified
     }

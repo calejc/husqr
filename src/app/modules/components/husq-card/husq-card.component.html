@@ -1,6 +1,6 @@
 <mat-card color="accent" class="husq-card">
   <mat-card-header style="margin-top:.5em;">
-    <img mat-card-avatar src="{{(user?.photoURL) ? user?.photoURL : 'assets/images/default-img.png'}}" alt="{{user.displayName}}">
+    <img mat-card-avatar src="{{user?.photoURL}}" alt="{{user.displayName}}">
     <!-- <img mat-card-avatar src="{{(user.photoURL) ? user.photoURL : '../../../../assets/images/default-img.png'}}" alt="{{user.displayName}}"> -->
     <!-- <mat-card-title><a [routerLink]="['/profile', post.uid]">{{ post.uid }}</a></mat-card-title> -->
     <mat-card-title><a [routerLink]="['/profile', post.uid]">{{(user?.displayName) ? user.displayName : user.username}}</a></mat-card-title>
@@ -15,7 +15,7 @@
   <mat-card-actions>
     <span class="husq-button"><i class="fa fa-thumbs-o-up fa-lg" (click)="likeButtonClicked()" [ngClass]="liked ? 'fa-thumbs-up' : 'fa-thumbs-o-up'" aria-hidden="true"></i></span>
     <span class="count">{{post.likes}}</span>
-    <span *ngIf="!post.parentHusq;" class="husq-button"><i class="fa fa-comment-o fa-lg" (click)="replyButtonClicked(post.postId)" aria-hidden="true"></i></span>
+    <span *ngIf="!post.parentHusq;" class="husq-button"><i class="fa fa-comment-o fa-lg" (click)="replyButtonClicked(post.id, post)" aria-hidden="true"></i></span>
     <!-- <span *ngIf="!post.parentHusq;" class="count">{{post.replies.length}}</span> -->
   </mat-card-actions>
 
