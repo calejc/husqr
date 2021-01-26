@@ -13,7 +13,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SharedModule } from '../shared/shared.module';
 import { AuthenticationService } from '../core/services/authentication.service';
 import { FirestoreService } from './services/firestore.service';
-import { UsersService } from './services/users.service';
 
 
 @NgModule({
@@ -31,7 +30,7 @@ import { UsersService } from './services/users.service';
     SharedModule, 
     FlexLayoutModule
   ],
-  providers: [AuthenticationService],
+  providers: [AuthenticationService, FirestoreService],
   bootstrap: [CoreComponent]
 })
 export class CoreModule { }

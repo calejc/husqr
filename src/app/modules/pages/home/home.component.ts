@@ -34,6 +34,9 @@ export class HomeComponent implements OnInit {
     this.posts = this.firestoreService.observableDatabase.AllPosts$.subscribe((data: Post[]) => {
       this.posts = data;
     })
+    // this.firestoreService.observableDatabase.User$.subscribe((c) => {
+      // console.log(c.username)
+    // })
   }
 
   newHusq(){

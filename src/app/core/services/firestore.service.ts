@@ -59,15 +59,13 @@ export class FirestoreService {
     this.auth.user$
     // this.auth.userState
       .subscribe((user) => {
-        console.log('dataService: initDatabase: user: ', user);
+        console.log('firestoreService: initDatabase: user: ', user);
         if (user) {
           // If logged in, update user and fetch data 
           this.database._User.next(user);
+          this.userData = this.getUserData(user.uid)
           this.getAllPosts()
           this.getUsers()
-          
-          // get user's data from firestore here
-          this.userData = this.fetchDocument(this.collectionRefs.usersRef.doc(user.uid));      
         } 
       })
   }
@@ -146,14 +144,14 @@ export class FirestoreService {
         option.ref.doc(option.item.id)
           .update(option.item)
           .then(() => {
-            console.log('dataService: update success');
+            console.log('firestoreService: update success');
             resolve(option.item.id);
           }).catch((err) => {
-            console.error('dataService: update: error: ', err);
+            console.error('firestoreService: update: error: ', err);
             reject(err);
           });
       } else {
-        console.log('dataService: update: wrong option! option: ', option);
+        console.log('firestoreService: update: wrong option! option: ', option);
         reject();
       }
 
@@ -168,14 +166,14 @@ export class FirestoreService {
       if (option.item) {
         option.ref.ref.add(option.item)
           .then((res) => {
-            console.log('dataService: create success: res: ', res);
+            console.log('firestoreService: create success: res: ', res);
             resolve(res);
           }).catch((err) => {
-            console.error('dataService: create: error: ', err);
+            console.error('firestoreService: create: error: ', err);
             reject(err);
           });
       } else {
-        console.log('dataService: create: wrong option! option: ', option);
+        console.log('firestoreService: create: wrong option! option: ', option);
         reject();
       }
     });
@@ -190,14 +188,14 @@ export class FirestoreService {
         options.ref.doc(options.item.id)
           .delete()
           .then((res) => {
-            console.log('dataService: delete: success', options.item);
+            console.log('firestoreService: delete: success', options.item);
             resolve(res);
           }).catch((err) => {
-            console.error('dataService: delete: error: ', err);
+            console.error('firestoreService: delete: error: ', err);
             reject(err);
           });
       } else {
-        console.log('dataService: delete: wrong options! options: ', options);
+        console.log('firestoreService: delete: wrong options! options: ', options);
         reject();
       }
 
@@ -227,6 +225,13 @@ export class FirestoreService {
       this.observableDatabase.ParentPosts$ = of(data);
     })
   }
+
+  getUserData(uid: string){
+    // this.firestoreService.getUserById(this.userState.uid);
+    return this.database._Users.value.find((user) => user.uid === uid)
+    // console.log(uid);
+  }
+
 
 
 }

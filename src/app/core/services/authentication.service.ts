@@ -36,10 +36,6 @@ export class AuthenticationService {
   }
 
 
-  // getUserData(){
-    // this.firestoreService.getUserById(this.userState.uid);
-  // }
-
   getUser(){
     return this.user$;
   }
