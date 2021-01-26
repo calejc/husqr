@@ -19,49 +19,22 @@ import { User } from 'src/app/core/data/types/user.interface';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  
   // newHusqForm: FormGroup;
   users: any;
   posts: any;
 
   constructor(
-    public timelineService: TimelineService, 
     public dialog: MatDialog, 
     public auth: AuthenticationService, 
-    public firestore: AngularFirestore, 
-    public firestoreService: FirestoreService,
-    public usersService: UsersService) { 
-      // this.getPosts()
-      // this.getUsers()
+    public firestoreService: FirestoreService) { 
   }
 
   ngOnInit(): void {
-  }
-
-  getUsers(): void{
-    this.firestoreService.getAllUsers().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
-        )
-      )
-    ).subscribe(data => {
-      this.users = data;
-    });
-  }
-
-  getPosts(): void{
-    this.firestoreService.getAllPosts().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
-        )
-      )
-    ).subscribe(data => {
+    this.posts = this.firestoreService.observableDatabase.AllPosts$.subscribe((data: Post[]) => {
       this.posts = data;
-    });
+    })
   }
-
-  
 
   newHusq(){
     const config = new MatDialogConfig();
@@ -75,8 +48,7 @@ export class HomeComponent implements OnInit {
         post: result.post,
         likes: 0,
       }
-      // // this.service.addPost(post);
-      this.firestoreService.createPost(post);
+      this.firestoreService.create({item: post, ref: this.firestoreService.collectionRefs.postsRef});
     });
   }
 

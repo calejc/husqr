@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import firebase from 'firebase/app';
 import auth from 'firebase/app';
 import { Router } from '@angular/router';
@@ -24,18 +24,15 @@ export class AuthenticationService {
     public angularFirestore: AngularFirestore,
     private afAuth: AngularFireAuth, 
     private router: Router,) {
-    this.afAuth.authState.subscribe(user => {
-      if (user) {
-        this.userState = user;
-        // this.userData = this.getUserData();
-        localStorage.setItem('user', JSON.stringify(this.userState));
-        JSON.parse(localStorage.getItem('user'));
-      } else {
-        localStorage.setItem('user', null);
-        JSON.parse(localStorage.getItem('user'));
-      }
-    })
-    console.log(this.userData)
+    this.user$ = this.afAuth.authState.pipe(
+      switchMap(user => {
+        if (user) {
+          // localStorage.setItem('user', JSON.stringify(this.user$));
+          return this.angularFirestore.doc<User>(`users/${user.uid}`).valueChanges();
+        } else {
+          return of(null);
+        }
+      }));
   }
 
 

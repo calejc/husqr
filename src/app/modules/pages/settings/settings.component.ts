@@ -33,33 +33,33 @@ export class SettingsComponent implements OnInit {
       this.id = JSON.parse(localStorage.getItem("user")).uid
   }
 
-  getUser(){
-    console.log(this.authenticationService.userData);
-    this.user = this.usersService.getUserById(this.id)
-    this.firestoreService.getAllUsers().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
-        )
-      )
-    ).subscribe(data => {
-      this.user = data.find((user) => user.uid === this.id);
-    });
-  }
+  // getUser(){
+  //   console.log(this.authenticationService.userData);
+  //   this.user = this.usersService.getUserById(this.id)
+  //   this.firestoreService.getAllUsers().snapshotChanges().pipe(
+  //     map(changes =>
+  //       changes.map(c =>
+  //         ({ id: c.payload.doc.id, ...c.payload.doc.data() })
+  //       )
+  //     )
+  //   ).subscribe(data => {
+  //     this.user = data.find((user) => user.uid === this.id);
+  //   });
+  // }
 
 
   ngOnInit(): void {
-    this.getUser()
+    // this.getUser()
   }
 
-  saveSettings(){
-    // console.log(this.photoURL)
-    let settings = {
-      "displayName": this.displayName ? this.displayName : '',
-      "photoURL": this.photoURL ? this.photoURL : ''
-    }
-    // console.log(settings)
-    this.firestoreService.usersRef.doc(this.id).update(settings);
-  }
+  // saveSettings(){
+  //   // console.log(this.photoURL)
+  //   let settings = {
+  //     "displayName": this.displayName ? this.displayName : '',
+  //     "photoURL": this.photoURL ? this.photoURL : ''
+  //   }
+  //   // console.log(settings)
+  //   this.firestoreService.usersRef.doc(this.id).update(settings);
+  // }
 
 }

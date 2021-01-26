@@ -49,12 +49,15 @@ export class FirestoreService {
         ParentPosts$: this.database._ParentPosts.asObservable(),
       };
       this.initDatabase();
+      // this.getAllPosts();
+      // this.getUsers();
   }
 
 
   // Only subscribes to firestore if user is logged in
   initDatabase() {
     this.auth.user$
+    // this.auth.userState
       .subscribe((user) => {
         console.log('dataService: initDatabase: user: ', user);
         if (user) {
@@ -68,6 +71,12 @@ export class FirestoreService {
         } 
       })
   }
+
+
+
+  // ------------------- //
+  // Union Array Example //
+  // ------------------- //
 
   // getHusqsById(userId: number): (Post | User)[] {
   //   this.database._AllPosts.pipe(

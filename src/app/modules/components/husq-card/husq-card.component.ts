@@ -34,27 +34,27 @@ export class HusqCardComponent implements OnInit {
   @Input() replie$: Observable<any[]>;
 
   newHusqReply(parentHusqId: string, post: Post){
-    const uid = JSON.parse(localStorage.getItem("user")).uid
-    const config = new MatDialogConfig();
-    config.autoFocus = true;
-    const dr = this.dialog.open(HusqFormComponent, config);
-    dr.afterClosed().subscribe(result => {
-      let post: Post = {
-        uid: uid,
-        datetime: new Date().toLocaleString(),
-        post: result.post,
-        likes: 0,
-        parentHusq: parentHusqId,
-        // replies: []
-      }
-      this.firestoreService.createPost(post).then((docRef) => {
-        console.log(docRef.id);
-        let data = {
-          replies: [parentHusqId]
-        }
-        this.firestoreService.postsRef.doc(parentHusqId).update(data);
-      })
-    });
+    // const uid = JSON.parse(localStorage.getItem("user")).uid
+    // const config = new MatDialogConfig();
+    // config.autoFocus = true;
+    // const dr = this.dialog.open(HusqFormComponent, config);
+    // dr.afterClosed().subscribe(result => {
+    //   let post: Post = {
+    //     uid: uid,
+    //     datetime: new Date().toLocaleString(),
+    //     post: result.post,
+    //     likes: 0,
+    //     parentHusq: parentHusqId,
+    //     // replies: []
+    //   }
+    //   this.firestoreService.createPost(post).then((docRef) => {
+    //     console.log(docRef.id);
+    //     let data = {
+    //       replies: [parentHusqId]
+    //     }
+    //     this.firestoreService.postsRef.doc(parentHusqId).update(data);
+    //   })
+    // });
   }
 
   getUser(){
