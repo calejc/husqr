@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import firebase from 'firebase/app';
 import auth from 'firebase/app';
 import { Router } from '@angular/router';
@@ -16,20 +16,18 @@ import { User } from '../data/types/user.interface';
 
 export class AuthenticationService {
 
-  // userState: Observable<User | null | undefined>;
-  user$: any;
+  user$: Observable<User | null | undefined>;
   userState: any;
   userData: any;
 
   constructor(
+    public angularFirestore: AngularFirestore,
     private afAuth: AngularFireAuth, 
-    private router: Router, 
-    private angularFirestore: AngularFirestore,
-    private firestoreService: FirestoreService) {
+    private router: Router,) {
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.userState = user;
-        this.userData = this.getUserData();
+        // this.userData = this.getUserData();
         localStorage.setItem('user', JSON.stringify(this.userState));
         JSON.parse(localStorage.getItem('user'));
       } else {
@@ -41,8 +39,12 @@ export class AuthenticationService {
   }
 
 
-  getUserData(){
-    this.firestoreService.getUserById(this.userState.uid);
+  // getUserData(){
+    // this.firestoreService.getUserById(this.userState.uid);
+  // }
+
+  getUser(){
+    return this.user$;
   }
 
 

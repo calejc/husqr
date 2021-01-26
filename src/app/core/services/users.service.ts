@@ -13,14 +13,6 @@ export class UsersService {
   private INITIAL_STATE = []
   
   constructor(private firestoreService: FirestoreService) { 
-    this.firestoreService.getAllUsers().snapshotChanges().pipe(
-      map(changes => changes.map(c =>
-          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
-        )
-      )
-    ).subscribe(data => {
-      this.users = data;
-    });
   }
 
   public readonly userSubject = new BehaviorSubject(this.INITIAL_STATE);
