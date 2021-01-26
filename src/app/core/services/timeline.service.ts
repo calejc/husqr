@@ -99,4 +99,10 @@ export class TimelineService {
   // }
 
 
+  //grab only parent Husqs for timeline
+  filterParentHusqs(): void {
+    return this.posts.filter(post => !post.parentHusq)
+  }
+
+
 }
