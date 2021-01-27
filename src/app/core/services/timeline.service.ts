@@ -21,5 +21,4 @@ export class TimelineService {
   constructor(private firestoreService: FirestoreService){
     // this.setData()
   }
-
 }
