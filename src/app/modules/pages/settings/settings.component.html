@@ -11,12 +11,12 @@
             <!-- <div class="row" *ngIf="authenticationService.userState as user"> -->
 
             <!-- class="align-self-start mr-5 img-thumbnail rounded-circle" -->
-            <div class="row user-info">
-                <div class="col-lg-2">
-                    <img mat-card-avatar src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}" alt="{{user.displayName}}" class="mx-auto">
+            <div class="user-stuff">
+                <div class="user-items">
+                    <img mat-card-avatar src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}" alt="{{user.displayName}}">
                 </div>
-                <div class="col-lg-8">
-                    <h1><strong>@{{(user?.displayName) ? user.displayName : 'User'}}</strong></h1>
+                <div class="user-items">
+                    <h1 style="display: table-cell; vertical-align: center;"><strong>@{{(user?.displayName) ? user.displayName : 'User'}}</strong></h1>
                 </div>
             </div>
             <div class="row">

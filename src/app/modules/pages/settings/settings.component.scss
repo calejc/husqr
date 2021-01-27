@@ -19,7 +19,11 @@ img {
     max-height: 40px;
     vertical-align: middle;
 }
-.user-info {
-    display: flex;
-    align-content: center;
+.user-stuff {
+    display: flex; 
+    align-items: center;
+}
+.user-items {
+    margin-right: 15px;
+    margin-bottom: 15px;
 }
