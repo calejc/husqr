@@ -28,7 +28,7 @@ export class SettingsComponent implements OnInit {
   constructor(
     public authenticationService: AuthenticationService, 
     public firestoreService: FirestoreService) {
-      this.id = JSON.parse(localStorage.getItem("user")).uid
+      // this.id = JSON.parse(localStorage.getItem("user")).uid
   }
 
   // getUser(){

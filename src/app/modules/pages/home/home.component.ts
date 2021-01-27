@@ -29,16 +29,12 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.posts = this.firestoreService.observableDatabase.AllPosts$.subscribe((data: Post[]) => {
+    this.firestoreService.observableDatabase.AllPosts$.subscribe((data: Post[]) => {
       this.posts = data;
     })
-    // this.firestoreService.observableDatabase.User$.subscribe((c) => {
-      // console.log(c.username)
-    // })
   }
 
   newHusq(){
-    
     const config = new MatDialogConfig();
     config.autoFocus = true;
     const dr = this.dialog.open(HusqFormComponent, config);

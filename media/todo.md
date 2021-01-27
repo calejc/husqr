@@ -1,12 +1,19 @@
 *TODO:*
 
 
-- Reply card styling
-- theme service
+- Show replies on husq card
 - Style profile view with user's data
     - Add username and image to header bar
+- like/reply button need to update firestore
+- form validation for registration and settings page
+- two-way binding on settings page
+- theme service
+- should settings page show @username instead of @displayName?
+- component lifecycle? router "resolve"?
+<br>
+<br>
 
-
+*COMPLETE:*
 - ~~firebase~~
     - ~~add auth check to posting, can only post if logged in!~~
         - ~~new posts show user's data (username, etc)~~
@@ -21,5 +28,3 @@
 - ~~union users and post array~~
 - ~~make userPosts come through on Profile~~
 - ~~Settings page~~
-
-
