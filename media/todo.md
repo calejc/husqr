@@ -1,10 +1,10 @@
 *TODO:*
 
-- union users and post array
-- Style profile view with user's data
-- Settings page
+
 - Reply card styling
 - theme service
+- Style profile view with user's data
+    - Add username and image to header bar
 
 
 - ~~firebase~~
@@ -18,5 +18,8 @@
 - ~~persistent state~~
 - ~~show replies under husq~~ 
 - ~~refactor posts with just userId. then get user data from user service~~
+- ~~union users and post array~~
+- ~~make userPosts come through on Profile~~
+- ~~Settings page~~
 
 

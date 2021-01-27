@@ -8,6 +8,7 @@ export interface Database {
     '_Users': BehaviorSubject<User[]>;
     '_AllPosts': BehaviorSubject<Post[]>;
     '_ParentPosts': BehaviorSubject<Post[]>;
+    '_PostsByUser': BehaviorSubject<Post[]>;
     [x: string]: any;
   }
   
@@ -16,5 +17,6 @@ export interface Database {
     'Users$': Observable<User[]>;
     'AllPosts$': Observable<Post[]>;
     'ParentPosts$': Observable<Post[]>;
+    'PostsByUser$': Observable<Post[]>;
     [x: string]: any;
   }

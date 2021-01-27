@@ -7,6 +7,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Database, ObservableDatabase } from '../data/types/database.interface';
 import { BehaviorSubject, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { filter } from 'minimatch';
+import { post } from 'selenium-webdriver/http';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +35,8 @@ export class FirestoreService {
     _User: new BehaviorSubject(null),
     _Users: new BehaviorSubject([]),
     _AllPosts: new BehaviorSubject([]),
-    _ParentPosts: new BehaviorSubject([])
+    _ParentPosts: new BehaviorSubject([]),
+    _PostsByUser: new BehaviorSubject([])
   }
   
 
@@ -47,8 +50,10 @@ export class FirestoreService {
         Users$: this.database._Users.asObservable(),
         AllPosts$: this.database._AllPosts.asObservable(),
         ParentPosts$: this.database._ParentPosts.asObservable(),
+        PostsByUser$: this.database._PostsByUser.asObservable()
       };
       this.initDatabase();
+      this.getHusqsById();
       // this.getAllPosts();
       // this.getUsers();
   }
@@ -88,6 +93,19 @@ export class FirestoreService {
   // }
 
 
+  getHusqsById(): void {
+    this.database._AllPosts.pipe(
+      map(post => {
+        // const user = this.database._Users.value.find((user) => user.uid === husq)
+        //   ...user, ...husq
+        post.forEach(post => {
+          console.log(post.postId)
+        })
+      }
+    ))
+  }
+
+
   // ========================= //
   // -- Firestore functions -- //
   // ========================= //
@@ -115,6 +133,7 @@ export class FirestoreService {
       }));
   }
 
+
   // Fetch all users from the 'users' collection
   getUsers(){
     this.fetchCollection(this.collectionRefs.usersRef)
@@ -131,7 +150,27 @@ export class FirestoreService {
         this.sortPosts();
       });
   }
+
+  // Fetch all posts by uid
+  getAllPostsByUid(uid){
+    return this.firestore.collection('husqs', ref => ref.where('uid', '==', uid)).valueChanges();
+  }
+
+
+  // return ref.snapshotChanges().pipe(
+  //   map((changes) => {
+  //     return changes.map((snap) => {
+  //       const obj = snap.payload.doc.data();
+  //       obj.id = snap.payload.doc.id;
+  //       return obj;
+  //     });
+  //   }));
   
+//   filterBy(categoriaToFilter: string) {
+//     this.avisos = this.afs.collection('avisos', ref => ref.where('categoria','==', categoriaToFilter )).valueChanges()
+
+//     return this.avisos;
+// };
 
 
   // ==================== //
@@ -212,7 +251,7 @@ export class FirestoreService {
 
   // Sort posts by datetime
   sortPosts(): void {
-    this.database._Posts.value.sort((a, b) => Date.parse(b.datetime) - Date.parse(a.datetime));
+    this.database._AllPosts.value.sort((a, b) => Date.parse(b.datetime) - Date.parse(a.datetime));
   }
 
   // Timeline will not display 'replies' in the scrolling timeline container.
@@ -231,7 +270,6 @@ export class FirestoreService {
     return this.database._Users.value.find((user) => user.uid === uid)
     // console.log(uid);
   }
-
 
 
 }

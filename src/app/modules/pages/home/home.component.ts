@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TimelineService } from 'src/app/core/services/timeline.service'
 import { FormGroup } from '@angular/forms';
 import { Post } from 'src/app/core/data/types/post.interface';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -10,7 +9,6 @@ import firebase from 'firebase/app';
 import { map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore'
 import { FirestoreService } from 'src/app/core/services/firestore.service';
-import { UsersService } from 'src/app/core/services/users.service';
 import { User } from 'src/app/core/data/types/user.interface';
 
 @Component({

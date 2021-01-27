@@ -4,11 +4,9 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
 import { HusqFormComponent } from '../husq-form/husq-form.component';
-import { TimelineService } from 'src/app/core/services/timeline.service';
 import { Post } from 'src/app/core/data/types/post.interface';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { User } from 'src/app/core/data/types/user.interface';
-import { UsersService } from 'src/app/core/services/users.service';
 // import { User } from 'src/app/core/data/types/user.interface';
 
 @Component({
@@ -22,11 +20,9 @@ export class HusqCardComponent implements OnInit {
   users: any;
 
 
-  constructor(
-    private timelineService: TimelineService, 
+  constructor( 
     public dialog: MatDialog, 
-    public firestoreService: FirestoreService,
-    public usersService: UsersService) {
+    public firestoreService: FirestoreService) {
     }
 
   @Input() post: Post;
@@ -58,7 +54,7 @@ export class HusqCardComponent implements OnInit {
   }
 
   getUser(){
-    this.user = this.usersService.getUserById(this.post.uid)
+    this.user = this.firestoreService.getUserData(this.post.uid)
   }
 
 

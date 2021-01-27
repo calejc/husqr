@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { Observable, Subject, of } from 'rxjs';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
-import { UsersService } from 'src/app/core/services/users.service';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -28,8 +27,7 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     public authenticationService: AuthenticationService, 
-    public firestoreService: FirestoreService, 
-    public usersService: UsersService) {
+    public firestoreService: FirestoreService) {
       this.id = JSON.parse(localStorage.getItem("user")).uid
   }
 
@@ -50,6 +48,10 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     // this.getUser()
+    this.authenticationService.getUser().subscribe((user) => {
+      this.user = user;
+    })
+    
   }
 
   // saveSettings(){

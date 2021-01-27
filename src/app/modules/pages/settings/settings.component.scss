@@ -14,3 +14,12 @@
     
     display:inline;
 }
+
+img {
+    max-height: 40px;
+    vertical-align: middle;
+}
+.user-info {
+    display: flex;
+    align-content: center;
+}

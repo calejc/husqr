@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { TimelineService } from 'src/app/core/services/timeline.service';
-import { UsersService } from 'src/app/core/services/users.service';
 import { Post } from 'src/app/core/data/types/post.interface';
+import { FirestoreService } from 'src/app/core/services/firestore.service';
 // import { USERS } from 'src/app/core/data/data';
 
 @Component({
@@ -12,17 +11,22 @@ import { Post } from 'src/app/core/data/types/post.interface';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  id: number;
-  sub: any;
-  // user: User;
+  id: string;
+  user: any;
   userPost$: Observable<any[]>;
 
-  constructor(private route: ActivatedRoute, public timelineService: TimelineService, private usersService: UsersService) {  }
+  constructor(private route: ActivatedRoute, public firestoreService: FirestoreService) {  }
 
   ngOnInit(): void {
-    // this.sub = this.route.params.subscribe(params => {
-    //   this.id = +params['id'];
-    // });
+    this.route.queryParams.subscribe(params => {
+      this.id = params['uid'];
+      this.user = this.firestoreService.getUserData(this.id);
+      this.userPost$ = this.firestoreService.getAllPostsByUid(this.id);
+    });
+    console.log("this.id: ", this.id);
+    
+    console.log(this.user);
+    
     // this.user = this.usersService.getUserById(this.id);
     // this.userPost$ = this.timelineService.getPostsByUser(this.id);
     // console.log(this.id);
