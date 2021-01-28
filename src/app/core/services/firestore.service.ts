@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, QueryFn } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';
 import { User } from '../data/types/user.interface';
 import { Post } from '../data/types/post.interface';
 import { AuthenticationService } from './authentication.service';
@@ -7,6 +7,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Database, ObservableDatabase } from '../data/types/database.interface';
 import { BehaviorSubject, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import firebase from 'firebase/app'
 import { filter } from 'minimatch';
 import { post } from 'selenium-webdriver/http';
 
@@ -53,7 +54,6 @@ export class FirestoreService {
         PostsByUser$: this.database._PostsByUser.asObservable()
       };
       this.initDatabase();
-      this.getHusqsById();
       // this.getAllPosts();
       // this.getUsers();
   }
@@ -70,6 +70,7 @@ export class FirestoreService {
           this.database._User.next(user);
           this.userData = this.getUserData(user.uid)
           this.getAllPosts()
+          this.getOnlyParentPosts()
           this.getUsers()
         } 
       })
@@ -77,33 +78,6 @@ export class FirestoreService {
 
 
 
-  // ------------------- //
-  // Union Array Example //
-  // ------------------- //
-
-  // getHusqsById(userId: number): (Post | User)[] {
-  //   this.database._AllPosts.pipe(
-  //     filter(husq => husq.userId === userId)
-  //     .map(husq => {
-  //       const user = this.userStoreService.getById(husq.userId)
-  //       return {
-  //         ...user, ...husq
-  //     }
-  //   }))
-  // }
-
-
-  getHusqsById(): void {
-    this.database._AllPosts.pipe(
-      map(post => {
-        // const user = this.database._Users.value.find((user) => user.uid === husq)
-        //   ...user, ...husq
-        post.forEach(post => {
-          console.log(post.postId)
-        })
-      }
-    ))
-  }
 
 
   // ========================= //
@@ -111,7 +85,7 @@ export class FirestoreService {
   // ========================= //
 
   // Fetch a collection from firestore
-  fetchCollection(ref: AngularFirestoreCollection<any>) {
+  fetchCollection(ref: AngularFirestoreCollection<any>): any {
     return ref.snapshotChanges().pipe(
       map((changes) => {
         return changes.map((snap) => {
@@ -120,6 +94,24 @@ export class FirestoreService {
           return obj;
         });
       }));
+  }
+
+  fetchCollectionWithFilter(options: {
+    ref: string, 
+    field: string,
+    operator: any,
+    value: any
+  }){
+    return this.firestore.collection(options.ref, o => o.where(options.field, options.operator, options.value))
+      .snapshotChanges().pipe(
+        map((changes) => {
+          return changes.map((snap: any) => {
+            const obj = snap.payload.doc.data();
+            obj.id = snap.payload.doc.id;
+            return obj
+          })
+        })
+      )
   }
 
   // Fetch a document from firestore
@@ -132,7 +124,6 @@ export class FirestoreService {
         return obj;
       }));
   }
-
 
   // Fetch all users from the 'users' collection
   getUsers(){
@@ -151,40 +142,71 @@ export class FirestoreService {
       });
   }
 
+  getOnlyParentPosts(){
+    let options = {
+      ref: 'husqs', 
+      field: 'parentHusq', 
+      operator: '==', 
+      value: null
+    }
+    this.fetchCollectionWithFilter(options).subscribe((res: Post[]) => {
+      this.database._ParentPosts.next(res)
+      this.sortPosts();
+    })
+  }
+
   // Fetch all posts by uid
   getAllPostsByUid(uid){
     return this.firestore.collection('husqs', ref => ref.where('uid', '==', uid)).valueChanges();
   }
 
+  getPostReplies(pid){
+    // this.firestore.collection('husqs', ref => ref.where('parentHusq', '==', pid)).valueChanges().subscribe((data) => {
+      // console.log(data)
+    // })
+    return this.firestore.collection('husqs', ref => ref.where('parentHusq', '==', pid)).valueChanges();
+  }
 
-  // return ref.snapshotChanges().pipe(
-  //   map((changes) => {
-  //     return changes.map((snap) => {
-  //       const obj = snap.payload.doc.data();
-  //       obj.id = snap.payload.doc.id;
-  //       return obj;
-  //     });
-  //   }));
-  
 //   filterBy(categoriaToFilter: string) {
 //     this.avisos = this.afs.collection('avisos', ref => ref.where('categoria','==', categoriaToFilter )).valueChanges()
-
-//     return this.avisos;
-// };
 
 
   // ==================== //
   // -- CRUD Functions -- //
   // ==================== //
-  update(option: { item: any, ref: AngularFirestoreCollection<any> }) {
+  update(option: { item: any, ref: AngularFirestoreCollection<any>, docId: string }) {
     const promise = new Promise((resolve, reject) => {
 
       if (option.item) {
-        option.ref.doc(option.item.id)
+        option.ref.doc(option.docId)
           .update(option.item)
           .then(() => {
             console.log('firestoreService: update success');
-            resolve(option.item.id);
+            resolve(option.docId);
+          }).catch((err) => {
+            console.error('firestoreService: update: error: ', err);
+            reject(err);
+          });
+      } else {
+        console.log('firestoreService: update: wrong option! option: ', option);
+        reject();
+      }
+
+    });
+
+    return promise;
+  }
+
+  updateArray(option: { arrayKey: any, arrayValue: any, ref: AngularFirestoreCollection<any>, docId: string }) {
+    const promise = new Promise((resolve, reject) => {
+
+      if (option) {
+        let key: string = option.arrayKey
+        option.ref.doc(option.docId)
+          .update({key: firebase.firestore.FieldValue.arrayUnion(option.arrayValue)})
+          .then(() => {
+            console.log('firestoreService: update success');
+            resolve(option.docId);
           }).catch((err) => {
             console.error('firestoreService: update: error: ', err);
             reject(err);

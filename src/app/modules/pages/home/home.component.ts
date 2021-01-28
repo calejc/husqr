@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.firestoreService.observableDatabase.AllPosts$.subscribe((data: Post[]) => {
+    this.firestoreService.observableDatabase.ParentPosts$.subscribe((data: Post[]) => {
       this.posts = data;
     })
   }
@@ -45,6 +45,7 @@ export class HomeComponent implements OnInit {
         datetime: new Date().toLocaleString(),
         post: result.post,
         likes: 0,
+        parentHusq: '',
       }
       this.firestoreService.create({item: post, ref: this.firestoreService.collectionRefs.postsRef});
     });

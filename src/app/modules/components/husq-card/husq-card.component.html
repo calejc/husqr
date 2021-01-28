@@ -15,12 +15,13 @@
     <span class="husq-button"><i class="fa fa-thumbs-o-up fa-lg" (click)="likeButtonClicked()" [ngClass]="liked ? 'fa-thumbs-up' : 'fa-thumbs-o-up'" aria-hidden="true"></i></span>
     <span class="count">{{post.likes}}</span>
     <span *ngIf="!post.parentHusq;" class="husq-button"><i class="fa fa-comment-o fa-lg" (click)="replyButtonClicked(post.id, post)" aria-hidden="true"></i></span>
-    <!-- <span *ngIf="!post.parentHusq;" class="count">{{post.replies.length}}</span> -->
+    <span *ngIf="!post.parentHusq && post.replies;" class="count"></span>
   </mat-card-actions>
 
 
   <!-- REPLIES -->
-  <!-- <mat-accordion *ngIf="post.replies.length > 0;">
+  <mat-accordion *ngIf="postReplies && post.replies && post.replies.length > 0;">
+  <!-- <mat-accordion *ngIf="replies"> -->
     <mat-expansion-panel class="custom-header" hideToggle="true" #replies>
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -31,13 +32,17 @@
             <mat-icon *ngIf="replies.expanded">expand_less</mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <div *ngFor="let reply of replie$ | async">
-        <h5>{{reply.displayName}}</h5>
-        <h5>{{reply.username}}</h5>
-        <p>{{reply.post}}</p>
+      <div *ngIf="postReplies">
+        <h1>{{repType}}</h1>
+        <div *ngFor="let reply of postReplies">
+          <!-- <h5>{{reply}}</h5> -->
+          <h5>{{reply?.displayName}}</h5>
+          <h5>{{reply?.username}}</h5>
+          <p>{{reply?.post}}</p>
+        </div>
       </div>
     </mat-expansion-panel>
-  </mat-accordion> -->
+  </mat-accordion>
 
 
 </mat-card>

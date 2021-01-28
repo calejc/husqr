@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { HusqFormComponent } from '../husq-form/husq-form.component';
 import { Post } from 'src/app/core/data/types/post.interface';
@@ -25,41 +25,54 @@ export class HusqCardComponent implements OnInit {
     public firestoreService: FirestoreService) {
     }
 
-  @Input() post: Post;
-  @Input() user: User;
-  @Input() replie$: Observable<any[]>;
+  @Input() post: any;
+  user: User;
+  postReplies: Post[];
 
   newHusqReply(parentHusqId: string, post: Post){
-    // const uid = JSON.parse(localStorage.getItem("user")).uid
-    // const config = new MatDialogConfig();
-    // config.autoFocus = true;
-    // const dr = this.dialog.open(HusqFormComponent, config);
-    // dr.afterClosed().subscribe(result => {
-    //   let post: Post = {
-    //     uid: uid,
-    //     datetime: new Date().toLocaleString(),
-    //     post: result.post,
-    //     likes: 0,
-    //     parentHusq: parentHusqId,
-    //     // replies: []
-    //   }
-    //   this.firestoreService.createPost(post).then((docRef) => {
-    //     console.log(docRef.id);
-    //     let data = {
-    //       replies: [parentHusqId]
-    //     }
-    //     this.firestoreService.postsRef.doc(parentHusqId).update(data);
-    //   })
-    // });
-  }
+    const uid = this.user.uid
+    const config = new MatDialogConfig();
+    config.autoFocus = true;
+    const dr = this.dialog.open(HusqFormComponent, config);
+    dr.afterClosed().subscribe(result => {
+      let post: Post = {
+        uid: uid,
+        datetime: new Date().toLocaleString(),
+        post: result.post,
+        likes: 0,
+        parentHusq: parentHusqId,
+        // replies: []
+      }
+      this.firestoreService.create({item: post, ref: this.firestoreService.collectionRefs.postsRef}).then((docRef: any) => {
+        
+        let options = {
+          arrayKey: "replies",
+          arrayValue: docRef.id,
+          docId: parentHusqId, 
+          ref: this.firestoreService.collectionRefs.postsRef
+        }
+        this.firestoreService.updateArray(options)
+      })
 
-  getUser(){
-    this.user = this.firestoreService.getUserData(this.post.uid)
+      // this.firestoreService.createPost(post).then((docRef) => {
+        // console.log(docRef.id);
+        // let data = {
+          // replies: [parentHusqId]
+        // }
+        // this.firestoreService.postsRef.doc(parentHusqId).update(data);
+      // })
+    });
   }
-
 
   ngOnInit(): void {
-    this.getUser()
+    this.user = this.firestoreService.getUserData(this.post.uid)
+    console.log(this.post.id)
+    if (this.post.replies && this.post.replies.length > 0){
+      this.firestoreService.getPostReplies(this.post.id).subscribe((data: Post[]) => {
+        console.log("DATA", data)      
+        this.postReplies = data;
+      })
+    }
   }
 
   addLikes(): void{
