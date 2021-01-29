@@ -14,6 +14,7 @@ import { LoginComponent } from '../modules/pages/login/login.component';
 
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { SettingsComponent } from '../modules/pages/settings/settings.component';
+import { ReplyComponent } from '../modules/components/reply/reply.component';
 
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
@@ -39,7 +40,8 @@ const routes: Routes = [
     HusqCardComponent,
     HusqFormComponent, 
     LoginComponent,
-    SettingsComponent
+    SettingsComponent,
+    ReplyComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

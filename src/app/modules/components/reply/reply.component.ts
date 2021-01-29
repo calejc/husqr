@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FirestoreService } from 'src/app/core/services/firestore.service';
 
 @Component({
   selector: 'app-reply',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReplyComponent implements OnInit {
 
-  constructor() { }
+
+  @Input() reply: any;
+  user: any;
+
+  constructor(public firestoreService: FirestoreService) { 
+  }
 
   ngOnInit(): void {
+    this.user = this.firestoreService.getUserData(this.reply.uid)
   }
 
 }

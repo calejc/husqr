@@ -7,6 +7,7 @@ import { HusqFormComponent } from '../husq-form/husq-form.component';
 import { Post } from 'src/app/core/data/types/post.interface';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { User } from 'src/app/core/data/types/user.interface';
+import { ReplyComponent } from '../reply/reply.component';
 // import { User } from 'src/app/core/data/types/user.interface';
 
 @Component({
@@ -41,10 +42,8 @@ export class HusqCardComponent implements OnInit {
         post: result.post,
         likes: 0,
         parentHusq: parentHusqId,
-        // replies: []
       }
       this.firestoreService.create({item: post, ref: this.firestoreService.collectionRefs.postsRef}).then((docRef: any) => {
-        
         let options = {
           arrayKey: "replies",
           arrayValue: docRef.id,
@@ -53,14 +52,6 @@ export class HusqCardComponent implements OnInit {
         }
         this.firestoreService.updateArray(options)
       })
-
-      // this.firestoreService.createPost(post).then((docRef) => {
-        // console.log(docRef.id);
-        // let data = {
-          // replies: [parentHusqId]
-        // }
-        // this.firestoreService.postsRef.doc(parentHusqId).update(data);
-      // })
     });
   }
 

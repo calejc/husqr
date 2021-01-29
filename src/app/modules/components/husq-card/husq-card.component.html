@@ -20,7 +20,7 @@
 
 
   <!-- REPLIES -->
-  <mat-accordion *ngIf="postReplies && post.replies && post.replies.length > 0;">
+  <mat-accordion *ngIf="postReplies">
   <!-- <mat-accordion *ngIf="replies"> -->
     <mat-expansion-panel class="custom-header" hideToggle="true" #replies>
       <mat-expansion-panel-header>
@@ -32,14 +32,9 @@
             <mat-icon *ngIf="replies.expanded">expand_less</mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <div *ngIf="postReplies">
-        <h1>{{repType}}</h1>
-        <div *ngFor="let reply of postReplies">
-          <!-- <h5>{{reply}}</h5> -->
-          <h5>{{reply?.displayName}}</h5>
-          <h5>{{reply?.username}}</h5>
-          <p>{{reply?.post}}</p>
-        </div>
+      <div>
+        <app-reply *ngFor="let reply of postReplies" [reply]="reply">
+        </app-reply>
       </div>
     </mat-expansion-panel>
   </mat-accordion>
