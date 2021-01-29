@@ -4,7 +4,7 @@ import { FirestoreService } from 'src/app/core/services/firestore.service';
 @Component({
   selector: 'app-reply',
   templateUrl: './reply.component.html',
-  styleUrls: ['./reply.component.css']
+  styleUrls: ['./reply.component.scss']
 })
 export class ReplyComponent implements OnInit {
 

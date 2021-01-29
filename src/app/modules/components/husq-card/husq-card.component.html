@@ -2,8 +2,10 @@
   <mat-card-header style="margin-top:.5em;">
     <img mat-card-avatar src="{{user?.photoURL}}" alt="{{user.displayName}}">
     <!-- <img mat-card-avatar src="{{(user.photoURL) ? user.photoURL : '../../../../assets/images/default-img.png'}}" alt="{{user.displayName}}"> -->
-    <mat-card-title><a [routerLink]="['/profile']" [queryParams]="{uid: post.uid}">{{(user?.displayName) ? user.displayName : user.username}}</a></mat-card-title>
-    <mat-card-subtitle><a [routerLink]="['/profile']" [queryParams]="{uid: post.uid}">@{{user?.username}}</a></mat-card-subtitle>
+    <mat-card-title>
+      <a [routerLink]="['/profile']" [queryParams]="{uid: post.uid}">{{(user?.displayName) ? user.displayName : user.username}}</a>
+      <a class="card-username" [routerLink]="['/profile']" [queryParams]="{uid: post.uid}">@{{user?.username}}</a>
+    </mat-card-title>
     <mat-card-subtitle class="subtitle">{{ post?.datetime }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>

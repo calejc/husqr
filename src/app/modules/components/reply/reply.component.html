@@ -1,4 +1,7 @@
 <mat-card color="accent" *ngIf="reply">
-    <h1>@{{user?.username}}</h1>
-    <p>{{reply?.post}}</p>
+    <mat-card-header>
+        <img mat-card-avatar src="{{user?.photoURL}}" alt="{{user.displayName}}">
+        <mat-card-title><h3>@{{user?.username}}</h3></mat-card-title>
+    </mat-card-header>
+    <p class="reply-content">{{reply?.post}}</p>
 </mat-card>
