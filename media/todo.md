@@ -7,9 +7,8 @@
 - like/reply button need to update firestore
 - form validation for registration and settings page
 - two-way binding on settings page
-- theme service
-- should settings page show @username instead of @displayName?
 - component lifecycle? router "resolve"?
+- friends
 <br>
 <br>
 
