@@ -9,7 +9,6 @@ import firebase from 'firebase/app';
 import { map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore'
 import { FirestoreService } from 'src/app/core/services/firestore.service';
-import { User } from 'src/app/core/data/types/user.interface';
 
 @Component({
   selector: 'app-home',
@@ -45,7 +44,7 @@ export class HomeComponent implements OnInit {
         datetime: new Date().toLocaleString(),
         post: result.post,
         likes: 0,
-        parentHusq: '',
+        parentHusq: null,
       }
       this.firestoreService.create({item: post, ref: this.firestoreService.collectionRefs.postsRef});
     });

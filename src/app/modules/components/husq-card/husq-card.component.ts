@@ -78,6 +78,16 @@ export class HusqCardComponent implements OnInit {
   addLikes(): void{
     this.liked ? this.post.likes-- : this.post.likes++;
     // Update firestore here, setting new 'likes' total
+
+    let data = {
+      likes: this.post.likes
+    }
+    let options = {
+      item: data,
+      ref: this.firestoreService.collectionRefs.postsRef,
+      docId: this.post.id
+    }
+    this.firestoreService.update(options)
   }
 
   likeButtonClicked(){
