@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   // newHusqForm: FormGroup;
   users: any;
   posts: any;
+  user: any;
 
   constructor(
     public dialog: MatDialog, 
@@ -30,6 +31,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.firestoreService.observableDatabase.ParentPosts$.subscribe((data: Post[]) => {
       this.posts = data;
+    });
+    this.firestoreService.observableDatabase.User$.subscribe((data: any) => {
+      this.user = data;
     })
   }
 
@@ -40,7 +44,7 @@ export class HomeComponent implements OnInit {
     dr.afterClosed().subscribe(result => {
       let post: Post = {
         postId: null,
-        uid: this.auth.userState.uid,
+        uid: this.user.uid,
         datetime: new Date().toLocaleString(),
         post: result.post,
         likes: 0,
