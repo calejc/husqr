@@ -108,13 +108,13 @@ export class HusqCardComponent implements OnInit {
   // function to grab min since tweet (date - today)
   getTimeSincePost() {
     let diffTime =  Date.now() - Date.parse(this.post.datetime);
-    let diffTimeMin = Math.abs(Math.ceil(diffTime / (1000 * 60)));
+    let diffTimeMin = Math.abs(Math.floor(diffTime / (1000 * 60)));
     if (diffTimeMin >= 60) {
-      return (diffTimeMin / 60).toString() + "h";
+      return Math.floor((diffTimeMin / 60)).toString() + "h";
     } else if (diffTimeMin >= 1440) {
-      return (diffTimeMin / 1440).toString() + "d";
+      return Math.floor((diffTimeMin / 1440)).toString() + "d";
     } else if (diffTimeMin >= 10080) {
-      return (diffTimeMin / 10080).toString() + "w";
+      return Math.floor((diffTimeMin / 10080)).toString() + "w";
     } else {
       return diffTimeMin.toString() + "m";
     }

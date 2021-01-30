@@ -23,15 +23,18 @@
 }
 
 .timeline-container {
+    position: fixed;
     width: 35%;
     margin: auto;
-    margin-top: 154px;
+    top: 154px;
     z-index: 0;
     height: 80vh;
     overflow: scroll;
     background-color: $primary;
     padding: 30px;
     border-radius: 8px;
+    left: 50%;
+    transform: translateX(-50%);
 }
  .new-husq {
      background-color: $warn;
