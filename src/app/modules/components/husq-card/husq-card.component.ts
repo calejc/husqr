@@ -40,7 +40,7 @@ export class HusqCardComponent implements OnInit {
         uid: uid,
         datetime: new Date().toLocaleString(),
         post: result.post,
-        likes: 0,
+        likes: [],
         parentHusq: parentHusqId,
       }
       this.firestoreService.create({item: post, ref: this.firestoreService.collectionRefs.postsRef}).then((docRef: any) => {

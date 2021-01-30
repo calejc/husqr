@@ -69,7 +69,7 @@ export class AuthenticationService {
   }
 
   saveUserDataToCollection(user, username){
-    const userRef = this.angularFirestore.doc(`users/${username}`);
+    const userRef = this.angularFirestore.doc(`users/${user.uid}`);
     const userData: User = {
       uid: user.uid,
       email: user.email,
@@ -83,6 +83,10 @@ export class AuthenticationService {
     })
   }
 
+  saveUsername(username: string){
+    this.angularFirestore.collection("usernames").doc(username)
+  }
+
   // TODO: create custom authGuard service using isLoggedIn bool
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -90,19 +94,19 @@ export class AuthenticationService {
   }
 
 
-  register(email: string, password: string, username: string) {
-    this.afAuth
-      .createUserWithEmailAndPassword(email, password)
+  register(options: {email: string, password: string, username: string}) {
+    return this.afAuth
+      .createUserWithEmailAndPassword(options.email, options.password)
       .then(res => {
 
         // Send verification email here
         // this.sendVerificationEmail();
-
-        this.saveUserDataToCollection(res.user, username);
+        console.log(res.user.uid)
+        this.saveUserDataToCollection(res.user, options.username);
         console.log('Successfully signed up!', res);
         this.redirect('/settings')
       }).catch(error => {
-        console.log('Something is wrong:', error.message);
+        return error.code
       });    
   }
 
@@ -124,7 +128,7 @@ export class AuthenticationService {
         this.redirect('/');
       })
       .catch(err => {
-        console.log('Something is wrong:',err.message);
+        return err.code
       });
   }
 

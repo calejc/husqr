@@ -6,10 +6,6 @@
     margin-top:calc((100vh - 35em)/2);
 }
 
-.activeTab{
-    border-bottom: 2px solid $primary;
-}
-
 .mat-error{
     color:red;
     opacity:.6;
@@ -33,28 +29,6 @@ input{
     width:75%;
 }
 
-.action-tab{
-    font-size: larger;
-}
-
-.action-link{
-    color: black;
-    text-decoration: none;
-}
-
-.action-link:hover{
-    color: $primary;
-    cursor: pointer;
-}
-
-.action-link:active{
-    color: $primary;
-}
-
-.oauth-option{
-    color: black;
-    cursor: pointer;
-}
 .mat-form-field {
     display: inline;
 }

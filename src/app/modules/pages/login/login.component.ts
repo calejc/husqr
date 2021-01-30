@@ -17,9 +17,9 @@ import { FirestoreService } from 'src/app/core/services/firestore.service';
 export class LoginComponent implements OnInit {
 
   auth: FormGroup;
-  usernames: any;
-  username: any;
-  hide = true;
+  hide = true; // toggling boolean for hide/show password button
+  wrongPassword: any; // display a sepearate mat-error upon wrong password during sign in
+  emailInUse: any; // display a separate mat-error if email is already in use
 
   constructor(
     private authenticationService: AuthenticationService, 
@@ -28,51 +28,49 @@ export class LoginComponent implements OnInit {
     private afAuth: AngularFireAuth,
     private fb: FormBuilder,
     public validationService: ValidationService
-  ) {
-    // this.auth = this.fb.group({
-    //   email: new FormControl('', [Validators.required, Validators.email]),
-    //   password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    //   newEmail: new FormControl('', [Validators.required, Validators.email]),
-    //   newPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    //   confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    //   // username: new FormControl('', [Validators.required, validationService.takenUsernameValidation()])
-    // },
-    // {  
-    //   validator: this.validationService.MatchPassword('password', 'confirmPassword'),  
-    // }
-    // );
-  }
+  ) {  }
 
   ngOnInit(): void {
-    this.firestoreService.observableDatabase.Usernames$.subscribe((uname: any) => {
-      this.usernames = (uname.id)
-      console.log(this.usernames)
-    })
     this.auth = this.fb.group({
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      password: new FormControl('', [Validators.required]),
       newEmail: new FormControl('', [Validators.required, Validators.email]),
-      newPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      newPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
       confirmPassword: new FormControl('', [Validators.required]),
-      username: new FormControl('', [Validators.required], this.validationService.userNameValidator.bind(this.validationService))
+      username: new FormControl('', [Validators.required, Validators.minLength(3)], this.validationService.userNameValidator.bind(this.validationService))
     },
     {  
       validator: this.validationService.MatchPassword('newPassword', 'confirmPassword')
     }
     );
-    // this.setValidators();
   }
 
   login(){
-    this.authenticationService.signInWithEmail(this.auth.get('email').value, this.auth.get('password').value);
-    // this.email.setValue = null;
-    // this.password.setValue = null;
-    // this.password = '';
+    let res = this.authenticationService.signInWithEmail(this.auth.get('email').value, this.auth.get('password').value);
+    res.then((err) => {
+      if (err === "auth/wrong-password"){
+        this.wrongPassword = "Invalid password"
+      }
+    })
   }
 
   register(){
-    // console.log(this.newEmail.value, this.newPassword, this.username.value);
-    // this.authenticationService.register(this.newEmail.value, this.newPassword.value, this.username.value)
+    let options = {
+      email: this.auth.controls.newEmail.value,
+      password: this.auth.controls.newPassword.value,
+      username: this.auth.controls.username.value
+    }
+    let res = this.authenticationService.register(options)
+    res.then((err) => {
+      if (err === "auth/email-already-in-use"){
+        this.emailInUse = "Email already in use"
+      }
+    })
+
+    this.firestoreService.create({
+      item: this.auth.controls.username.value,
+      ref: this.firestoreService.collectionRefs.usernamesRef
+    })
   }
 
   redirect(): void{
@@ -94,18 +92,25 @@ export class LoginComponent implements OnInit {
 
 
   getUsernameErrorMessage(){
-    console.log("ERROR", this.auth.get('username').errors)
-    if (this.auth.get("username").hasError('required')){
+    if (this.auth.get('username').hasError('minlength')){
+      return "Must be at least 3 characters"
+    } else if (this.auth.get("username").hasError('required')){
       return "You must enter a value";
     }
     return this.auth.get("username").hasError("taken") ? 'Username already taken' : '';
   }
 
   getPasswordErrorMessage(){
-    if (this.auth.get('password').hasError('minLength') || this.auth.get('newPassword').hasError('minLength')){
+    if (this.auth.controls.password.hasError("required")){
+      return "Please enter password"
+    } 
+    return this.auth.controls.password.hasError('wrongPassword') ? "Incorrect password" : '';
+  }
+
+  getRegistrationPasswordErrorMessage(){
+    if (this.auth.get('newPassword').hasError('minlength')){
       return "Must be at least 8 characters"
-    }
-    else if (this.auth.get('newPassword').hasError('required') || this.auth.get('password').hasError('required')){
+    } else if (this.auth.get('newPassword').hasError('required')){
       return "Please enter password"
     } 
     return "Passwords must match"

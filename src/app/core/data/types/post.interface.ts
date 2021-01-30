@@ -3,7 +3,8 @@ export interface Post {
     uid: string;
     datetime: string;
     post: string;
-    likes: number;
+    // likes: number;
+    likes: string[];
     parentHusq?: string; 
     replies?: string[];
 }

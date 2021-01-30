@@ -19,6 +19,5 @@ export interface Database {
     'AllPosts$': Observable<Post[]>;
     'ParentPosts$': Observable<Post[]>;
     'PostsByUser$': Observable<Post[]>;
-    'Usernames$': Observable<any[]>;
     [x: string]: any;
   }

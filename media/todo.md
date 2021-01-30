@@ -3,6 +3,15 @@
 - Style profile view with user's data
     - Add username and image to header bar
 - like/reply button need to update firestore
+- style settings page? 
+    - restyle inputs to a more stylish box with a pencil edit button
+- function for collection query with 2 filters 
+- refactor observableDatabase
+    - ParentPosts$ and ReplyPosts$, remove AllPosts$
+    - remove observable of usernames. this doesn't need to be exposed as a data stream
+- on account creation, username doc needs to be created
+- error messages for fire auth methods (email-already-in-use ,, wrong-password)
+- Progress spinner
 - component lifecycle? router "resolve"?
 - friends
 <br>

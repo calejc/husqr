@@ -11,10 +11,10 @@ import { ProfileComponent } from '../modules/pages/profile/profile.component';
 import { HusqCardComponent } from '../modules/components/husq-card/husq-card.component';
 import { HusqFormComponent } from '../modules/components/husq-form/husq-form.component';
 import { LoginComponent } from '../modules/pages/login/login.component';
-
-import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
-import { SettingsComponent } from '../modules/pages/settings/settings.component';
 import { ReplyComponent } from '../modules/components/reply/reply.component';
+import { SettingsComponent } from '../modules/pages/settings/settings.component';
+
+// import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
@@ -27,8 +27,7 @@ const routes: Routes = [
   {path: 'friends', component: FriendsComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}},
   {path: 'profile', component: ProfileComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}},
   {path: 'login', component: LoginComponent},
-  {path: 'settings', component: SettingsComponent}
-  // {path: 'profile', component: SettingsComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}},
+  {path: 'settings', component: SettingsComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}}
 ];
 
 
@@ -46,13 +45,13 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     SharedModule, 
-    NgxAuthFirebaseUIModule.forRoot(environment.firebase, () => 'husqr-1074b', {
-      enableFirestoreSync: true,
-      toastMessageOnAuthSuccess: true,
-      toastMessageOnAuthError: true,
-      authGuardFallbackURL: 'examples/logged-out',
-      authGuardLoggedInURL: 'examples/logged-in', 
-    })
+    // NgxAuthFirebaseUIModule.forRoot(environment.firebase, () => 'husqr-1074b', {
+    //   enableFirestoreSync: true,
+    //   toastMessageOnAuthSuccess: true,
+    //   toastMessageOnAuthError: true,
+    //   authGuardFallbackURL: 'examples/logged-out',
+    //   authGuardLoggedInURL: 'examples/logged-in', 
+    // })
   ],
   exports: [RouterModule]
 })

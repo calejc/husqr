@@ -54,17 +54,16 @@ export class FirestoreService {
         AllPosts$: this.database._AllPosts.asObservable(),
         ParentPosts$: this.database._ParentPosts.asObservable(),
         PostsByUser$: this.database._PostsByUser.asObservable(),
-        Usernames$: this.database._Usernames.asObservable()
       };
       this.initDatabase();
   }
 
 
-  // Only subscribes to firestore if user is logged in
   initDatabase() {
+    // Call usernames collection in order to verify available username during registration
+    // Subscribe to the rest of the database upon user logging in
     this.getUsernames()
     this.auth.user$
-    // this.auth.userState
       .subscribe((user) => {
         console.log('firestoreService: initDatabase: user: ', user);
         if (user) {
@@ -74,7 +73,6 @@ export class FirestoreService {
           this.getAllPosts()
           this.getOnlyParentPosts()
           this.getUsers()
-          // this.getUsernames()
         } 
       })
   }

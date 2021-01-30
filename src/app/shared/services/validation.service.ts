@@ -8,6 +8,7 @@ import { FirestoreService } from 'src/app/core/services/firestore.service';
 })
 export class ValidationService {
 
+  authPasswordError: any;
 
   constructor(public firestoreService: FirestoreService) {
   }
@@ -20,7 +21,7 @@ export class ValidationService {
         } else {  
           resolve(null);  
         }  
-      }, 1000);  
+      }, 500);  
     });  
   }  
 
@@ -45,31 +46,25 @@ export class ValidationService {
     }  
   }
 
-  matchValues(matchTo: string): (AbstractControl) => ValidationErrors | null {
-    return (control: AbstractControl): ValidationErrors | null => {
-      return !!control.parent &&
-        !!control.parent.value &&
-        control.value === control.parent.controls[matchTo].value
-        ? null
-        : { isMatching: false };
-    };
+  wrongPassword(control: AbstractControl){
+    // if (this.authPasswordError){
+    //   return { wrongPassword: true}
+    // } else {
+    //   return null
+    // }
+    return new Promise(resolve => {  
+      setTimeout(() => {  
+        if (this.authPasswordError) {  
+          resolve({ wrongPassword: true });  
+        } else {  
+          resolve(null);  
+        }  
+      }, 100);  
+    });
   }
-  checkPasswords(group: FormGroup) { // here we have the 'passwords' group
-    const password = group.get('newPassword').value;
-    const confirmPassword = group.get('confirmPassword').value;
 
-    return password === confirmPassword ? null : { notSame: true }     
+  setAuthPasswordError(param: string){
+    this.authPasswordError = param;
   }
-  
 
-  //   return (inputControl: AbstractControl): { [key: string]: boolean } | null => {
-  //     if (inputControl.value !== undefined
-  //       && inputControl.value.trim() != ""
-  //       && inputControl.value !== otherInputControl.value) {
-  //       return { 'mismatch': true };
-  //     }
-
-  //     return null;
-  //   };
-  // }
 }
