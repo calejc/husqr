@@ -27,7 +27,8 @@ export class FirestoreService {
   // Firestore collection references
   public collectionRefs = {
     usersRef: this.firestore.collection<User>('users'),
-    postsRef: this.firestore.collection<Post>('husqs')
+    postsRef: this.firestore.collection<Post>('husqs'),
+    usernamesRef: this.firestore.collection<String>('usernames')
   };
 
 
@@ -37,7 +38,8 @@ export class FirestoreService {
     _Users: new BehaviorSubject([]),
     _AllPosts: new BehaviorSubject([]),
     _ParentPosts: new BehaviorSubject([]),
-    _PostsByUser: new BehaviorSubject([])
+    _PostsByUser: new BehaviorSubject([]),
+    _Usernames: new BehaviorSubject([])
   }
   
 
@@ -51,16 +53,16 @@ export class FirestoreService {
         Users$: this.database._Users.asObservable(),
         AllPosts$: this.database._AllPosts.asObservable(),
         ParentPosts$: this.database._ParentPosts.asObservable(),
-        PostsByUser$: this.database._PostsByUser.asObservable()
+        PostsByUser$: this.database._PostsByUser.asObservable(),
+        Usernames$: this.database._Usernames.asObservable()
       };
       this.initDatabase();
-      // this.getAllPosts();
-      // this.getUsers();
   }
 
 
   // Only subscribes to firestore if user is logged in
   initDatabase() {
+    this.getUsernames()
     this.auth.user$
     // this.auth.userState
       .subscribe((user) => {
@@ -72,6 +74,7 @@ export class FirestoreService {
           this.getAllPosts()
           this.getOnlyParentPosts()
           this.getUsers()
+          // this.getUsernames()
         } 
       })
   }
@@ -140,6 +143,12 @@ export class FirestoreService {
         this.database._AllPosts.next(res);
         this.sortPosts();
       });
+  }
+
+  getUsernames(){
+    this.fetchCollection(this.collectionRefs.usernamesRef).subscribe((res: any[]) => {
+      this.database._Usernames.next(res)
+    })
   }
 
   getOnlyParentPosts(){
@@ -291,6 +300,10 @@ export class FirestoreService {
     // this.firestoreService.getUserById(this.userState.uid);
     return this.database._Users.value.find((user) => user.uid === uid)
     // console.log(uid);
+  }
+
+  checkUsername(username: string){
+    return this.database._Usernames.value.find((user) => user.id === username) ? true : false
   }
 
 

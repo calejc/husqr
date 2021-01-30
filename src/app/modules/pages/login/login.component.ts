@@ -4,7 +4,9 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthProvider, Theme } from 'ngx-auth-firebaseui';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { ValidationService } from '../../../shared/services/validation.service';
+import { FirestoreService } from 'src/app/core/services/firestore.service';
 
 
 @Component({
@@ -14,70 +16,98 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors,
 })
 export class LoginComponent implements OnInit {
 
-  email = new FormControl('', [Validators.required, Validators.email]);
-  newUser: FormGroup;
+  auth: FormGroup;
+  usernames: any;
+  username: any;
   hide = true;
-  // providers = AuthProvider;
-  // themes = Theme;
-
-  actionTab = "login"
-  password: string;
-  // password = new FormControl('', Validators.required);
-  // newPassword = new FormControl('', [Validators.required, Validators.minLength(8)]);
-  newPassword: string;
-  username: string;
-  // "node_modules/bootstrap/dist/css/bootstrap.css",
-  // "@ng-bootstrap/ng-bootstrap": "^9.0.1",
-  // "bootstrap": "^4.5.0",
 
   constructor(
     private authenticationService: AuthenticationService, 
     private router: Router, 
+    public firestoreService: FirestoreService,
     private afAuth: AngularFireAuth,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public validationService: ValidationService
   ) {
-    console.log(authenticationService.userState)
-    // this.newUser = this.fb.group({
-
-    //   password: [undefined, [Validators.required]],
-    //   confirmPassword: [undefined, 
-    //           [
-    //             Validators.required,
-    //             this.matchValues('password'),
-    //           ],
-    //         ],
-    //   });
+    // this.auth = this.fb.group({
+    //   email: new FormControl('', [Validators.required, Validators.email]),
+    //   password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    //   newEmail: new FormControl('', [Validators.required, Validators.email]),
+    //   newPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    //   confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    //   // username: new FormControl('', [Validators.required, validationService.takenUsernameValidation()])
+    // },
+    // {  
+    //   validator: this.validationService.MatchPassword('password', 'confirmPassword'),  
+    // }
+    // );
   }
 
   ngOnInit(): void {
+    this.firestoreService.observableDatabase.Usernames$.subscribe((uname: any) => {
+      this.usernames = (uname.id)
+      console.log(this.usernames)
+    })
+    this.auth = this.fb.group({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      newEmail: new FormControl('', [Validators.required, Validators.email]),
+      newPassword: new FormControl('', [Validators.required]),
+      confirmPassword: new FormControl('', [Validators.required]),
+      username: new FormControl('', [Validators.required], this.validationService.userNameValidator.bind(this.validationService))
+    },
+    {  
+      validator: this.validationService.MatchPassword('newPassword', 'confirmPassword')
+    }
+    );
+    // this.setValidators();
   }
 
-  toggleTab(tab): void{
-    this.actionTab = tab;
+  setValidators(){
+    // const validators = {
+      // "username": Validators.compose([Validators.required, ValidationService.takenUsernameValidation])
+    // }
+    // this.auth.get("username").setValidators(validators['username'])
   }
 
   login(){
-    this.authenticationService.signInWithEmail(this.email.value, this.password);
+    // this.authenticationService.signInWithEmail(this.email.value, this.password.value);
     // this.email.setValue = null;
     // this.password.setValue = null;
     // this.password = '';
   }
 
   register(){
-    console.log(this.email.value, this.newPassword, this.username);
-    this.authenticationService.register(this.email.value, this.newPassword, this.username)
+    // console.log(this.newEmail.value, this.newPassword, this.username.value);
+    // this.authenticationService.register(this.newEmail.value, this.newPassword.value, this.username.value)
   }
 
   redirect(): void{
     this.router.navigate(['/'])
   }
 
-  getErrorMessage() {
-    if (this.email.hasError('required')) {
+  getEmailErrorMessage() {
+    if (this.auth.get("email").hasError('required')) {
       return 'You must enter a value';
     }
 
-    return this.email.hasError('email') ? 'Not a valid email' : '';
+    return this.auth.get("email").hasError('email') ? 'Not a valid email' : '';
+  }
+
+
+  getUsernameErrorMessage(){
+    console.log("ERROR", this.auth.get('username').errors)
+    if (this.auth.get("username").hasError('required')){
+      return "You must enter a value";
+    }
+    return this.auth.get("username").hasError("taken") ? 'Username already taken' : '';
+  }
+
+  getPasswordErrorMessage(){
+    if (this.auth.get('newPassword').hasError('required')){
+      return "Please enter password"
+    }
+    return "Passwords must match"
   }
 
   //https://stackoverflow.com/questions/51605737/confirm-password-validation-in-angular-6
@@ -89,6 +119,11 @@ export class LoginComponent implements OnInit {
         ? null
         : { isMatching: false };
     };
-}
+  }
+
+  // get email(){
+  //   return this.auth.get("email")
+  // }
+
 
 }

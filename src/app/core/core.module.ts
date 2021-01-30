@@ -13,6 +13,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SharedModule } from '../shared/shared.module';
 import { AuthenticationService } from '../core/services/authentication.service';
 import { FirestoreService } from './services/firestore.service';
+import { ValidationService } from '../shared/services/validation.service';
 
 
 @NgModule({
