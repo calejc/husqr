@@ -16,7 +16,7 @@
                     <img mat-card-avatar src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}" alt="{{user.displayName}}">
                 </div>
                 <div class="user-items">
-                    <h1 style="display: table-cell; vertical-align: center;"><strong>@{{(user?.displayName) ? user.displayName : 'User'}}</strong></h1>
+                    <h1 style="display: table-cell; vertical-align: center;"><strong>{{(user?.displayName) ? user.displayName : '@'+user.username}}</strong></h1>
                 </div>
             </div>
             <div class="row">
