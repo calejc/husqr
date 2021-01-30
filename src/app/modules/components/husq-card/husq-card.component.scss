@@ -41,7 +41,7 @@ i:hover{
 }
 
 .mat-expansion-panel{
-    background: #222d32;
+    background: $primary;
     color:white;
 }
 
@@ -84,4 +84,15 @@ i:hover{
 
 .mat-expansion-panel-header-description {
     display: block;   
+}
+
+.card-username {
+    color: #808080;
+    font-size: 16px;
+    margin-left: 0.75em;
+    vertical-align: middle;
+}
+.mat-card-title {
+    display: flex;
+    align-items: center;
 }

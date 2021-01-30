@@ -1,0 +1,12 @@
+@import 'src/app/styles/theme.scss';
+
+.mat-card {
+   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px inset, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px inset, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+   margin-bottom: 1.5em;
+   background: #121212;
+   color: #e5e4e2;
+}
+
+.reply-content {
+   margin: auto 0 auto 0.75em;
+}

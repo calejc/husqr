@@ -8,6 +8,7 @@ import { Post } from 'src/app/core/data/types/post.interface';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { User } from 'src/app/core/data/types/user.interface';
 import { ReplyComponent } from '../reply/reply.component';
+import { WeekDay } from '@angular/common';
 // import { User } from 'src/app/core/data/types/user.interface';
 
 @Component({
@@ -97,5 +98,10 @@ export class HusqCardComponent implements OnInit {
     this.newHusqReply(postId, post);
   }
 
+  // function to grab min since tweet (date - today)
+  // getTimeSincePost() {
+  //   let diffTime =  Date.parse(this.post.datetime) - Date.now();
+  //   return diffTime = Math.abs(Math.ceil(diffTime / (1000 * 60)));
+  // }
 
 }
