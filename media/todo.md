@@ -8,7 +8,6 @@
 - style 'close' button on newHusq dialog
 - style settings page? 
     - restyle inputs to a more stylish box with a pencil edit button
-- function for collection query with 2 filters 
 - Progress spinner
 - component lifecycle? router "resolve"?
 - friends
@@ -37,3 +36,4 @@
 - ~~error messages for fire auth methods (email-already-in-use ,, wrong-password)~~
 - ~~refactor observableDatabase~~
     - ~~ParentPosts$ and ReplyPosts$, remove AllPosts$~~
+- ~~function for collection query with 2 filters~~
