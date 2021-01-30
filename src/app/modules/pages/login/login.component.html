@@ -42,7 +42,7 @@
                                     <mat-form-field appearance="fill">
                                         <input matInput class="w-75 mx-auto" type="email" placeholder="Email" formControlName="newEmail" required>
                                         <div class="mat-error" *ngIf="auth.get('newEmail').invalid && auth.get('newEmail').touched">{{getEmailErrorMessage()}}</div>
-                                        <div class="mat-error" *ngIf="emailTaken">{{emailInUse}}</div>
+                                        <div class="mat-error" *ngIf="emailInUse">{{emailInUse}}</div>
                                     </mat-form-field>
                                 </div>
                             </div>
