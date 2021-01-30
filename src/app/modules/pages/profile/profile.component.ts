@@ -23,9 +23,9 @@ export class ProfileComponent implements OnInit {
       this.user = this.firestoreService.getUserData(this.id);
       this.userPost$ = this.firestoreService.getAllPostsByUid(this.id);
     });
-    console.log("this.id: ", this.id);
+    // console.log("this.id: ", this.id);
     
-    console.log(this.user);
+    // console.log(this.user);
     
   }
 
