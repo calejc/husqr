@@ -1,12 +1,8 @@
 *TODO:*
 
-
-- Show replies on husq card
 - Style profile view with user's data
     - Add username and image to header bar
 - like/reply button need to update firestore
-- form validation for registration and settings page
-- two-way binding on settings page
 - component lifecycle? router "resolve"?
 - friends
 <br>
@@ -27,3 +23,6 @@
 - ~~union users and post array~~
 - ~~make userPosts come through on Profile~~
 - ~~Settings page~~
+- ~~form validation for registration and settings page~~
+- ~~two-way binding on settings page~~
+- ~~Show replies on husq card~~
