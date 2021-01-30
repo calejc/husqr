@@ -57,13 +57,14 @@ export class HusqCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.firestoreService.getUserData(this.post.uid)
-    console.log(this.post.id)
-    if (this.post.replies && this.post.replies.length > 0){
-      this.firestoreService.getPostReplies(this.post.id).subscribe((data: Post[]) => {
-        console.log("DATA", data)      
-        this.postReplies = data;
-      })
-    }
+    console.log("PID: ", this.post.id)
+    console.log("post: ", this.post.post)
+    // if (this.post.replies && this.post.replies.length > 0){
+    //   this.firestoreService.getPostReplies(this.post.id).subscribe((data: Post[]) => {
+    //     console.log("DATA", data)      
+    //     this.postReplies = data;
+    //   })
+    // }
   }
 
   addLikes(): void{

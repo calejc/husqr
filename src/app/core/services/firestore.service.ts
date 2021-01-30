@@ -166,7 +166,18 @@ export class FirestoreService {
 
   // Fetch all posts by uid
   getAllPostsByUid(uid){
-    return this.firestore.collection('husqs', ref => ref.where('uid', '==', uid)).valueChanges();
+    // return this.firestore.collection('husqs', ref => ref.where('uid', '==', uid)).valueChanges();
+    let options = {
+      ref: 'husqs', 
+      field: 'uid', 
+      operator: '==', 
+      value: uid
+    }
+    return this.fetchCollectionWithFilter(options)
+    
+    // this.fetchCollectionWithFilter(options).subscribe((res: Post[]) => {
+
+    // })
   }
 
   getPostReplies(pid){

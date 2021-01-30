@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       newEmail: new FormControl('', [Validators.required, Validators.email]),
-      newPassword: new FormControl('', [Validators.required]),
+      newPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
       confirmPassword: new FormControl('', [Validators.required]),
       username: new FormControl('', [Validators.required], this.validationService.userNameValidator.bind(this.validationService))
     },
@@ -63,15 +63,8 @@ export class LoginComponent implements OnInit {
     // this.setValidators();
   }
 
-  setValidators(){
-    // const validators = {
-      // "username": Validators.compose([Validators.required, ValidationService.takenUsernameValidation])
-    // }
-    // this.auth.get("username").setValidators(validators['username'])
-  }
-
   login(){
-    // this.authenticationService.signInWithEmail(this.email.value, this.password.value);
+    this.authenticationService.signInWithEmail(this.auth.get('email').value, this.auth.get('password').value);
     // this.email.setValue = null;
     // this.password.setValue = null;
     // this.password = '';
@@ -86,11 +79,16 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/'])
   }
 
+
+
+
+  // ---------------------- //
+  // --  Error Messages  -- //
+  // ---------------------- //
   getEmailErrorMessage() {
     if (this.auth.get("email").hasError('required')) {
       return 'You must enter a value';
     }
-
     return this.auth.get("email").hasError('email') ? 'Not a valid email' : '';
   }
 
@@ -104,26 +102,14 @@ export class LoginComponent implements OnInit {
   }
 
   getPasswordErrorMessage(){
-    if (this.auth.get('newPassword').hasError('required')){
-      return "Please enter password"
+    if (this.auth.get('password').hasError('minLength') || this.auth.get('newPassword').hasError('minLength')){
+      return "Must be at least 8 characters"
     }
+    else if (this.auth.get('newPassword').hasError('required') || this.auth.get('password').hasError('required')){
+      return "Please enter password"
+    } 
     return "Passwords must match"
   }
-
-  //https://stackoverflow.com/questions/51605737/confirm-password-validation-in-angular-6
-  matchValues(matchTo: string): (AbstractControl) => ValidationErrors | null {
-    return (control: AbstractControl): ValidationErrors | null => {
-      return !!control.parent &&
-        !!control.parent.value &&
-        control.value === control.parent.controls[matchTo].value
-        ? null
-        : { isMatching: false };
-    };
-  }
-
-  // get email(){
-  //   return this.auth.get("email")
-  // }
 
 
 }
