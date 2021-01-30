@@ -29,6 +29,7 @@ export class HusqCardComponent implements OnInit {
 
   @Input() post: any;
   user: User;
+  likes: any;
   postReplies: Post[];
   currentUser: any;
 
@@ -59,12 +60,8 @@ export class HusqCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.firestoreService.getUserData(this.post.uid)
-    console.log("PID: ", this.post.id)
-    // console.log("post: ", this.post.post)
-    console.log("replies", this.post.replies)
     if (this.post.replies && this.post.replies.length > 0){
       this.firestoreService.getPostReplies(this.post.id).subscribe((data: Post[]) => {
-        console.log("DATA", data)      
         this.postReplies = data;
       })
     }
@@ -76,18 +73,12 @@ export class HusqCardComponent implements OnInit {
   }
 
   addLikes(): void{
-    this.liked ? this.post.likes-- : this.post.likes++;
-    // Update firestore here, setting new 'likes' total
-
     let data = {
-      likes: this.post.likes
-    }
-    let options = {
-      item: data,
+      arrayValue: this.currentUser.uid,
       ref: this.firestoreService.collectionRefs.postsRef,
       docId: this.post.id
     }
-    this.firestoreService.update(options)
+    this.firestoreService.updateLikes(data)
   }
 
   likeButtonClicked(){
