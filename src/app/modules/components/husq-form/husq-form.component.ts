@@ -29,7 +29,7 @@ export class HusqFormComponent implements OnInit {
   }
 
   close(): void{
-      this.dr.close();
+    this.dr.close();
   }
 
   onNoClick(): void {
