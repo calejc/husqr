@@ -6,7 +6,7 @@
       <a [routerLink]="['/profile']" [queryParams]="{uid: post.uid}">{{(user?.displayName) ? user.displayName : user.username}}</a>
       <a class="card-username" [routerLink]="['/profile']" [queryParams]="{uid: post.uid}">@{{user?.username}}</a>
     </mat-card-title>
-    <mat-card-subtitle class="subtitle">{{ getTimeSincePost() }}</mat-card-subtitle>
+    <mat-card-subtitle class="subtitle post-time">{{ getTimeSincePost() }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <p>
