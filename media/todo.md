@@ -1,9 +1,9 @@
 *TODO:*
 
 - Sort posts
-- Style profile view with user's data
-    - Add username and image to header bar
-    - cards don't go full width?
+- ~~Style profile view with user's data~~
+    - ~~Add username and image to header bar~~
+    - ~~cards don't go full width?~~
 - like/reply button need to update firestore
 - style 'close' button on newHusq dialog
 - style settings page? 

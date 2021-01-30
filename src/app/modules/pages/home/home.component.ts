@@ -41,6 +41,8 @@ export class HomeComponent implements OnInit {
     const config = new MatDialogConfig();
     config.autoFocus = true;
     config.disableClose = false;
+    config.minWidth = 250;
+    config.minHeight = 250;
     const dr = this.dialog.open(HusqFormComponent, config);
     dr.afterClosed().subscribe(result => {
       let post: Post = {
