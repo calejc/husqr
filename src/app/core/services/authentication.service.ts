@@ -84,7 +84,10 @@ export class AuthenticationService {
   }
 
   saveUsername(username: string){
-    this.angularFirestore.collection("usernames").doc(username)
+    const data = {
+      active: true
+    }
+    const usernamesRef = this.angularFirestore.doc(`usernames/${username}`).set(data);
   }
 
   // TODO: create custom authGuard service using isLoggedIn bool
@@ -99,10 +102,13 @@ export class AuthenticationService {
       .createUserWithEmailAndPassword(options.email, options.password)
       .then(res => {
 
+
         // Send verification email here
         // this.sendVerificationEmail();
-        console.log(res.user.uid)
+
+
         this.saveUserDataToCollection(res.user, options.username);
+        this.saveUsername(options.username)
         console.log('Successfully signed up!', res);
         this.redirect('/settings')
       }).catch(error => {

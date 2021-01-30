@@ -55,6 +55,10 @@ export class LoginComponent implements OnInit {
   }
 
   register(){
+    this.firestoreService.create({
+      item: this.auth.controls.username.value,
+      ref: this.firestoreService.collectionRefs.usernamesRef
+    })
     let options = {
       email: this.auth.controls.newEmail.value,
       password: this.auth.controls.newPassword.value,
@@ -65,11 +69,6 @@ export class LoginComponent implements OnInit {
       if (err === "auth/email-already-in-use"){
         this.emailInUse = "Email already in use"
       }
-    })
-
-    this.firestoreService.create({
-      item: this.auth.controls.username.value,
-      ref: this.firestoreService.collectionRefs.usernamesRef
     })
   }
 
