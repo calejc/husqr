@@ -30,9 +30,11 @@ export class HusqCardComponent implements OnInit {
   @Input() post: any;
   user: User;
   postReplies: Post[];
+  currentUser: any;
 
   newHusqReply(parentHusqId: string, post: Post){
-    const uid = this.user.uid
+    const uid = this.currentUser.uid
+    console.log("THIS USER: ", uid)
     const config = new MatDialogConfig();
     config.autoFocus = true;
     const dr = this.dialog.open(HusqFormComponent, config);
@@ -46,26 +48,29 @@ export class HusqCardComponent implements OnInit {
       }
       this.firestoreService.create({item: post, ref: this.firestoreService.collectionRefs.postsRef}).then((docRef: any) => {
         let options = {
-          arrayKey: "replies",
           arrayValue: docRef.id,
           docId: parentHusqId, 
           ref: this.firestoreService.collectionRefs.postsRef
         }
-        this.firestoreService.updateArray(options)
+        this.firestoreService.updateReplies(options)
       })
     });
   }
 
   ngOnInit(): void {
     this.user = this.firestoreService.getUserData(this.post.uid)
-    // console.log("PID: ", this.post.id)
+    console.log("PID: ", this.post.id)
     // console.log("post: ", this.post.post)
-    // if (this.post.replies && this.post.replies.length > 0){
-    //   this.firestoreService.getPostReplies(this.post.id).subscribe((data: Post[]) => {
-    //     console.log("DATA", data)      
-    //     this.postReplies = data;
-    //   })
-    // }
+    console.log("replies", this.post.replies)
+    if (this.post.replies && this.post.replies.length > 0){
+      this.firestoreService.getPostReplies(this.post.id).subscribe((data: Post[]) => {
+        console.log("DATA", data)      
+        this.postReplies = data;
+      })
+    }
+    this.firestoreService.observableDatabase.User$.subscribe((user) =>{
+      this.currentUser = user;
+    })
 
     this.getTimeSincePost();
   }

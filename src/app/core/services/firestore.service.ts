@@ -142,7 +142,6 @@ export class FirestoreService {
     this.fetchCollection(this.collectionRefs.postsRef)
       .subscribe((res: Post[]) => {
         this.database._AllPosts.next(res);
-        console.log("All posts: ",res.length)
         this.sortPosts();
       });
   }
@@ -150,7 +149,6 @@ export class FirestoreService {
   getUsernames(){
     this.fetchCollection(this.collectionRefs.usernamesRef).subscribe((res: any[]) => {
       this.database._Usernames.next(res)
-      console.log("usernames: ",res.length)
     })
   }
 
@@ -163,7 +161,6 @@ export class FirestoreService {
     }
     this.fetchCollectionWithFilter(options).subscribe((res: Post[]) => {
       this.database._ParentPosts.next(res)
-      console.log("Parents: ",res.length)
       this.sortPosts();
     })
   }
@@ -177,7 +174,6 @@ export class FirestoreService {
     }
     this.fetchCollectionWithFilter(options).subscribe((res: Post[]) => {
       this.database._ReplyPosts.next(res)
-      console.log("Replies: ",res.length)
       // this.sortPosts();
     })
   }
@@ -232,22 +228,44 @@ export class FirestoreService {
     return promise;
   }
 
-  updateArray(option: { arrayKey: any, arrayValue: any, ref: AngularFirestoreCollection<any>, docId: string }) {
+  updateReplies(options: {arrayValue: any, ref: AngularFirestoreCollection<any>, docId: string}) {
     const promise = new Promise((resolve, reject) => {
 
-      if (option) {
-        let key: string = option.arrayKey
-        option.ref.doc(option.docId)
-          .update({key: firebase.firestore.FieldValue.arrayUnion(option.arrayValue)})
+      if (options) {
+        options.ref.doc(options.docId)
+          .update({replies: firebase.firestore.FieldValue.arrayUnion(options.arrayValue)})
           .then(() => {
             console.log('firestoreService: update success');
-            resolve(option.docId);
+            resolve(options.docId);
           }).catch((err) => {
             console.error('firestoreService: update: error: ', err);
             reject(err);
           });
       } else {
-        console.log('firestoreService: update: wrong option! option: ', option);
+        console.log('firestoreService: update: wrong option! option: ', options);
+        reject();
+      }
+
+    });
+
+    return promise;
+  }
+
+  updateLikes(options: {arrayValue: any, ref: AngularFirestoreCollection<any>, docId: string}) {
+    const promise = new Promise((resolve, reject) => {
+
+      if (options) {
+        options.ref.doc(options.docId)
+          .update({likes: firebase.firestore.FieldValue.arrayUnion(options.arrayValue)})
+          .then(() => {
+            console.log('firestoreService: update success');
+            resolve(options.docId);
+          }).catch((err) => {
+            console.error('firestoreService: update: error: ', err);
+            reject(err);
+          });
+      } else {
+        console.log('firestoreService: update: wrong option! option: ', options);
         reject();
       }
 
