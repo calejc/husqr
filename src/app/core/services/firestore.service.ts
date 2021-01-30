@@ -326,7 +326,8 @@ export class FirestoreService {
 
   // Sort posts by datetime
   sortPosts(): void {
-    this.database._AllPosts.value.sort((a, b) => Date.parse(b.datetime) - Date.parse(a.datetime));
+    this.database._ParentPosts.value.sort((a, b) => Date.parse(b.datetime) - Date.parse(a.datetime));
+    this.database._ReplyPosts.value.sort((a, b) => Date.parse(b.datetime) - Date.parse(a.datetime));
   }
 
   // Timeline will not display 'replies' in the scrolling timeline container.
