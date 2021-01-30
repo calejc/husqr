@@ -27,11 +27,6 @@ export class ProfileComponent implements OnInit {
     
     console.log(this.user);
     
-    // this.user = this.usersService.getUserById(this.id);
-    // this.userPost$ = this.timelineService.getPostsByUser(this.id);
-    // console.log(this.id);
-    // console.log(this.sub);
-    // console.log(this.userPost$);
   }
 
 }

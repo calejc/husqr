@@ -37,6 +37,7 @@ export class FirestoreService {
     _User: new BehaviorSubject(null),
     _Users: new BehaviorSubject([]),
     _AllPosts: new BehaviorSubject([]),
+    _ReplyPosts: new BehaviorSubject([]),
     _ParentPosts: new BehaviorSubject([]),
     _PostsByUser: new BehaviorSubject([]),
     _Usernames: new BehaviorSubject([])
@@ -52,6 +53,7 @@ export class FirestoreService {
         User$: this.database._User.asObservable(),
         Users$: this.database._Users.asObservable(),
         AllPosts$: this.database._AllPosts.asObservable(),
+        ReplyPosts$: this.database._AllPosts.asObservable(),
         ParentPosts$: this.database._ParentPosts.asObservable(),
         PostsByUser$: this.database._PostsByUser.asObservable(),
       };
@@ -70,8 +72,9 @@ export class FirestoreService {
           // If logged in, update user and fetch data 
           this.database._User.next(user);
           this.userData = this.getUserData(user.uid)
-          this.getAllPosts()
-          this.getOnlyParentPosts()
+          // this.getAllPosts()
+          this.getParentPosts()
+          this.getReplyPosts()
           this.getUsers()
         } 
       })
@@ -139,6 +142,7 @@ export class FirestoreService {
     this.fetchCollection(this.collectionRefs.postsRef)
       .subscribe((res: Post[]) => {
         this.database._AllPosts.next(res);
+        console.log("All posts: ",res.length)
         this.sortPosts();
       });
   }
@@ -146,10 +150,11 @@ export class FirestoreService {
   getUsernames(){
     this.fetchCollection(this.collectionRefs.usernamesRef).subscribe((res: any[]) => {
       this.database._Usernames.next(res)
+      console.log("usernames: ",res.length)
     })
   }
 
-  getOnlyParentPosts(){
+  getParentPosts(){
     let options = {
       ref: 'husqs', 
       field: 'parentHusq', 
@@ -158,24 +163,38 @@ export class FirestoreService {
     }
     this.fetchCollectionWithFilter(options).subscribe((res: Post[]) => {
       this.database._ParentPosts.next(res)
+      console.log("Parents: ",res.length)
       this.sortPosts();
+    })
+  }
+
+  getReplyPosts(){
+    let options = {
+      ref: 'husqs', 
+      field: 'parentHusq', 
+      operator: '>', 
+      value: ''
+    }
+    this.fetchCollectionWithFilter(options).subscribe((res: Post[]) => {
+      this.database._ReplyPosts.next(res)
+      console.log("Replies: ",res.length)
+      // this.sortPosts();
     })
   }
 
   // Fetch all posts by uid
   getAllPostsByUid(uid){
-    // return this.firestore.collection('husqs', ref => ref.where('uid', '==', uid)).valueChanges();
-    let options = {
-      ref: 'husqs', 
-      field: 'uid', 
-      operator: '==', 
-      value: uid
-    }
-    return this.fetchCollectionWithFilter(options)
-    
-    // this.fetchCollectionWithFilter(options).subscribe((res: Post[]) => {
-
-    // })
+    return this.firestore.collection(
+      "husqs", o => o.where("uid", "==", uid).where("parentHusq", "==", null))
+      .snapshotChanges().pipe(
+        map((changes) => {
+          return changes.map((snap: any) => {
+            const obj = snap.payload.doc.data();
+            obj.id = snap.payload.doc.id;
+            return obj
+          })
+        })
+      )
   }
 
   getPostReplies(pid){
@@ -185,8 +204,6 @@ export class FirestoreService {
     return this.firestore.collection('husqs', ref => ref.where('parentHusq', '==', pid)).valueChanges();
   }
 
-//   filterBy(categoriaToFilter: string) {
-//     this.avisos = this.afs.collection('avisos', ref => ref.where('categoria','==', categoriaToFilter )).valueChanges()
 
 
   // ==================== //

@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
         uid: this.user.uid,
         datetime: new Date().toLocaleString(),
         post: result.post,
-        likes: 0,
+        likes: [],
         parentHusq: null,
       }
       this.firestoreService.create({item: post, ref: this.firestoreService.collectionRefs.postsRef});
