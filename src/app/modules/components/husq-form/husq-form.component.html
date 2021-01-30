@@ -1,9 +1,9 @@
 <mat-dialog-content [formGroup]="newHusqForm">
-    <mat-form-field> 
-        <textarea matInput placeholder="What's happening... " formControlName="post"></textarea>
+    <mat-form-field appearance="fill"> 
+        <textarea rows="8" matInput placeholder="What's happening... " formControlName="post"></textarea>
     </mat-form-field> 
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button class="mat-raised-buttom mat-Cyan" (click)="close()">Close</button> 
+    <button mat-stroked-button mat-dialog-close class="mat-primary" (click)="close()">Close</button> 
     <button class="mat-raised-button mat-primary" (click)="save()">Post</button> 
 </mat-dialog-actions>
