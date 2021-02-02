@@ -7,6 +7,7 @@ import { AuthenticationService } from 'src/app/core/services/authentication.serv
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ValidationService } from '../../../shared/services/validation.service';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   auth: FormGroup;
   hide = true; // toggling boolean for hide/show password button
-  wrongPassword: any; // display a sepearate mat-error upon wrong password during sign in
+  badCredentials: any; // display a sepearate mat-error upon wrong password during sign in
   emailInUse: any; // display a separate mat-error if email is already in use
 
   constructor(
@@ -27,7 +28,8 @@ export class LoginComponent implements OnInit {
     public firestoreService: FirestoreService,
     private afAuth: AngularFireAuth,
     private fb: FormBuilder,
-    public validationService: ValidationService
+    public validationService: ValidationService,
+    private snackBar: MatSnackBar
   ) {  }
 
   ngOnInit(): void {
@@ -48,10 +50,17 @@ export class LoginComponent implements OnInit {
   login(){
     let res = this.authenticationService.signInWithEmail(this.auth.get('email').value, this.auth.get('password').value);
     res.then((err) => {
-      if (err === "auth/wrong-password"){
-        this.wrongPassword = "Invalid password"
+      if (err === "auth/wrong-password" || err === "auth/user-not-found"){
+        this.badCredentials = "Bad credentials"
+        setTimeout(()=>{
+          this.badCredentials = null 
+        }, 1000)
       }
     })
+  }
+
+  openSnackBar(message: string, action: string, config: any){
+    this.snackBar.open(message, action, config)
   }
 
   register(){
