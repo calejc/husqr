@@ -23,15 +23,18 @@
 }
 
 .timeline-container {
+    position: fixed;
     width: 35%;
     margin: auto;
-    margin-top: 154px;
+    top: 154px;
     z-index: 0;
     height: 80vh;
     overflow: scroll;
     background-color: $primary;
     padding: 30px;
     border-radius: 8px;
+    left: 50%;
+    transform: translateX(-50%);
 }
  .new-husq {
      background-color: $warn;
@@ -40,3 +43,53 @@
  .profile-img {
      margin-right: 15px;
  }
+ .user-profile {
+     position: fixed;
+     left: 40px; 
+     top: 130px;
+     width: 27%;
+
+     img {
+         border-radius: 50%;
+         height: 6em;
+         width: 6em;
+         margin-right: 5px;
+     }
+
+     .mat-card {
+         background: $primary;
+         color: #fff;
+     }
+
+    //  .mat-card-content {
+    //      margin-top: 10px;
+    //  }
+ }
+
+ .user-profile-header {
+     display: flex;
+     align-items: center;
+     margin-bottom: 10px;
+ }
+
+//  hr.rounded {
+//     border-top: 1px solid #bbb;
+//     border-radius: 5px;
+//     width: 98%;
+//   }
+
+.mat-card-title {
+    margin: 0;
+}
+
+.mat-chip-list {
+    margin-left: auto;
+}
+
+.mat-divider {
+    border-top-color: #fff;
+}
+
+.bio {
+    margin-top: 20px;
+}

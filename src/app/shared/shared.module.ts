@@ -11,8 +11,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon'
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTabsModule } from '@angular/material/tabs';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatChipsModule} from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
 
 
 
@@ -33,6 +34,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatToolbarModule,
     MatInputModule,
     MatTabsModule,
+    MatChipsModule,
+    MatDividerModule
     MatSnackBarModule
   ], 
   exports: [
@@ -48,6 +51,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatToolbarModule,
     MatInputModule,
     MatTabsModule,
+    MatChipsModule,
+    MatDividerModule
     MatSnackBarModule
   ]
 })
