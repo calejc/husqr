@@ -4,7 +4,9 @@ export interface User {
     displayName?: string;
     username?: string;
     photoURL?: string;
-    posts?: number[]
+    posts?: number[];
     emailVerified?: boolean;
+    following?: string[];
+    followers?: string[];
 
 }

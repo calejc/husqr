@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Post } from 'src/app/core/data/types/post.interface';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
+
 // import { USERS } from 'src/app/core/data/data';
 
 @Component({
