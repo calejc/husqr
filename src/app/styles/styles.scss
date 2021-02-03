@@ -30,3 +30,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
 .user-image {
   max-height: 40px;
 }
+
+.cdk-global-overlay-wrapper{
+  align-items: center!important;
+  justify-content: center!important;
+}
+
+// .mat-snack-bar-container{
+  // margin-top: 400px !important;   
+// }

@@ -1,13 +1,12 @@
 *TODO:*
 
-- Sort posts
-- ~~Style profile view with user's data~~
-    - ~~Add username and image to header bar~~
-    - ~~cards don't go full width?~~
-- like/reply button need to update firestore
-- style 'close' button on newHusq dialog
 - style settings page? 
     - restyle inputs to a more stylish box with a pencil edit button
+- file upload
+- move default image to be stored in the husqr project files?? or host it??
+- password reset, email verification?
+- more form validation so usernames have no spaces
+- each post can be clicked to pop up modal-style mid-page?
 - Progress spinner
 - component lifecycle? router "resolve"?
 - friends

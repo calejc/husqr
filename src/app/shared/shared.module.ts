@@ -13,6 +13,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTabsModule } from '@angular/material/tabs';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatChipsModule} from '@angular/material/chips';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -35,6 +36,7 @@ import {MatChipsModule} from '@angular/material/chips';
     MatTabsModule,
     MatChipsModule,
     MatDividerModule
+    MatSnackBarModule
   ], 
   exports: [
     BrowserAnimationsModule, 
@@ -51,6 +53,7 @@ import {MatChipsModule} from '@angular/material/chips';
     MatTabsModule,
     MatChipsModule,
     MatDividerModule
+    MatSnackBarModule
   ]
 })
 export class SharedModule { }
