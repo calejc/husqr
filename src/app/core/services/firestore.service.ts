@@ -274,6 +274,84 @@ export class FirestoreService {
     return promise;
   }
 
+  // updateFollowing(options: {arrayValue: any, ref: AngularFirestoreCollection<any>, docId: string}) {
+  //   const promise = new Promise((resolve, reject) => {
+
+  //     if (options) {
+  //       options.ref.doc(options.docId)
+  //         .update({following: firebase.firestore.FieldValue.arrayUnion(options.arrayValue)})
+  //         .then(() => {
+  //           resolve(() => {
+  //             options.ref.doc(options.arrayValue)
+  //               .update({followers: firebase.firestore.FieldValue.arrayUnion(options.docId)})
+  //               .then(() => {
+  //                 console.log('firestoreService: udpate success');
+  //                 resolve(options.docId);
+  //               }).catch((err) => {
+  //                 console.error('firestoreService: update: error ', err);
+  //                 reject(err);
+  //               });
+  //           });
+  //         }).catch((err) => {
+  //           console.error('firestoreService: update: error: ', err);
+  //           reject(err);
+  //         });
+  //     } else {
+  //       console.log('firestoreService: update: wrong option! option: ', options);
+  //       reject();
+  //     }
+  //   });
+  //   return promise; 
+  // }
+
+  updateFollowing(options: {arrayValue: any, ref: AngularFirestoreCollection<any>, docId: string}) {
+    const promise = new Promise((resolve, reject) => {
+
+      if (options) {
+        options.ref.doc(options.docId)
+          .update({following: firebase.firestore.FieldValue.arrayUnion(options.arrayValue)})
+          .then(() => {
+            console.log('firestoreService: udpate success');
+            resolve(() => {
+              console.log('firestoreService: update success');
+              resolve(options.docId);
+            });
+          }).catch((err) => {
+            console.error('firestoreService: update: error: ', err);
+            reject(err);
+          });
+      } else {
+        console.log('firestoreService: update: wrong option! option: ', options);
+        reject();
+      }
+    });
+    return promise;
+  }
+
+  updateFollowers(options: {arrayValue: any, ref: AngularFirestoreCollection<any>, docId: string}) {
+    const promise = new Promise((resolve, reject) => {
+
+      if (options) {
+        options.ref.doc(options.arrayValue)
+          .update({followers: firebase.firestore.FieldValue.arrayUnion(options.docId)})
+          .then(() => {
+            console.log('firestoreService: udpate success');
+            resolve(() => {
+              console.log('firestoreService: update success');
+              resolve(options.arrayValue);
+            });
+          }).catch((err) => {
+            console.error('firestoreService: update: error: ', err);
+            reject(err);
+          });
+      } else {
+        console.log('firestoreService: update: wrong option! option: ', options);
+        reject();
+      }
+    });
+    return promise;
+  }
+
   create(option: { item: any, ref: AngularFirestoreCollection<any> }) {
     const promise = new Promise((resolve, reject) => {
 

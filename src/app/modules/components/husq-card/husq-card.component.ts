@@ -100,12 +100,12 @@ export class HusqCardComponent implements OnInit {
   getTimeSincePost() {
     let diffTime =  Date.now() - Date.parse(this.post.datetime);
     let diffTimeMin = Math.abs(Math.floor(diffTime / (1000 * 60)));
-    if (diffTimeMin >= 60 && diffTimeMin < 1140) {
-      return Math.floor((diffTimeMin / 60)).toString() + "h";
-    } else if (diffTimeMin >= 1440 && diffTimeMin < 10080) {
-      return Math.floor((diffTimeMin / 1440)).toString() + "d";
-    } else if (diffTimeMin >= 10080) {
+    if (diffTimeMin >= 10080) {
       return Math.floor((diffTimeMin / 10080)).toString() + "w";
+    } else if (diffTimeMin >= 1440) {
+      return Math.floor((diffTimeMin / 1440)).toString() + "d";
+    } else if (diffTimeMin >= 60) {
+      return Math.floor((diffTimeMin / 60)).toString() + "h";
     } else {
       return diffTimeMin.toString() + "m";
     }

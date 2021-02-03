@@ -47,20 +47,29 @@
      position: fixed;
      left: 40px; 
      top: 130px;
-     width: 25%;
+     width: 27%;
 
      img {
          border-radius: 50%;
          height: 6em;
          width: 6em;
-         margin-right: 2em;
+         margin-right: 5px;
      }
+
+     .mat-card {
+         background: $primary;
+         color: #fff;
+     }
+
+    //  .mat-card-content {
+    //      margin-top: 10px;
+    //  }
  }
 
  .user-profile-header {
      display: flex;
      align-items: center;
-     align-content: space-around;
+     margin-bottom: 10px;
  }
 
 //  hr.rounded {
@@ -69,10 +78,18 @@
 //     width: 98%;
 //   }
 
-.mat-divider {
-    padding-top: 10px;
+.mat-card-title {
+    margin: 0;
 }
 
-.mat-card-content {
-    margin-top: 10px;
+.mat-chip-list {
+    margin-left: auto;
+}
+
+.mat-divider {
+    border-top-color: #fff;
+}
+
+.bio {
+    margin-top: 20px;
 }
