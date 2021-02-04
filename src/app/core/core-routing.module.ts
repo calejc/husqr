@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AngularFireAuthGuard, hasCustomClaim, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
-import { canActivate } from '@angular/fire/auth-guard';
-import { environment } from '../../environments/environment';
+import { AngularFireAuthGuard, hasCustomClaim, redirectUnauthorizedTo, redirectLoggedInTo, canActivate } from '@angular/fire/auth-guard';
 
 import { SharedModule } from '../shared/shared.module';
 import { HomeComponent } from '../modules/pages/home/home.component';
@@ -13,8 +11,6 @@ import { HusqFormComponent } from '../modules/components/husq-form/husq-form.com
 import { LoginComponent } from '../modules/pages/login/login.component';
 import { ReplyComponent } from '../modules/components/reply/reply.component';
 import { SettingsComponent } from '../modules/pages/settings/settings.component';
-
-// import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
@@ -45,13 +41,6 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     SharedModule, 
-    // NgxAuthFirebaseUIModule.forRoot(environment.firebase, () => 'husqr-1074b', {
-    //   enableFirestoreSync: true,
-    //   toastMessageOnAuthSuccess: true,
-    //   toastMessageOnAuthError: true,
-    //   authGuardFallbackURL: 'examples/logged-out',
-    //   authGuardLoggedInURL: 'examples/logged-in', 
-    // })
   ],
   exports: [RouterModule]
 })

@@ -57,26 +57,12 @@ i:hover{
     color: #fff !important;
 }
 
-// .custom-header .mat-expansion-panel-header-title, 
-// .custom-header .mat-expansion-panel-header-description {
-//   flex-basis: 0;
-// }
-
-// .custom-header .mat-expansion-panel-header-description {
-//   justify-content: space-between;
-//   align-items: center;
-// }
-
 .mat-expansion-panel-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
-
-// .mat-expansion-panel-header-title {
-//     display: inline-block;
-// }
 
 .mat-expansion-panel-header-description > * {
     float: right;   

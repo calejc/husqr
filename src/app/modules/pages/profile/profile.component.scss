@@ -8,7 +8,6 @@
     z-index: 1;
     background: #121212;
     width: 35%;
-    /* margin-top: 64px; */
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -61,9 +60,6 @@
          color: #fff;
      }
 
-    //  .mat-card-content {
-    //      margin-top: 10px;
-    //  }
  }
 
  .user-profile-header {
@@ -72,11 +68,6 @@
      margin-bottom: 10px;
  }
 
-//  hr.rounded {
-//     border-top: 1px solid #bbb;
-//     border-radius: 5px;
-//     width: 98%;
-//   }
 
 .mat-card-title {
     margin: 0;

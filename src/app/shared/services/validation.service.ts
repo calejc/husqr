@@ -47,11 +47,6 @@ export class ValidationService {
   }
 
   wrongPassword(control: AbstractControl){
-    // if (this.authPasswordError){
-      // return { wrongPassword: true}
-    // } else {
-      // return null
-    // }
     return new Promise(resolve => {  
       setTimeout(() => {  
         if (this.authPasswordError) {  

@@ -9,7 +9,6 @@ import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { User } from 'src/app/core/data/types/user.interface';
 import { ReplyComponent } from '../reply/reply.component';
 import { WeekDay } from '@angular/common';
-// import { User } from 'src/app/core/data/types/user.interface';
 
 @Component({
   selector: 'app-husq-card',

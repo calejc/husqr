@@ -30,10 +30,6 @@ export class ProfileComponent implements OnInit {
     this.authenticationService.getUser().subscribe((user) => {
       this.currentUser = user;
     })
-    // console.log("this.id: ", this.id);
-    
-    // console.log(this.user);
-    
   }
 
   addFollowing(){

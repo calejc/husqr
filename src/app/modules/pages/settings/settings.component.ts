@@ -18,7 +18,6 @@ import { map } from 'rxjs/operators';
 export class SettingsComponent implements OnInit {
 
 
-  // photoURL = this.authenticationService.userState.photoURL;
   photoURL: string;
   displayName: string;
   user: any;
@@ -42,15 +41,11 @@ export class SettingsComponent implements OnInit {
   }
 
   saveSettings(){
-    // console.log(this.photoURL)
     let settings = {
       "displayName": this.displayName ? this.displayName : '',
       "photoURL": this.photoURL ? this.photoURL : ''
     }
-    // console.log(settings)
     this.firestoreService.collectionRefs.usersRef.doc(this.id).update(settings);
   }
 
 }
-
-// https://i.pinimg.com/originals/45/18/03/4518036ebbfb58a31cac156cdc8f0d9c.jpg

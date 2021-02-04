@@ -16,8 +16,6 @@ import { post } from 'selenium-webdriver/http';
 })
 
 
-// Inspired from the below example. Only one service to store the data state and expose instead of distinct services for users and posts. Refactored to fit our needs.
-// https://github.com/bgpedersen/ng5firestore/blob/master/src/app/core/services/data.service.ts
 export class FirestoreService {
 
 
@@ -72,7 +70,6 @@ export class FirestoreService {
           // If logged in, update user and fetch data 
           this.database._User.next(user);
           this.userData = this.getUserData(user.uid)
-          // this.getAllPosts()
           this.getParentPosts()
           this.getReplyPosts()
           this.getUsers()
@@ -174,7 +171,7 @@ export class FirestoreService {
     }
     this.fetchCollectionWithFilter(options).subscribe((res: Post[]) => {
       this.database._ReplyPosts.next(res)
-      // this.sortPosts();
+      this.sortPosts();
     })
   }
 
@@ -194,9 +191,6 @@ export class FirestoreService {
   }
 
   getPostReplies(pid){
-    // this.firestore.collection('husqs', ref => ref.where('parentHusq', '==', pid)).valueChanges().subscribe((data) => {
-      // console.log(data)
-    // })
     return this.firestore.collection('husqs', ref => ref.where('parentHusq', '==', pid)).valueChanges();
   }
 
@@ -420,9 +414,7 @@ export class FirestoreService {
   }
 
   getUserData(uid: string){
-    // this.firestoreService.getUserById(this.userState.uid);
     return this.database._Users.value.find((user) => user.uid === uid)
-    // console.log(uid);
   }
 
   checkUsername(username: string){

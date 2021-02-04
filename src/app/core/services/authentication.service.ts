@@ -129,8 +129,6 @@ export class AuthenticationService {
       .signInWithEmailAndPassword(email, password)
       .then(res => {
         console.log('Successfully signed in!');
-        // this.userState = res.user;
-        // this.saveUserDataToCollection(res.user);
         this.redirect('/');
       })
       .catch(err => {
