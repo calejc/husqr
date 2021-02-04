@@ -48,15 +48,17 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    let res = this.authenticationService.signInWithEmail(this.auth.get('email').value, this.auth.get('password').value);
+    if (this.auth.valid){
+      let res = this.authenticationService.signInWithEmail(this.auth.get('email').value, this.auth.get('password').value);
     res.then((err) => {
       if (err === "auth/wrong-password" || err === "auth/user-not-found"){
         this.badCredentials = "Bad credentials"
         setTimeout(()=>{
           this.badCredentials = null 
         }, 1000)
-      }
-    })
+       }
+      })
+    }
   }
 
   openSnackBar(message: string, action: string, config: any){

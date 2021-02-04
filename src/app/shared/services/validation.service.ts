@@ -48,9 +48,9 @@ export class ValidationService {
 
   wrongPassword(control: AbstractControl){
     // if (this.authPasswordError){
-    //   return { wrongPassword: true}
+      // return { wrongPassword: true}
     // } else {
-    //   return null
+      // return null
     // }
     return new Promise(resolve => {  
       setTimeout(() => {  
@@ -67,6 +67,6 @@ export class ValidationService {
     this.authPasswordError = param;
   }
 
-  
+
 
 }
