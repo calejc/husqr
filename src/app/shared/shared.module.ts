@@ -35,7 +35,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatInputModule,
     MatTabsModule,
     MatChipsModule,
-    MatDividerModule
+    MatDividerModule,
     MatSnackBarModule
   ], 
   exports: [
@@ -52,7 +52,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatInputModule,
     MatTabsModule,
     MatChipsModule,
-    MatDividerModule
+    MatDividerModule,
     MatSnackBarModule
   ]
 })
