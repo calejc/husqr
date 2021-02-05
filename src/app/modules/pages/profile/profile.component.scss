@@ -73,8 +73,13 @@
     margin: 0;
 }
 
-.mat-chip-list {
+.follow-button {
     margin-left: auto;
+    border: 1px solid $accent;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 16px;
+    padding: 5px 14px;
 }
 
 .mat-divider {
@@ -83,4 +88,15 @@
 
 .bio {
     margin-top: 20px;
+}
+
+.follow {
+    background: $accent;
+    color: #000;
+    font-family: Roboto, Helvetica Neue, sans-serif;
+}
+
+.unfollow {
+    background: none;
+    color: $accent;
 }

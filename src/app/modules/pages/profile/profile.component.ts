@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   user: any;
   currentUser: any;
   userPost$: Observable<any[]>;
+  following: boolean = false;
 
   constructor(private route: ActivatedRoute, public firestoreService: FirestoreService, public authenticationService: AuthenticationService) {  }
 
