@@ -9,6 +9,7 @@ import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { User } from 'src/app/core/data/types/user.interface';
 import { ReplyComponent } from '../reply/reply.component';
 import { WeekDay } from '@angular/common';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-husq-card',
@@ -17,13 +18,14 @@ import { WeekDay } from '@angular/common';
 })
 export class HusqCardComponent implements OnInit {
 
-  liked: boolean;
+  liked: boolean = false;
   users: any;
 
 
   constructor( 
     public dialog: MatDialog, 
-    public firestoreService: FirestoreService) {
+    public firestoreService: FirestoreService, 
+    public authenticationService: AuthenticationService) {
     }
 
   @Input() post: any;
@@ -64,10 +66,11 @@ export class HusqCardComponent implements OnInit {
         this.postReplies = data;
       })
     }
-    this.firestoreService.observableDatabase.User$.subscribe((user) =>{
+    this.authenticationService.getUser().subscribe((user) =>{
       this.currentUser = user;
       this.firestoreService.fetchDocument(this.firestoreService.collectionRefs.postsRef.doc(this.post.id)).subscribe((obj) => {
         this.liked = obj.likes.some(like => user.uid)
+        console.log("this liked, ", this.liked, this.post.id)
       })
     })
     

@@ -30,17 +30,29 @@ export class ProfileComponent implements OnInit {
     });
     this.authenticationService.getUser().subscribe((user) => {
       this.currentUser = user;
+      this.firestoreService.fetchDocument(this.firestoreService.collectionRefs.usersRef.doc(this.id)).subscribe((obj) => {
+        this.following = obj.followers ? obj.followers.some(follow => user.uid) : false;
+      })
     })
   }
 
-  addFollowing(){
+  toggleFollow(){
     let data = {
       arrayValue: this.user.uid, 
       ref: this.firestoreService.collectionRefs.usersRef,
       docId: this.currentUser.uid
     }
-    this.firestoreService.updateFollowing(data);
-    this.firestoreService.updateFollowers(data);
+    this.following ? this.unfollow(data) : this.follow(data)
+
   }
 
+  follow(data: any) {
+    this.firestoreService.addFollowing(data);
+    this.firestoreService.addFollowers(data);
+  }
+
+  unfollow(data: any) {
+    this.firestoreService.removeFollowers(data);
+    this.firestoreService.removeFollowing(data);
+  }
 }

@@ -4,7 +4,7 @@
         <div class="user-profile-header">
             <img mat-card-avatar src="{{user?.photoURL}}">
             <mat-card-title>@{{user?.username}}</mat-card-title>
-            <button class="follow-button" [ngClass]="following ? 'unfollow' : 'follow'" (click)="addFollowing()">Follow</button>
+            <button class="follow-button" [ngClass]="following ? 'unfollow' : 'follow'" (click)="toggleFollow()">{{following ? 'Unfollow' : 'Follow'}}</button>
         </div>
         <mat-divider></mat-divider>
         <mat-card-content class="bio">
