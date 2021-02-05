@@ -17,7 +17,7 @@ import { WeekDay } from '@angular/common';
 })
 export class HusqCardComponent implements OnInit {
 
-  liked: boolean = false;
+  liked: boolean;
   users: any;
 
 
@@ -66,28 +66,32 @@ export class HusqCardComponent implements OnInit {
     }
     this.firestoreService.observableDatabase.User$.subscribe((user) =>{
       this.currentUser = user;
+      this.firestoreService.fetchDocument(this.firestoreService.collectionRefs.postsRef.doc(this.post.id)).subscribe((obj) => {
+        this.liked = obj.likes.some(like => user.uid)
+      })
     })
+    
 
     this.getTimeSincePost();
   }
 
-  addLikes(): void{
+  toggleLikes(): void{
     let data = {
       arrayValue: this.currentUser.uid,
       ref: this.firestoreService.collectionRefs.postsRef,
       docId: this.post.id
     }
-    this.firestoreService.updateLikes(data)
+    this.liked ? this.firestoreService.removeLike(data) : this.firestoreService.addLike(data)
   }
 
   likeButtonClicked(){
-    this.addLikes()
-    this.toggleClass()
+    // this.addLikes()
+    // this.toggleClass()
   }
 
-  toggleClass(){
-    this.liked = !this.liked;
-  }
+  // toggleClass(){
+  //   this.liked = !this.liked;
+  // }
 
   replyButtonClicked(postId: string, post: Post){
     console.log(postId)

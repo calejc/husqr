@@ -51,7 +51,7 @@ export class FirestoreService {
         User$: this.database._User.asObservable(),
         Users$: this.database._Users.asObservable(),
         AllPosts$: this.database._AllPosts.asObservable(),
-        ReplyPosts$: this.database._AllPosts.asObservable(),
+        ReplyPosts$: this.database._ReplyPosts.asObservable(),
         ParentPosts$: this.database._ParentPosts.asObservable(),
         PostsByUser$: this.database._PostsByUser.asObservable(),
       };
@@ -134,15 +134,6 @@ export class FirestoreService {
       });
   }
 
-  // Fetch all posts from the 'posts' collection
-  getAllPosts(){
-    this.fetchCollection(this.collectionRefs.postsRef)
-      .subscribe((res: Post[]) => {
-        this.database._AllPosts.next(res);
-        this.sortPosts();
-      });
-  }
-
   getUsernames(){
     this.fetchCollection(this.collectionRefs.usernamesRef).subscribe((res: any[]) => {
       this.database._Usernames.next(res)
@@ -157,8 +148,7 @@ export class FirestoreService {
       value: null
     }
     this.fetchCollectionWithFilter(options).subscribe((res: Post[]) => {
-      this.database._ParentPosts.next(res)
-      this.sortPosts();
+      this.database._ParentPosts.next(this.sortPosts(res))
     })
   }
 
@@ -170,8 +160,7 @@ export class FirestoreService {
       value: ''
     }
     this.fetchCollectionWithFilter(options).subscribe((res: Post[]) => {
-      this.database._ReplyPosts.next(res)
-      this.sortPosts();
+      this.database._ReplyPosts.next(this.sortPosts(res))
     })
   }
 
@@ -185,7 +174,7 @@ export class FirestoreService {
             const obj = snap.payload.doc.data();
             obj.id = snap.payload.doc.id;
             return obj
-          })
+          }).sort((a, b) => Date.parse(b.datetime) - Date.parse(a.datetime));
         })
       )
   }
@@ -245,7 +234,7 @@ export class FirestoreService {
     return promise;
   }
 
-  updateLikes(options: {arrayValue: any, ref: AngularFirestoreCollection<any>, docId: string}) {
+  addLike(options: {arrayValue: any, ref: AngularFirestoreCollection<any>, docId: string}) {
     const promise = new Promise((resolve, reject) => {
 
       if (options) {
@@ -267,6 +256,31 @@ export class FirestoreService {
 
     return promise;
   }
+
+  removeLike(options: {arrayValue: any, ref: AngularFirestoreCollection<any>, docId: string}) {
+    const promise = new Promise((resolve, reject) => {
+
+      if (options) {
+        options.ref.doc(options.docId)
+          .update({likes: firebase.firestore.FieldValue.arrayRemove(options.arrayValue)})
+          .then(() => {
+            console.log('firestoreService: update success');
+            resolve(options.docId);
+          }).catch((err) => {
+            console.error('firestoreService: update: error: ', err);
+            reject(err);
+          });
+      } else {
+        console.log('firestoreService: update: wrong option! option: ', options);
+        reject();
+      }
+
+    });
+
+    return promise;
+  }
+
+  // let removeCurrentUserId = docRef.update({ [currentUserId]: firebase.firestore.FieldValue.delete() }); 
 
   // updateFollowing(options: {arrayValue: any, ref: AngularFirestoreCollection<any>, docId: string}) {
   //   const promise = new Promise((resolve, reject) => {
@@ -397,20 +411,8 @@ export class FirestoreService {
   // =============== //
 
   // Sort posts by datetime
-  sortPosts(): void {
-    this.database._ParentPosts.value.sort((a, b) => Date.parse(b.datetime) - Date.parse(a.datetime));
-    this.database._ReplyPosts.value.sort((a, b) => Date.parse(b.datetime) - Date.parse(a.datetime));
-  }
-
-  // Timeline will not display 'replies' in the scrolling timeline container.
-  // Replies only appear under their parent post. 
-  // Filter out any replies, setting observable to be used in the timeline
-  filterParentPosts(){
-    this.observableDatabase.AllPosts$.pipe(
-      map((posts: Post[]) => posts.filter(post => post.parentHusq)),
-    ).subscribe(data => {
-      this.observableDatabase.ParentPosts$ = of(data);
-    })
+  sortPosts(posts: Post[]) {
+    return posts.sort((a, b) => Date.parse(b.datetime) - Date.parse(a.datetime));
   }
 
   getUserData(uid: string){
@@ -419,6 +421,12 @@ export class FirestoreService {
 
   checkUsername(username: string){
     return this.database._Usernames.value.find((user) => user.id === username) ? true : false
+  }
+
+  userLikedPost(pid: string, uid: string){
+    this.fetchDocument(this.collectionRefs.postsRef.doc(pid)).subscribe((obj) => {
+      return obj.likes.some(like => uid)
+    })
   }
 
 

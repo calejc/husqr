@@ -27,7 +27,6 @@ export class AuthenticationService {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
         if (user) {
-          // localStorage.setItem('user', JSON.stringify(this.user$));
           return this.angularFirestore.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
           return of(null);
