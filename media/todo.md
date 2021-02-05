@@ -1,6 +1,5 @@
 *TODO:*
 
-- unlike functionality
 - style settings page? 
     - restyle inputs to a more stylish box with a pencil edit button
     - settings page should be similar to the bio box on profile page?

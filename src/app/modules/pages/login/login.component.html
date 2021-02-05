@@ -1,16 +1,17 @@
 <div class="container-fluid landing-container">
     <div class="row h-100 align-items-center">
         <div class="col-xl-4 col-lg-5 col-md-8 col-sm-10 col-xs-11 landing-ui mx-auto">
-            <form [formGroup]="auth" class="needs-validation">
-                <mat-tab-group mat-align-tabs="start" mat-stretch-tabs>
-                    <mat-tab label="Sign in">
+            <mat-tab-group mat-align-tabs="start" mat-stretch-tabs>
+
+                <mat-tab label="Sign in">
+                    <form [formGroup]="login">
                         <div id="login-ui" class="container-fluid my-3 mx-auto">
                             <h1 class="text-center my-2">SIGN IN</h1>
                             <div class="row">  
                                 <div class="col-lg-12">
                                     <mat-form-field appearance="fill" [class]="badCredentials ? 'error' : ''">
                                         <input matInput class="login-input" type="email" placeholder="Email" formControlName="email" required>
-                                        <div class="mat-error" *ngIf="auth.get('email').invalid && auth.get('email').touched">{{getEmailErrorMessage()}}</div>
+                                        <div class="mat-error" *ngIf="login.get('email').invalid && login.get('email').touched">{{getEmailErrorMessage(login)}}</div>
                                         <div class="mat-error" *ngIf="badCredentials">{{badCredentials}}</div>  
                                     </mat-form-field>
                                 </div>
@@ -19,7 +20,7 @@
                                 <div class="col-lg-12">
                                     <mat-form-field appearance="fill">
                                         <input matInput class="w-75 mx-auto" type="password" formControlName="password" placeholder="Password" [type]="hide ? 'password' : 'text'">  
-                                        <div class="mat-error" *ngIf="auth.get('password').invalid && auth.get('password').touched">{{getPasswordErrorMessage()}}</div>
+                                        <div class="mat-error" *ngIf="login.get('password').invalid && login.get('password').touched">{{getLoginPasswordErrorMessage()}}</div>
                                         <div class="mat-error" *ngIf="badCredentials">{{badCredentials}}</div>
                                         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -27,21 +28,24 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <button mat-raised-button (click)="login()" color="primary">LOGIN</button>
+                            <button mat-raised-button (click)="loginWithEmail()" color="primary">LOGIN</button>
                         </div>
-                    </mat-tab>
-                    <mat-tab label="Register">
+                    </form>
+                </mat-tab>
+
+                <mat-tab label="Register">
+                    <form [formGroup]="register">
                         <div id="register-ui" class="container-fluid my-3 mx-auto">
                             <h1 class="text-center my-2">REGISTER</h1>
                             <div class="row">
                                 <div class="col-lg-12">
                                     <mat-form-field appearance="fill">
                                         <input matInput class="w-75 mx-auto" type="test" placeholder="Username" formControlName="username" required>
-                                        <div class="mat-error" *ngIf="auth.get('username').invalid && auth.get('username').touched">{{getUsernameErrorMessage()}}</div>
+                                        <div class="mat-error" *ngIf="register.get('username').invalid && register.get('username').touched">{{getUsernameErrorMessage()}}</div>
                                     </mat-form-field>
                                     <mat-form-field appearance="fill">
-                                        <input matInput class="w-75 mx-auto" type="email" placeholder="Email" formControlName="newEmail" required>
-                                        <div class="mat-error" *ngIf="auth.get('newEmail').invalid && auth.get('newEmail').touched">{{getEmailErrorMessage()}}</div>
+                                        <input matInput class="w-75 mx-auto" type="email" placeholder="Email" formControlName="email" required>
+                                        <div class="mat-error" *ngIf="register.get('email').invalid && register.get('email').touched">{{getEmailErrorMessage(register)}}</div>
                                         <div class="mat-error" *ngIf="emailInUse">{{emailInUse}}</div>
                                     </mat-form-field>
                                 </div>
@@ -49,17 +53,15 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <mat-form-field appearance="fill">
-                                        <input matInput class="w-75 mx-auto" type="password" placeholder="Password" formControlName="newPassword" [type]="hide ? 'password' : 'text'">
-                                        <div class="mat-error" *ngIf="auth.get('newPassword').invalid && auth.get('newPassword').touched">{{getRegistrationPasswordErrorMessage()}}</div>
-
+                                        <input matInput class="w-75 mx-auto" type="password" placeholder="Password" formControlName="password" [type]="hide ? 'password' : 'text'">
+                                        <div class="mat-error" *ngIf="register.get('password').invalid && register.get('password').touched">{{getRegistrationPasswordErrorMessage()}}</div>
                                         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                         </button>
                                     </mat-form-field>
                                     <mat-form-field appearance="fill">
                                         <input matInput class="w-75 mx-auto" type="password" placeholder="Confirm Password" formControlName="confirmPassword" [type]="hide ? 'password' : 'text'">   
-                                        <div class="mat-error" *ngIf="auth.get('confirmPassword').invalid && auth.get('confirmPassword').touched">{{getRegistrationPasswordErrorMessage()}}</div>
-
+                                        <div class="mat-error" *ngIf="register.get('confirmPassword').invalid && register.get('confirmPassword').touched">{{getRegistrationPasswordErrorMessage()}}</div>
                                         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                         </button>
@@ -68,16 +70,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 my-1">
-                                    <button mat-raised-button (click)="register()" color="primary">Create Account</button>
+                                    <button mat-raised-button (click)="registerWithEmail()" color="primary">Create Account</button>
                                 </div>
                             </div>
                         </div>
-                    </mat-tab>
-                </mat-tab-group>
-            </form>
+                    </form>
+                </mat-tab>
 
-
-
+            </mat-tab-group>
         </div>
     </div>
 </div>
