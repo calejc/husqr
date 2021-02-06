@@ -35,3 +35,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
   align-items: center!important;
   justify-content: center!important;
 }
+
+#static-email {
+  .mat-form-field-underline::before {
+      background: #121212 !important;
+  }
+  .mat-form-field-underline {
+      background: #121212 !important;
+  }
+  .mat-form-field-ripple {
+      background: #121212;
+  }   
+}

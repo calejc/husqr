@@ -31,3 +31,18 @@ input{
 .error{
     background: rgb(255, 51, 5)
 }
+::ng-deep .mat-form-field.mat-form-field-invalid {
+    .mat-input-element {
+        caret-color: red !important;
+        opacity:.6 !important;
+    }
+    // .mat-form-field-label {
+    //     color: #ff33cc;
+    //     .mat-form-field-required-marker {
+    //         color: #ff33cc;
+    //     }
+    // }
+    // .mat-form-field-ripple {
+    //     background-color: #ff33cc;
+    // }
+}

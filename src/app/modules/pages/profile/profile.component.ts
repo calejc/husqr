@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Post } from 'src/app/core/data/types/post.interface';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
@@ -19,7 +19,10 @@ export class ProfileComponent implements OnInit {
   userPost$: Observable<any[]>;
   following: boolean = false;
 
-  constructor(private route: ActivatedRoute, public firestoreService: FirestoreService, public authenticationService: AuthenticationService) {  }
+  constructor(private route: ActivatedRoute, 
+    public firestoreService: FirestoreService, 
+    public authenticationService: AuthenticationService, 
+    private router: Router) {  }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {

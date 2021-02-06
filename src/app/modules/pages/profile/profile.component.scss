@@ -75,12 +75,15 @@
 }
 
 .follow-button {
-    margin-left: auto;
     border: 1px solid $accent;
     font-size: 14px;
     font-weight: 500;
     border-radius: 16px;
     padding: 5px 14px;
+}
+
+.profile-box-button {
+    margin-left: auto;
 }
 
 .mat-divider {
@@ -100,4 +103,9 @@
 .unfollow {
     background: none;
     color: $accent;
+}
+
+.icon-flex {
+    display: flex;
+    justify-content: flex-end;
 }

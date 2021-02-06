@@ -22,6 +22,7 @@ export class SettingsComponent implements OnInit {
   displayName: string;
   user: any;
   id: string;
+  bio: string;
 
 
   constructor(
@@ -36,6 +37,7 @@ export class SettingsComponent implements OnInit {
       this.id = user.uid;
       this.displayName = user.displayName;
       this.photoURL = user.photoURL;
+      this.bio = user.bio;
     })
     
   }
@@ -43,7 +45,8 @@ export class SettingsComponent implements OnInit {
   saveSettings(){
     let settings = {
       "displayName": this.displayName ? this.displayName : '',
-      "photoURL": this.photoURL ? this.photoURL : ''
+      "photoURL": this.photoURL ? this.photoURL : '',
+      "bio": this.bio ? this.bio : ''
     }
     this.firestoreService.collectionRefs.usersRef.doc(this.id).update(settings);
   }

@@ -4,15 +4,21 @@
         <div class="user-profile-header">
             <img mat-card-avatar src="{{user?.photoURL}}">
             <mat-card-title>@{{user?.username}}</mat-card-title>
-            <button class="follow-button" [ngClass]="following ? 'unfollow' : 'follow'" (click)="toggleFollow()">{{following ? 'Unfollow' : 'Follow'}}</button>
+            <div *ngIf="user?.uid === currentUser?.uid; then editButton else followButton"></div>
+            <ng-template #followButton>
+              <button class="follow-button profile-box-button" [ngClass]="following ? 'unfollow' : 'follow'" (click)="toggleFollow()">{{following ? 'Unfollow' : 'Follow'}}</button>
+            </ng-template>
+            <ng-template #editButton>
+              <button class="profile-box-button" mat-icon-button matSuffix [attr.aria-label]="'Edit button'" (click)="router.navigate(['/settings'])">
+                <mat-icon color="warn">edit</mat-icon>
+              </button>
+            </ng-template>
         </div>
         <mat-divider></mat-divider>
         <mat-card-content class="bio">
           <p><strong>Bio:</strong></p>
           <p>
-            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-            bred for hunting.
+            {{user?.bio}}
           </p>
         </mat-card-content>
     </mat-card>

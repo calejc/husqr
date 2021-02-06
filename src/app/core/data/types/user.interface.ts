@@ -8,5 +8,6 @@ export interface User {
     emailVerified?: boolean;
     following?: string[];
     followers?: string[];
+    bio?: string;
 
 }
