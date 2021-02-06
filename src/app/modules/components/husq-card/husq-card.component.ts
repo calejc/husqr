@@ -70,7 +70,6 @@ export class HusqCardComponent implements OnInit {
       this.currentUser = user;
       this.firestoreService.fetchDocument(this.firestoreService.collectionRefs.postsRef.doc(this.post.id)).subscribe((obj) => {
         this.liked = obj.likes.some(like => user.uid)
-        console.log("this liked, ", this.liked, this.post.id)
       })
     })
     
