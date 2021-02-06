@@ -31,7 +31,8 @@
     overflow: scroll;
     background-color: $primary;
     padding: 30px;
-    border-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
     left: 50%;
     transform: translateX(-50%);
 }
