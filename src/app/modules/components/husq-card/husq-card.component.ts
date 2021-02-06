@@ -69,7 +69,7 @@ export class HusqCardComponent implements OnInit {
     this.authenticationService.getUser().subscribe((user) =>{
       this.currentUser = user;
       this.firestoreService.fetchDocument(this.firestoreService.collectionRefs.postsRef.doc(this.post.id)).subscribe((obj) => {
-        this.liked = obj.likes.some(like => user.uid)
+        this.liked = obj.likes.includes(user.uid)
       })
     })
     
