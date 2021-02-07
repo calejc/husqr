@@ -109,7 +109,7 @@ export class FirestoreService {
           return changes.map((snap: any) => {
             const obj = snap.payload.doc.data();
             obj.id = snap.payload.doc.id;
-            return obj
+            return snap.payload.type === "added" ? obj : null
           })
         })
       )
@@ -137,6 +137,12 @@ export class FirestoreService {
   getUsernames(){
     this.fetchCollection(this.collectionRefs.usernamesRef).subscribe((res: any[]) => {
       this.database._Usernames.next(res)
+    })
+  }
+
+  getAllPosts(){
+    this.fetchCollection(this.collectionRefs.postsRef).subscribe((res: any[]) => {
+      this.database._AllPosts.next(res)
     })
   }
 
@@ -279,38 +285,6 @@ export class FirestoreService {
 
     return promise;
   }
-
-  // let removeCurrentUserId = docRef.update({ [currentUserId]: firebase.firestore.FieldValue.delete() }); 
-
-  // updateFollowing(options: {arrayValue: any, ref: AngularFirestoreCollection<any>, docId: string}) {
-  //   const promise = new Promise((resolve, reject) => {
-
-  //     if (options) {
-  //       options.ref.doc(options.docId)
-  //         .update({following: firebase.firestore.FieldValue.arrayUnion(options.arrayValue)})
-  //         .then(() => {
-  //           resolve(() => {
-  //             options.ref.doc(options.arrayValue)
-  //               .update({followers: firebase.firestore.FieldValue.arrayUnion(options.docId)})
-  //               .then(() => {
-  //                 console.log('firestoreService: udpate success');
-  //                 resolve(options.docId);
-  //               }).catch((err) => {
-  //                 console.error('firestoreService: update: error ', err);
-  //                 reject(err);
-  //               });
-  //           });
-  //         }).catch((err) => {
-  //           console.error('firestoreService: update: error: ', err);
-  //           reject(err);
-  //         });
-  //     } else {
-  //       console.log('firestoreService: update: wrong option! option: ', options);
-  //       reject();
-  //     }
-  //   });
-  //   return promise; 
-  // }
 
   addFollowing(options: {arrayValue: any, ref: AngularFirestoreCollection<any>, docId: string}) {
     const promise = new Promise((resolve, reject) => {

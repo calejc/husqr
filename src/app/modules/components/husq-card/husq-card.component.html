@@ -14,7 +14,7 @@
   </mat-card-content>
   <mat-card-actions>
     <span class="husq-button"><i class="fa fa-thumbs-o-up fa-lg" (click)="toggleLikes()" [ngClass]="liked ? 'fa-thumbs-up' : 'fa-thumbs-o-up'" aria-hidden="true"></i></span>
-    <span class="count">{{post?.likes?.length}}</span>
+    <span class="count">{{post$?.likes.length}}</span>
     <span *ngIf="!post.parentHusq;" class="husq-button"><i class="fa fa-comment-o fa-lg" (click)="replyButtonClicked(post.id, post)" aria-hidden="true"></i></span>
     <span *ngIf="!post.parentHusq && post.replies;" class="count"></span>
   </mat-card-actions>

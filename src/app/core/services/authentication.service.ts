@@ -103,8 +103,7 @@ export class AuthenticationService {
 
 
         // Send verification email here
-        // this.sendVerificationEmail();
-
+        // this.sendVerificationEmail()
 
         this.saveUserDataToCollection(res.user, options.username);
         this.saveUsername(options.username)

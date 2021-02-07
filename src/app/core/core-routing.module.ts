@@ -11,6 +11,7 @@ import { HusqFormComponent } from '../modules/components/husq-form/husq-form.com
 import { LoginComponent } from '../modules/pages/login/login.component';
 import { ReplyComponent } from '../modules/components/reply/reply.component';
 import { SettingsComponent } from '../modules/pages/settings/settings.component';
+import { LandingComponent } from '../modules/pages/landing/landing.component';
 
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
@@ -23,7 +24,8 @@ const routes: Routes = [
   {path: 'friends', component: FriendsComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}},
   {path: 'profile', component: ProfileComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}},
   {path: 'login', component: LoginComponent},
-  {path: 'settings', component: SettingsComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}}
+  {path: 'settings', component: SettingsComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}},
+  {path: 'verify-email', component: LandingComponent}
 ];
 
 
