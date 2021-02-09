@@ -9,6 +9,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class HusqFormComponent implements OnInit {
 
+  post: string;
+
   newHusqForm: FormGroup;
   constructor(fb: FormBuilder, private dr: MatDialogRef<HusqFormComponent>) {
     this.newHusqForm = fb.group({
@@ -17,7 +19,7 @@ export class HusqFormComponent implements OnInit {
       displayName: '',
       username: '',
       datetime: '',
-      post: ''
+      post: this.post
     })
   }
 
