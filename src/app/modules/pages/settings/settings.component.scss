@@ -86,3 +86,17 @@ textarea::placeholder {
         top: 6em;
     }
 }
+
+.char-count {
+    display: flex;
+}
+
+.red-count {
+    color:red;
+    opacity:.6;
+  }
+.white-count {
+    color:#fff !important;
+    opacity:.8;
+}
+  
