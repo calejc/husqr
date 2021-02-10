@@ -32,7 +32,7 @@ h1 {
     color: #fff;
 }
 
-::ng-deep .mat-form-field {
+.fields ::ng-deep .mat-form-field {
     .mat-input-element {
         color: #fff;
         caret-color: #fff;
@@ -59,7 +59,7 @@ h1 {
    
 }
 
-::ng-deep .mat-form-field.mat-focused {
+.fields ::ng-deep .mat-form-field.mat-focused {
 
     .mat-form-field-label {
         color: #BEBEBE;
@@ -73,7 +73,7 @@ h1 {
     }
 }
 
-textarea::placeholder {
+.fields textarea::placeholder {
     color: #BEBEBE !important;
 }
 
