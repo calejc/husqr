@@ -28,7 +28,7 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <button mat-raised-button (click)="loginWithEmail()" color="primary">LOGIN</button>
+                            <button mat-raised-button [disabled]="login.invalid" (click)="loginWithEmail()" color="primary">LOGIN</button>
                         </div>
                     </form>
                 </mat-tab>
@@ -70,7 +70,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 my-1">
-                                    <button mat-raised-button (click)="registerWithEmail()" color="primary">Create Account</button>
+                                    <button mat-raised-button [disabled]="register.invalid" (click)="registerWithEmail()" color="primary">Create Account</button>
                                 </div>
                             </div>
                         </div>

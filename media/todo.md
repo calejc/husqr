@@ -1,6 +1,6 @@
 *TODO:*
 
-
+- unfollow is broken
 - Mobile design
 - file upload
 - mat-hint character counter
