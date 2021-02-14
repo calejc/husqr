@@ -9,7 +9,7 @@
   <div class="row">
     <div class="col-sm col-lg-12">
       <div>
-        <app-husq-card *ngFor="let post of posts" [post]="post">
+        <app-husq-card *ngFor="let post of firestoreService.observableDatabase.ParentPosts$ | async" [post]="post">
         </app-husq-card>
       </div>   
     </div>
