@@ -5,6 +5,7 @@ import {
   FormBuilder,
   FormGroup,
   Validators,
+  FormControl,
 } from '@angular/forms';
 import { Observable, Subject, of } from 'rxjs';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
@@ -23,11 +24,13 @@ export class SettingsComponent implements OnInit {
   user: any;
   id: string;
   bio: string;
+  settingsForm: FormGroup;
 
 
   constructor(
     public authenticationService: AuthenticationService, 
-    public firestoreService: FirestoreService) {
+    public firestoreService: FirestoreService,
+    private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -38,9 +41,19 @@ export class SettingsComponent implements OnInit {
       this.displayName = user.displayName;
       this.photoURL = user.photoURL;
       this.bio = user.bio;
-    })
+    });
+
+    console.log("this.photoURL", this.user.photoURL);
+
+    this.settingsForm = this.fb.group({
+      photoURL: new FormControl(this.photoURL,[Validators.required, Validators.minLength(6)])
+      // displayName: new FormControl(this.displayName),
+      // bio: new FormControl(this.bio)
+    });
     
   }
+
+  
 
   saveSettings(){
     let settings = {
