@@ -41,15 +41,17 @@ export class SettingsComponent implements OnInit {
       this.displayName = user.displayName;
       this.photoURL = user.photoURL;
       this.bio = user.bio;
+
+      this.settingsForm = this.fb.group({
+        photoURL: new FormControl(this.user.photoURL,[Validators.required, Validators.minLength(6)])
+        // displayName: new FormControl(this.displayName),
+        // bio: new FormControl(this.bio)
+      });
     });
 
-    console.log("this.photoURL", this.user.photoURL);
+    // console.log("this.photoURL", this.user.photoURL);
 
-    this.settingsForm = this.fb.group({
-      photoURL: new FormControl(this.photoURL,[Validators.required, Validators.minLength(6)])
-      // displayName: new FormControl(this.displayName),
-      // bio: new FormControl(this.bio)
-    });
+    
     
   }
 
