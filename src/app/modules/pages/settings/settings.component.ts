@@ -5,6 +5,7 @@ import {
   FormBuilder,
   FormGroup,
   Validators,
+  FormControl,
 } from '@angular/forms';
 import { Observable, Subject, of } from 'rxjs';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
@@ -23,11 +24,13 @@ export class SettingsComponent implements OnInit {
   user: any;
   id: string;
   bio: string;
+  settingsForm: FormGroup;
 
 
   constructor(
     public authenticationService: AuthenticationService, 
-    public firestoreService: FirestoreService) {
+    public firestoreService: FirestoreService,
+    private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -38,9 +41,21 @@ export class SettingsComponent implements OnInit {
       this.displayName = user.displayName;
       this.photoURL = user.photoURL;
       this.bio = user.bio;
-    })
+
+      this.settingsForm = this.fb.group({
+        photoURL: new FormControl(this.photoURL,[Validators.required, Validators.minLength(6)]),
+        displayName: new FormControl(this.displayName, [Validators.required, Validators.minLength(3)]),
+        bio: new FormControl(this.bio, [Validators.maxLength(150)])
+      });
+    });
+
+    // console.log("this.photoURL", this.user.photoURL);
+
+    
     
   }
+
+  
 
   saveSettings(){
     let settings = {
@@ -48,7 +63,17 @@ export class SettingsComponent implements OnInit {
       "photoURL": this.photoURL ? this.photoURL : '',
       "bio": this.bio ? this.bio : ''
     }
-    this.firestoreService.collectionRefs.usersRef.doc(this.id).update(settings);
+  //   this.firestoreService.collectionRefs.usersRef.doc(this.id).update(settings);
+  // }
+  
+    if (this.settingsForm.valid) {
+      let settings = {
+        "photoURL": this.settingsForm.controls.photoURL.value ? this.settingsForm.controls.photoURL.value : '', 
+        "displayName": this.settingsForm.controls.displayName.value ? this.settingsForm.controls.displayName.value : '', 
+        "bio": this.settingsForm.controls.bio.value ? this.settingsForm.controls.bio.value : ''
+      }
+      this.firestoreService.updateUserSettings({items: settings, ref: this.firestoreService.collectionRefs.usersRef, docId: this.id});
+    }
   }
 
 }
