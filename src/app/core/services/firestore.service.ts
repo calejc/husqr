@@ -427,6 +427,28 @@ export class FirestoreService {
     return promise;
   }
 
+  updateUserSettings(option: { items: object, ref: AngularFirestoreCollection<any>, docId: string }) {
+    const promise = new Promise((resolve, reject) => {
+
+      if (option.items) {
+        option.ref.doc(option.docId)
+          .update(option.items)
+          .then(() => {
+            console.log('firestoreService: update success');
+            resolve(option.docId);
+          }).catch((err) => {
+            console.error('firestoreService: update: error: ', err);
+            reject(err);
+          });
+      } else {
+        console.log('firestoreService: update: wrong option! option: ', option);
+        reject();
+      }
+
+    });
+
+    return promise;
+  }
 
 
   // =============== //

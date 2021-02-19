@@ -43,9 +43,9 @@ export class SettingsComponent implements OnInit {
       this.bio = user.bio;
 
       this.settingsForm = this.fb.group({
-        photoURL: new FormControl(this.user.photoURL,[Validators.required, Validators.minLength(6)])
-        // displayName: new FormControl(this.displayName),
-        // bio: new FormControl(this.bio)
+        photoURL: new FormControl(this.photoURL,[Validators.required, Validators.minLength(6)]),
+        displayName: new FormControl(this.displayName, [Validators.required, Validators.minLength(3)]),
+        bio: new FormControl(this.bio, [Validators.maxLength(150)])
       });
     });
 
@@ -63,7 +63,17 @@ export class SettingsComponent implements OnInit {
       "photoURL": this.photoURL ? this.photoURL : '',
       "bio": this.bio ? this.bio : ''
     }
-    this.firestoreService.collectionRefs.usersRef.doc(this.id).update(settings);
+  //   this.firestoreService.collectionRefs.usersRef.doc(this.id).update(settings);
+  // }
+  
+    if (this.settingsForm.valid) {
+      let settings = {
+        "photoURL": this.settingsForm.controls.photoURL.value ? this.settingsForm.controls.photoURL.value : '', 
+        "displayName": this.settingsForm.controls.displayName.value ? this.settingsForm.controls.displayName.value : '', 
+        "bio": this.settingsForm.controls.bio.value ? this.settingsForm.controls.bio.value : ''
+      }
+      this.firestoreService.updateUserSettings({items: settings, ref: this.firestoreService.collectionRefs.usersRef, docId: this.id});
+    }
   }
 
 }
