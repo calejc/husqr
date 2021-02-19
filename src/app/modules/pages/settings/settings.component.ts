@@ -39,8 +39,8 @@ export class SettingsComponent implements OnInit {
       this.user = user;
       this.id = user.uid;
       this.displayName = user.displayName;
-      this.photoURL = user.photoURL;
-      this.bio = user.bio;
+      this.photoURL= user.photoURL;
+      this.bio = user.bio ?  user.bio : '';
 
       this.settingsForm = this.fb.group({
         photoURL: new FormControl(this.photoURL,[Validators.required, Validators.minLength(6)]),
