@@ -49,7 +49,7 @@
                         <div class="col-12 mb-2">
                             <mat-form-field class="w-75" appearance="fill">
                                 <mat-label>Bio</mat-label>
-                                <textarea rows="4" matInput placeholder="What makes you special..." formControlName="bio"></textarea>
+                                <textarea rows="4" matInput placeholder="What makes you special..." formControlName="bio" [(ngModel)]="bio"></textarea>
                                 <div class="char-count">
                                     <mat-hint [ngClass]="(bio?.length > 150) ? 'red-count' : 'white-count'">{{ 150 - bio.length }}</mat-hint>
                                 </div>
