@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -9,7 +9,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class HusqFormComponent implements OnInit {
 
-  post: string;
+  post: string = '';
 
   newHusqForm: FormGroup;
   constructor(fb: FormBuilder, private dr: MatDialogRef<HusqFormComponent>) {
@@ -19,7 +19,7 @@ export class HusqFormComponent implements OnInit {
       displayName: '',
       username: '',
       datetime: '',
-      post: this.post
+      post: new FormControl('', [Validators.maxLength(255), Validators.required])
     })
   }
 
@@ -27,7 +27,10 @@ export class HusqFormComponent implements OnInit {
   }
 
   save(): void{
-      this.dr.close(this.newHusqForm.value);
+    console.log(this.newHusqForm.valid)
+      // if(this.newHusqForm.valid) {
+      //   this.dr.close(this.newHusqForm.value);
+      // }
   }
 
   close(): void{

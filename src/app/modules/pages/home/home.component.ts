@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Post } from 'src/app/core/data/types/post.interface';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { HusqFormComponent } from 'src/app/modules/components/husq-form/husq-form.component';
@@ -56,5 +56,6 @@ export class HomeComponent implements OnInit {
       this.firestoreService.create({item: post, ref: this.firestoreService.collectionRefs.postsRef});
     });
   }
+
 
 }

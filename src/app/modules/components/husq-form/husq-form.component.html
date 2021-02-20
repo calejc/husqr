@@ -6,5 +6,5 @@
 </mat-dialog-content>
 <mat-dialog-actions>
     <button mat-stroked-button mat-dialog-close class="mat-primary" (click)="close()">Close</button> 
-    <button class="mat-raised-button mat-primary" (click)="save()">Post</button> 
+    <button [disabled]="newHusqForm.invalid" mat-raised-button color="primary" [disabled]="newHusqForm.invalid" (click)="save()">Post</button> 
 </mat-dialog-actions>
