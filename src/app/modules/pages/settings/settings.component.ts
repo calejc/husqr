@@ -43,7 +43,7 @@ export class SettingsComponent implements OnInit {
       this.bio = user.bio ?  user.bio : '';
 
       this.settingsForm = this.fb.group({
-        photoURL: new FormControl(this.photoURL,[Validators.required, Validators.minLength(6)]),
+        photoURL: new FormControl(this.photoURL, [Validators.minLength(6)]),
         displayName: new FormControl(this.displayName, [Validators.required, Validators.minLength(3)]),
         bio: new FormControl(this.bio, [Validators.maxLength(150)])
       });
