@@ -1,11 +1,20 @@
 *TODO:*
-
-- unfollow is broken
-- Mobile design
 - file upload
-- mat-hint character counter
 - password reset, email verification?
 - more form validation so usernames have no spaces
 - each post can be clicked to pop up modal-style mid-page?
 - Progress spinner
 - search
+- chat 
+    - DMs sections (has list of DMs they've started/in)
+    - user interface has chats array with unique ids of chats collections
+        - each chat has 2 associated uids 
+    - chats collection
+        - has 2 uids 
+    - messages collection
+        - each message has chatId 
+        - has uid
+        - time stamps
+        - content of chat message
+    - search for users/friends
+    - sorting (angular)
