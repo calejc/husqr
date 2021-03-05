@@ -11,9 +11,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon'
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTabsModule } from '@angular/material/tabs';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatChipsModule} from '@angular/material/chips';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 
 
@@ -36,7 +37,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatTabsModule,
     MatChipsModule,
     MatDividerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MaterialFileInputModule
   ], 
   exports: [
     BrowserAnimationsModule, 
@@ -53,7 +55,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatTabsModule,
     MatChipsModule,
     MatDividerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MaterialFileInputModule
   ]
 })
 export class SharedModule { }
