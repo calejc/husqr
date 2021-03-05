@@ -101,4 +101,9 @@ export class SettingsComponent implements OnInit {
     // }
   }
 
+  thisFileUpload() {
+    document.getElementById("file").click();
+  };
+
+
 }
