@@ -11,6 +11,7 @@ import { Observable, Subject, of } from 'rxjs';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { map } from 'rxjs/operators';
+import { updateLanguageServiceSourceFile } from 'typescript';
 
 @Component({
   selector: 'app-settings',
@@ -21,15 +22,14 @@ export class SettingsComponent implements OnInit {
 
   preview: string | ArrayBuffer;
   selectedImage: any;
-  profilePicture: File;
   photoURL: string;
-  fileUpload: File;
   displayName: string;
   user: any;
   id: string;
   bio: string;
   settingsForm: FormGroup;
-
+  submitted = false;
+  uploadProgress$: any;
 
   constructor(
     public authenticationService: AuthenticationService, 
@@ -39,7 +39,6 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getUser()
     this.authenticationService.getUser().subscribe((user) => {
       this.user = user;
       this.id = user.uid;
@@ -48,17 +47,10 @@ export class SettingsComponent implements OnInit {
       this.bio = user.bio ?  user.bio : '';
 
       this.settingsForm = this.fb.group({
-        profilePicture: new FormControl(),
-        // photoURL: new FormControl(this.photoURL, [Validators.minLength(6)]),
         displayName: new FormControl(this.displayName, [Validators.required, Validators.minLength(3)]),
         bio: new FormControl(this.bio, [Validators.maxLength(150)])
       });
     });
-
-    // console.log("this.photoURL", this.user.photoURL);
-
-    
-    
   }
 
   fileSelect($event){
@@ -70,35 +62,40 @@ export class SettingsComponent implements OnInit {
   }
 
   saveSettings(){
-    console.log(this.settingsForm.controls)
-    // let fileToUpload = reader.readAsDataURL(this.settingsForm.get("profilePicture").value)
-    let fileToUpload = this.selectedImage;
-    // console.log("uploadFile: ", fileToUpload);
-    // console.log("type", typeof(fileToUpload));
-    let path = `${this.user.uid}_${Date.now()}`
-    this.afStorage.upload(path, fileToUpload).snapshotChanges().subscribe((s) => {
-      console.log(s.state);
-      console.log(s.bytesTransferred);
-      console.log(s.ref.getDownloadURL())
-    })
-    
-    // .pipe((s) => {
-      // this.afStorage.ref(path).getDownloadURL()
-    // })
+    if (this.settingsForm.valid){
+      this.submitted = true;
+      this.uploadProgress$ = of(0);
 
-    // let settings = {
-    //   "displayName": this.displayName ? this.displayName : '',
-    //   // "photoURL": this.photoURL ? this.photoURL : '',
-    //   "bio": this.bio ? this.bio : ''
-    // }
-    // if (this.settingsForm.valid) {
-    //   let settings = {
-    //     // "photoURL": this.settingsForm.controls.photoURL.value ? this.settingsForm.controls.photoURL.value : '', 
-    //     "displayName": this.settingsForm.controls.displayName.value ? this.settingsForm.controls.displayName.value : '', 
-    //     "bio": this.settingsForm.controls.bio.value ? this.settingsForm.controls.bio.value : ''
-    //   }
-    //   this.firestoreService.updateUserSettings({items: settings, ref: this.firestoreService.collectionRefs.usersRef, docId: this.id});
-    // }
+      let settings = {
+        "photoURL": this.photoURL,
+        "displayName": this.settingsForm.controls.displayName.value ? this.settingsForm.controls.displayName.value : '', 
+        "bio": this.settingsForm.controls.bio.value ? this.settingsForm.controls.bio.value : ''
+      }
+      
+      if (this.selectedImage){
+        let path = `${this.user.uid}_${Date.now()}`
+        let task = this.afStorage.upload(path, this.selectedImage)
+        this.uploadProgress$ = task.percentageChanges()
+        task.snapshotChanges().subscribe((s) => {
+          console.log(s.bytesTransferred);
+          console.log(s.ref.getDownloadURL())
+          s.ref.getDownloadURL().then((url) => {
+            settings.photoURL = url;
+            this.updateSettings(settings);
+          })
+        })
+      } else {
+        this.updateSettings(settings);
+      }
+    }
+
+  }
+
+  updateSettings(settings: any){
+    this.firestoreService.updateUserSettings({items: settings, ref: this.firestoreService.collectionRefs.usersRef, docId: this.id}).finally(() => {
+      this.uploadProgress$ = of(100); 
+      this.submitted = false;
+    });
   }
 
   thisFileUpload() {

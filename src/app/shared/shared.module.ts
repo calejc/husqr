@@ -14,7 +14,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 
 
 
@@ -38,7 +39,7 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     MatChipsModule,
     MatDividerModule,
     MatSnackBarModule,
-    MaterialFileInputModule
+    MatProgressBarModule
   ], 
   exports: [
     BrowserAnimationsModule, 
@@ -56,7 +57,7 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     MatChipsModule,
     MatDividerModule,
     MatSnackBarModule,
-    MaterialFileInputModule
+    MatProgressBarModule
   ]
 })
 export class SharedModule { }
