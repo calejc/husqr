@@ -27,10 +27,10 @@ export class HusqFormComponent implements OnInit {
   }
 
   save(): void{
-    console.log(this.newHusqForm.valid)
-      // if(this.newHusqForm.valid) {
-      //   this.dr.close(this.newHusqForm.value);
-      // }
+    // console.log(this.newHusqForm.valid)
+    if(this.newHusqForm.valid) {
+      this.dr.close(this.newHusqForm.value);
+    }
   }
 
   close(): void{

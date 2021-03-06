@@ -77,8 +77,6 @@ export class SettingsComponent implements OnInit {
         let task = this.afStorage.upload(path, this.selectedImage)
         this.uploadProgress$ = task.percentageChanges()
         task.snapshotChanges().subscribe((s) => {
-          console.log(s.bytesTransferred);
-          console.log(s.ref.getDownloadURL())
           s.ref.getDownloadURL().then((url) => {
             settings.photoURL = url;
             this.updateSettings(settings);
